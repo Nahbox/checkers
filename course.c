@@ -13,38 +13,38 @@
 #define QUEEN 1 
 #define DEAD 2 
 
-#define LEFT_BOARD_CENTER ((con_width() / 2) + 1) // +- середина доски относительно левого края консоли
-#define TOP_BOARD_CENTER  ((con_height() / 2) + 2) // +- середина доски относительно верхнего края консоли
+#define LEFT_BOARD_CENTER ((con_width() / 2) + 1) // +- Г±ГҐГ°ГҐГ¤ГЁГ­Г  Г¤Г®Г±ГЄГЁ Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® Г«ГҐГўГ®ГЈГ® ГЄГ°Г Гї ГЄГ®Г­Г±Г®Г«ГЁ
+#define TOP_BOARD_CENTER  ((con_height() / 2) + 2) // +- Г±ГҐГ°ГҐГ¤ГЁГ­Г  Г¤Г®Г±ГЄГЁ Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® ГўГҐГ°ГµГ­ГҐГЈГ® ГЄГ°Г Гї ГЄГ®Г­Г±Г®Г«ГЁ
 
-#define LEFT_LIMIT		  ((con_width() / 2) - 32) // последняя клетка слева
-#define RIGHT_LIMIT		  ((con_width() / 2) + 26) // последняя клетка справа
-#define TOP_LIMIT		  ((con_height() / 2) - 15) // последняя клетка сверху
-#define BOT_LIMIT		  ((con_height() / 2) + 15) // последняя клетка снизу
+#define LEFT_LIMIT		  ((con_width() / 2) - 32) // ГЇГ®Г±Г«ГҐГ¤Г­ГїГї ГЄГ«ГҐГІГЄГ  Г±Г«ГҐГўГ 
+#define RIGHT_LIMIT		  ((con_width() / 2) + 26) // ГЇГ®Г±Г«ГҐГ¤Г­ГїГї ГЄГ«ГҐГІГЄГ  Г±ГЇГ°Г ГўГ 
+#define TOP_LIMIT		  ((con_height() / 2) - 15) // ГЇГ®Г±Г«ГҐГ¤Г­ГїГї ГЄГ«ГҐГІГЄГ  Г±ГўГҐГ°ГµГі
+#define BOT_LIMIT		  ((con_height() / 2) + 15) // ГЇГ®Г±Г«ГҐГ¤Г­ГїГї ГЄГ«ГҐГІГЄГ  Г±Г­ГЁГ§Гі
 
-/* Переменные для функции move_cursor() */
+/* ГЏГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г¤Г«Гї ГґГіГ­ГЄГ¶ГЁГЁ move_cursor() */
 int sel_check_left_pos = 0;
 int sel_check_top_pos = 0;
 int on;
-int checkers_number = -1; // по умолчанию = -1
-int whose_move = 1; // флаг, чтобы понять, чей ход (1 - ход белых, 2 - ход красных)
-int cycle_end; // флаг для завершения цикла
-int deleted_checker_left; //координаты удаляемой шашки (если шашку съели)
+int checkers_number = -1; // ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ = -1
+int whose_move = 1; // ГґГ«Г ГЈ, Г·ГІГ®ГЎГ» ГЇГ®Г­ГїГІГј, Г·ГҐГ© ГµГ®Г¤ (1 - ГµГ®Г¤ ГЎГҐГ«Г»Гµ, 2 - ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ)
+int cycle_end; // ГґГ«Г ГЈ Г¤Г«Гї Г§Г ГўГҐГ°ГёГҐГ­ГЁГї Г¶ГЁГЄГ«Г 
+int deleted_checker_left; //ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГіГ¤Г Г«ГїГҐГ¬Г®Г© ГёГ ГёГЄГЁ (ГҐГ±Г«ГЁ ГёГ ГёГЄГі Г±ГєГҐГ«ГЁ)
 int deleted_checker_top;
-int eat_more = 0; // если есть возможнось съесть еще
-int need_to_beat = 0; // если = 1, то обязательно нужно съесть шашку
-int white_check_num = 12; // колчество живых белых шашек
-int red_check_num = 12; // колчество живых красных шашек
-int end = 0; // флаг для выхода в главное меню
-int is_load = 0; // флаг, чтобы понять, началась новая игра или продолжается старая
-int game_status = 0; // 1 - человек-человек, 2 - человек-компьютер, 3 - комп-комп
-int complexity = 0; // сложность игры (1 - легко, 2 - нормально, 3 - сложно)
+int eat_more = 0; // ГҐГ±Г«ГЁ ГҐГ±ГІГј ГўГ®Г§Г¬Г®Г¦Г­Г®Г±Гј Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
+int need_to_beat = 0; // ГҐГ±Г«ГЁ = 1, ГІГ® Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г­ГіГ¦Г­Г® Г±ГєГҐГ±ГІГј ГёГ ГёГЄГі
+int white_check_num = 12; // ГЄГ®Г«Г·ГҐГ±ГІГўГ® Г¦ГЁГўГ»Гµ ГЎГҐГ«Г»Гµ ГёГ ГёГҐГЄ
+int red_check_num = 12; // ГЄГ®Г«Г·ГҐГ±ГІГўГ® Г¦ГЁГўГ»Гµ ГЄГ°Г Г±Г­Г»Гµ ГёГ ГёГҐГЄ
+int end = 0; // ГґГ«Г ГЈ Г¤Г«Гї ГўГ»ГµГ®Г¤Г  Гў ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ
+int is_load = 0; // ГґГ«Г ГЈ, Г·ГІГ®ГЎГ» ГЇГ®Г­ГїГІГј, Г­Г Г·Г Г«Г Г±Гј Г­Г®ГўГ Гї ГЁГЈГ°Г  ГЁГ«ГЁ ГЇГ°Г®Г¤Г®Г«Г¦Г ГҐГІГ±Гї Г±ГІГ Г°Г Гї
+int game_status = 0; // 1 - Г·ГҐГ«Г®ГўГҐГЄ-Г·ГҐГ«Г®ГўГҐГЄ, 2 - Г·ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇГјГѕГІГҐГ°, 3 - ГЄГ®Г¬ГЇ-ГЄГ®Г¬ГЇ
+int complexity = 0; // Г±Г«Г®Г¦Г­Г®Г±ГІГј ГЁГЈГ°Г» (1 - Г«ГҐГЈГЄГ®, 2 - Г­Г®Г°Г¬Г Г«ГјГ­Г®, 3 - Г±Г«Г®Г¦Г­Г®)
 
-int white_moves_num = 0; // количество сделанных ходов за игру для таблицы рекордов
+int white_moves_num = 0; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±Г¤ГҐГ«Г Г­Г­Г»Гµ ГµГ®Г¤Г®Гў Г§Г  ГЁГЈГ°Гі Г¤Г«Гї ГІГ ГЎГ«ГЁГ¶Г» Г°ГҐГЄГ®Г°Г¤Г®Гў
 int red_moves_num = 0;
 
-int cells_locations[64][2]; // координаты каждой клетки
+int cells_locations[64][2]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ Г¦Г¤Г®Г© ГЄГ«ГҐГІГЄГЁ
 
-struct table // для таблицы рекордов
+struct table // Г¤Г«Гї ГІГ ГЎГ«ГЁГ¶Г» Г°ГҐГЄГ®Г°Г¤Г®Гў
 {
 	char str[70];
 	int value;
@@ -52,21 +52,21 @@ struct table // для таблицы рекордов
 
 typedef struct
 {
-	int checker_num; // номер передвигаемой шашки
-	int color; // цвет шашки
-	int new_left; // новые коор
-	int new_top; // динаты шашки
+	int checker_num; // Г­Г®Г¬ГҐГ° ГЇГҐГ°ГҐГ¤ГўГЁГЈГ ГҐГ¬Г®Г© ГёГ ГёГЄГЁ
+	int color; // Г¶ГўГҐГІ ГёГ ГёГЄГЁ
+	int new_left; // Г­Г®ГўГ»ГҐ ГЄГ®Г®Г°
+	int new_top; // Г¤ГЁГ­Г ГІГ» ГёГ ГёГЄГЁ
 }Move;
 
 typedef struct
 {
-	int location[1][2]; // координаты шашки (первая ячейка - отступ слева, вторая - сверху)
-	int status; // 0 - обычный, 1 - дамка, 2 - мертв
+	int location[1][2]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГёГ ГёГЄГЁ (ГЇГҐГ°ГўГ Гї ГїГ·ГҐГ©ГЄГ  - Г®ГІГ±ГІГіГЇ Г±Г«ГҐГўГ , ГўГІГ®Г°Г Гї - Г±ГўГҐГ°ГµГі)
+	int status; // 0 - Г®ГЎГ»Г·Г­Г»Г©, 1 - Г¤Г Г¬ГЄГ , 2 - Г¬ГҐГ°ГІГў
 }checker;
 checker white_checkers[12];
 checker red_checkers[12];
 
-checker white_copy[12]; // копии шашек для генерирования хода компьютера
+checker white_copy[12]; // ГЄГ®ГЇГЁГЁ ГёГ ГёГҐГЄ Г¤Г«Гї ГЈГҐГ­ГҐГ°ГЁГ°Г®ГўГ Г­ГЁГї ГµГ®Г¤Г  ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г 
 checker red_copy[12];
 
 typedef struct
@@ -77,9 +77,9 @@ typedef struct
 
 typedef struct
 {
-	int checker_num; // номер передвигаемой шашки
-	int color; // цвет шашки
-	int coord[4]; // старые и новые координаты
+	int checker_num; // Г­Г®Г¬ГҐГ° ГЇГҐГ°ГҐГ¤ГўГЁГЈГ ГҐГ¬Г®Г© ГёГ ГёГЄГЁ
+	int color; // Г¶ГўГҐГІ ГёГ ГёГЄГЁ
+	int coord[4]; // Г±ГІГ Г°Г»ГҐ ГЁ Г­Г®ГўГ»ГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ»
 }MOVE;
 
 typedef struct
@@ -89,19 +89,19 @@ typedef struct
 	int value;
 }NODE;
 
-// проверка, есть ли ход (возвращает 1 - если есть, иначе 0)
+// ГЇГ°Г®ГўГҐГ°ГЄГ , ГҐГ±ГІГј Г«ГЁ ГµГ®Г¤ (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1 - ГҐГ±Г«ГЁ ГҐГ±ГІГј, ГЁГ­Г Г·ГҐ 0)
 int no_move()
 {
 	int left;
 	int top;
 
-	if (whose_move == WHITE) // если ход белых
+	if (whose_move == WHITE) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЎГҐГ«Г»Гµ
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (white_checkers[i].status == DEFAULT) // не дамка
+			if (white_checkers[i].status == DEFAULT) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
-				left = white_checkers[i].location[0][0]; // координаты данной шашки
+				left = white_checkers[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = white_checkers[i].location[0][1];
 
 				if (is_there_a_checker(left + 8, top - 4) == 0 && (left + 8) < RIGHT_LIMIT + 3 && (top - 4) > TOP_LIMIT) {
@@ -111,9 +111,9 @@ int no_move()
 					return 1;
 				}
 			}
-			else if (white_checkers[i].status == QUEEN) // дамка
+			else if (white_checkers[i].status == QUEEN) // Г¤Г Г¬ГЄГ 
 			{
-				left = white_checkers[i].location[0][0]; // координаты данной шашки
+				left = white_checkers[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = white_checkers[i].location[0][1];
 
 				if (is_there_a_checker(left + 8, top - 4) == 0 && (left + 8) < RIGHT_LIMIT + 3 && (top - 4) > TOP_LIMIT) {
@@ -131,13 +131,13 @@ int no_move()
 			}
 		}
 	}
-	else if (whose_move == RED) // если ход красных
+	else if (whose_move == RED) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (red_checkers[i].status == DEFAULT) // не дамка
+			if (red_checkers[i].status == DEFAULT) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
-				left = red_checkers[i].location[0][0]; // координаты данной шашки
+				left = red_checkers[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = red_checkers[i].location[0][1];
 
 				if (is_there_a_checker(left + 8, top + 4) == 0 && (left + 8) < RIGHT_LIMIT + 3 && (top + 4) < BOT_LIMIT + 2) {
@@ -147,9 +147,9 @@ int no_move()
 					return 1;
 				}
 			}
-			else if (red_checkers[i].status == QUEEN) // дамка
+			else if (red_checkers[i].status == QUEEN) // Г¤Г Г¬ГЄГ 
 			{
-				left = red_checkers[i].location[0][0]; // координаты данной шашки
+				left = red_checkers[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = red_checkers[i].location[0][1];
 
 				if (is_there_a_checker(left + 8, top - 4) == 0 && (left + 8) < RIGHT_LIMIT + 3 && (top - 4) > TOP_LIMIT) {
@@ -171,19 +171,19 @@ int no_move()
 	return 0;
 }
 
-// проверка, обязательно ли надо есть
+// ГЇГ°Г®ГўГҐГ°ГЄГ , Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г«ГЁ Г­Г Г¤Г® ГҐГ±ГІГј
 int necessary_to_beat()
 {
 	int left;
 	int top;
 
-	if (whose_move == WHITE) // если ходят белые
+	if (whose_move == WHITE) // ГҐГ±Г«ГЁ ГµГ®Г¤ГїГІ ГЎГҐГ«Г»ГҐ
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (white_checkers[i].status == DEFAULT) // не дамка
+			if (white_checkers[i].status == DEFAULT) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
-				left = white_checkers[i].location[0][0]; // координаты данной шашки
+				left = white_checkers[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = white_checkers[i].location[0][1];
 				if (is_there_a_checker(left + 8, top + 4) == RED && (left + 16) < RIGHT_LIMIT + 3 && (top + 8) < BOT_LIMIT + 2) {
 					if (is_there_a_checker(left + 16, top + 8) == 0) {
@@ -206,9 +206,9 @@ int necessary_to_beat()
 					}
 				}
 			}
-			else if (white_checkers[i].status == QUEEN) // дамка
+			else if (white_checkers[i].status == QUEEN) // Г¤Г Г¬ГЄГ 
 			{
-				left = white_checkers[i].location[0][0]; // координаты данной шашки
+				left = white_checkers[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = white_checkers[i].location[0][1];
 
 				int left_change = 8;
@@ -284,11 +284,11 @@ int necessary_to_beat()
 			}
 		}
 	}
-	else if (whose_move == RED) // если ходят красные
+	else if (whose_move == RED) // ГҐГ±Г«ГЁ ГµГ®Г¤ГїГІ ГЄГ°Г Г±Г­Г»ГҐ
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (red_checkers[i].status == DEFAULT) // не дамка
+			if (red_checkers[i].status == DEFAULT) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 				left = red_checkers[i].location[0][0];
 				top = red_checkers[i].location[0][1];
@@ -313,9 +313,9 @@ int necessary_to_beat()
 					}
 				}
 			}
-			else if (red_checkers[i].status == QUEEN) // дамка
+			else if (red_checkers[i].status == QUEEN) // Г¤Г Г¬ГЄГ 
 			{
-				left = red_checkers[i].location[0][0]; // координаты данной шашки
+				left = red_checkers[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = red_checkers[i].location[0][1];
 
 				int left_change = 8;
@@ -381,16 +381,16 @@ int necessary_to_beat()
 	return 0;
 }
 
-// если шашка дошла до конца доски, то она становится дамкой
+// ГҐГ±Г«ГЁ ГёГ ГёГЄГ  Г¤Г®ГёГ«Г  Г¤Г® ГЄГ®Г­Г¶Г  Г¤Г®Г±ГЄГЁ, ГІГ® Г®Г­Г  Г±ГІГ Г­Г®ГўГЁГІГ±Гї Г¤Г Г¬ГЄГ®Г©
 void became_a_queen(int top, int color)
 {
-	if (color) // красная шашка
+	if (color) // ГЄГ°Г Г±Г­Г Гї ГёГ ГёГЄГ 
 	{
 		if (top == BOT_LIMIT) {
 			red_checkers[checkers_number].status = 1;
 		}
 	}
-	else // белая шашка
+	else // ГЎГҐГ«Г Гї ГёГ ГёГЄГ 
 	{
 		if (top == TOP_LIMIT + 2) {
 			white_checkers[checkers_number].status = 1;
@@ -399,11 +399,11 @@ void became_a_queen(int top, int color)
 	int a = con_height() / 2;
 }
 
-// проверка, можно ли съесть шашку (возвращает 1, если можно, иначе 0)
+// ГЇГ°Г®ГўГҐГ°ГЄГ , Г¬Г®Г¦Г­Г® Г«ГЁ Г±ГєГҐГ±ГІГј ГёГ ГёГЄГі (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1, ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г®, ГЁГ­Г Г·ГҐ 0)
 int can_eat_more(int left, int top)
 {
 	int status = -1;
-	if (whose_move == WHITE) // если ход белых
+	if (whose_move == WHITE) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЎГҐГ«Г»Гµ
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -420,7 +420,7 @@ int can_eat_more(int left, int top)
 			}
 		}
 
-		if (status == DEFAULT) // не дамка
+		if (status == DEFAULT) // Г­ГҐ Г¤Г Г¬ГЄГ 
 		{
 			for (int i = 0; i < 12; i++)
 			{
@@ -446,7 +446,7 @@ int can_eat_more(int left, int top)
 				}
 			}
 		}
-		else if (status == 1) // дамка
+		else if (status == 1) // Г¤Г Г¬ГЄГ 
 		{
 			int left_change = 8;
 			int top_change = 4;
@@ -519,7 +519,7 @@ int can_eat_more(int left, int top)
 			}
 		}
 	}
-	else if (whose_move == 2) // если ход красных
+	else if (whose_move == 2) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -536,7 +536,7 @@ int can_eat_more(int left, int top)
 			}
 		}
 
-		if (status == 0) // не дамка
+		if (status == 0) // Г­ГҐ Г¤Г Г¬ГЄГ 
 		{
 			for (int i = 0; i < 12; i++)
 			{
@@ -562,7 +562,7 @@ int can_eat_more(int left, int top)
 				}
 			}
 		}
-		else if (status == 1) // дамка
+		else if (status == 1) // Г¤Г Г¬ГЄГ 
 		{
 			int left_change = 8;
 			int top_change = 4;
@@ -639,7 +639,7 @@ int can_eat_more(int left, int top)
 	return 0;
 }
 
-// поменять координаты шашки
+// ГЇГ®Г¬ГҐГ­ГїГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГёГ ГёГЄГЁ
 void change_check_lokation(int color, int new_left, int new_top)
 {
 	if (color)
@@ -655,70 +655,70 @@ void change_check_lokation(int color, int new_left, int new_top)
 	checkers_number = -1;
 }
 
-// сделать ход
+// Г±Г¤ГҐГ«Г ГІГј ГµГ®Г¤
 void step(int old_left, int old_top, int new_left, int new_top, int check_color)
 {
 	gotoxy(old_left, old_top);
 	con_set_color(NULL, CON_CLR_BLACK);
 	printf("   ");
 	gotoxy(new_left, new_top);
-	if (check_color) { // красная шашка
+	if (check_color) { // ГЄГ°Г Г±Г­Г Гї ГёГ ГёГЄГ 
 		if (red_checkers[checkers_number].status == 0) {
 			became_a_queen(new_top, check_color);
 		}
 		con_set_color(NULL, CON_CLR_RED);
-		if (red_checkers[checkers_number].status == 0) { // не дамка
+		if (red_checkers[checkers_number].status == 0) { // Г­ГҐ Г¤Г Г¬ГЄГ 
 			printf("   ");
 		}
-		else if (red_checkers[checkers_number].status == 1) { // дамка
-			printf("¦¤¦");
+		else if (red_checkers[checkers_number].status == 1) { // Г¤Г Г¬ГЄГ 
+			printf("В¦В¤В¦");
 		}
 	}
-	else { // белая шашка
+	else { // ГЎГҐГ«Г Гї ГёГ ГёГЄГ 
 		if (white_checkers[checkers_number].status == 0) {
 			became_a_queen(new_top, check_color);
 		}
 		con_set_color(NULL, CON_CLR_WHITE);
-		if (white_checkers[checkers_number].status == 0) { // не дамка
+		if (white_checkers[checkers_number].status == 0) { // Г­ГҐ Г¤Г Г¬ГЄГ 
 			printf("   ");
 		}
-		else if (white_checkers[checkers_number].status == 1) { // дамка
-			printf("¦¤¦");
+		else if (white_checkers[checkers_number].status == 1) { // Г¤Г Г¬ГЄГ 
+			printf("В¦В¤В¦");
 		}
 	}
 
-	change_check_lokation(check_color, new_left, new_top); // сменить координаты шашки
+	change_check_lokation(check_color, new_left, new_top); // Г±Г¬ГҐГ­ГЁГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГёГ ГёГЄГЁ
 
-	if (whose_move == WHITE) { // если ход сделали белые, то счетчик ходов белых ++
+	if (whose_move == WHITE) { // ГҐГ±Г«ГЁ ГµГ®Г¤ Г±Г¤ГҐГ«Г Г«ГЁ ГЎГҐГ«Г»ГҐ, ГІГ® Г±Г·ГҐГІГ·ГЁГЄ ГµГ®Г¤Г®Гў ГЎГҐГ«Г»Гµ ++
 		white_moves_num++;
 	}
-	else if (whose_move == RED) { // если ход сделали черные, то счетчик ходов черных ++
+	else if (whose_move == RED) { // ГҐГ±Г«ГЁ ГµГ®Г¤ Г±Г¤ГҐГ«Г Г«ГЁ Г·ГҐГ°Г­Г»ГҐ, ГІГ® Г±Г·ГҐГІГ·ГЁГЄ ГµГ®Г¤Г®Гў Г·ГҐГ°Г­Г»Гµ ++
 		red_moves_num++;
 	}
 }
 
-// найти и удалить съеденную шашку
+// Г­Г Г©ГІГЁ ГЁ ГіГ¤Г Г«ГЁГІГј Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі
 void find_and_delete_check(int old_left, int old_top, int new_left, int new_top)
 {
-	if (whose_move == 1) // если ход белых, ищем среди красных шашек	
+	if (whose_move == 1) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЎГҐГ«Г»Гµ, ГЁГ№ГҐГ¬ Г±Г°ГҐГ¤ГЁ ГЄГ°Г Г±Г­Г»Гµ ГёГ ГёГҐГЄ	
 	{
 		while (1)
 		{
-			if (new_left > old_left) { // если новая клетка находится правее старой
-				new_left -= 8; // сдвигаемся влево
+			if (new_left > old_left) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
+				new_left -= 8; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГ«ГҐГўГ®
 			}
 			else {
 				new_left += 8;
 			}
 
-			if (new_top > old_top) { // если новая клетка находится ниже старой
-				new_top -= 4; // сдвигаемся вверх
+			if (new_top > old_top) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
+				new_top -= 4; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГўГҐГ°Гµ
 			}
 			else {
 				new_top += 4;
 			}
 
-			if (new_left == old_left || new_top == old_top) // если вернулись в клетку, откуда совершается ход
+			if (new_left == old_left || new_top == old_top) // ГҐГ±Г«ГЁ ГўГҐГ°Г­ГіГ«ГЁГ±Гј Гў ГЄГ«ГҐГІГЄГі, Г®ГІГЄГіГ¤Г  Г±Г®ГўГҐГ°ГёГ ГҐГІГ±Гї ГµГ®Г¤
 			{
 				break;
 			}
@@ -731,31 +731,31 @@ void find_and_delete_check(int old_left, int old_top, int new_left, int new_top)
 					red_checkers[i].status = 2;
 					gotoxy(new_left, new_top);
 					con_set_color(NULL, CON_CLR_BLACK);
-					printf("   "); // стираем съеденную шашку с доски
+					printf("   "); // Г±ГІГЁГ°Г ГҐГ¬ Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі Г± Г¤Г®Г±ГЄГЁ
 					return;
 				}
 			}
 		}
 	}
-	else if (whose_move == 2) // если ход красных
+	else if (whose_move == 2) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
 	{
 		while (1)
 		{
-			if (new_left > old_left) { // если новая клетка находится правее старой
-				new_left -= 8; // сдвигаемся влево
+			if (new_left > old_left) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
+				new_left -= 8; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГ«ГҐГўГ®
 			}
 			else {
 				new_left += 8;
 			}
 
-			if (new_top > old_top) { // если новая клетка находится ниже старой
-				new_top -= 4; // сдвигаемся вверх
+			if (new_top > old_top) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
+				new_top -= 4; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГўГҐГ°Гµ
 			}
 			else {
 				new_top += 4;
 			}
 
-			if (new_left == old_left || new_top == old_top) // если вернулись в клетку, откуда совершается ход
+			if (new_left == old_left || new_top == old_top) // ГҐГ±Г«ГЁ ГўГҐГ°Г­ГіГ«ГЁГ±Гј Гў ГЄГ«ГҐГІГЄГі, Г®ГІГЄГіГ¤Г  Г±Г®ГўГҐГ°ГёГ ГҐГІГ±Гї ГµГ®Г¤
 			{
 				break;
 			}
@@ -768,7 +768,7 @@ void find_and_delete_check(int old_left, int old_top, int new_left, int new_top)
 					white_checkers[i].status = 2;
 					gotoxy(new_left, new_top);
 					con_set_color(NULL, CON_CLR_BLACK);
-					printf("   "); // стираем съеденную шашку с доски
+					printf("   "); // Г±ГІГЁГ°Г ГҐГ¬ Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі Г± Г¤Г®Г±ГЄГЁ
 					return;
 				}
 			}
@@ -776,134 +776,134 @@ void find_and_delete_check(int old_left, int old_top, int new_left, int new_top)
 	}
 }
 
-// определяет, можно ли съесть шашку (возвращает 2, если можно, 1, если делаем простой ход, иначе 0)
+// Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ, Г¬Г®Г¦Г­Г® Г«ГЁ Г±ГєГҐГ±ГІГј ГёГ ГёГЄГі (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 2, ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г®, 1, ГҐГ±Г«ГЁ Г¤ГҐГ«Г ГҐГ¬ ГЇГ°Г®Г±ГІГ®Г© ГµГ®Г¤, ГЁГ­Г Г·ГҐ 0)
 int is_it_possible_eat(int old_left, int old_top, int new_left, int new_top, int stat)
 {
-	int flag = 0; // флаг, для подсчета количества шашок до (new_left, new_top)
-	if (whose_move == 2) // если ход красных
+	int flag = 0; // ГґГ«Г ГЈ, Г¤Г«Гї ГЇГ®Г¤Г±Г·ГҐГІГ  ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ  ГёГ ГёГ®ГЄ Г¤Г® (new_left, new_top)
+	if (whose_move == 2) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
 	{
 		while (1)
 		{
-			if (new_left > old_left) { // если новая клетка находится правее старой
-				new_left -= 8; // сдвигаемся влево
+			if (new_left > old_left) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
+				new_left -= 8; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГ«ГҐГўГ®
 			}
 			else {
 				new_left += 8;
 			}
 
-			if (new_top > old_top) { // если новая клетка находится ниже старой
-				new_top -= 4; // сдвигаемся вверх
+			if (new_top > old_top) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
+				new_top -= 4; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГўГҐГ°Гµ
 			}
 			else {
 				new_top += 4;
 			}
 
-			if (new_left == old_left || new_top == old_top) // если вернулись в клетку, откуда совершается ход
+			if (new_left == old_left || new_top == old_top) // ГҐГ±Г«ГЁ ГўГҐГ°Г­ГіГ«ГЁГ±Гј Гў ГЄГ«ГҐГІГЄГі, Г®ГІГЄГіГ¤Г  Г±Г®ГўГҐГ°ГёГ ГҐГІГ±Гї ГµГ®Г¤
 			{
 				break;
 			}
 
 			for (int i = 0; i < 12; i++)
 			{
-				if (red_checkers[i].location[0][0] == new_left && red_checkers[i].location[0][1] == new_top && red_checkers[i].status != 2) // если по пути есть своя шашка
+				if (red_checkers[i].location[0][0] == new_left && red_checkers[i].location[0][1] == new_top && red_checkers[i].status != 2) // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ ГҐГ±ГІГј Г±ГўГ®Гї ГёГ ГёГЄГ 
 				{
 					return 0;
 				}
-				else if (white_checkers[i].location[0][0] == new_left && white_checkers[i].location[0][1] == new_top && white_checkers[i].status != 2) // если по пути етсь чужая шашка
+				else if (white_checkers[i].location[0][0] == new_left && white_checkers[i].location[0][1] == new_top && white_checkers[i].status != 2) // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ ГҐГІГ±Гј Г·ГіГ¦Г Гї ГёГ ГёГЄГ 
 				{
 					flag++;
 					break;
 				}
 			}
 
-			if (flag > 1) { // если по пути больше одной шашки
+			if (flag > 1) { // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ ГЎГ®Г«ГјГёГҐ Г®Г¤Г­Г®Г© ГёГ ГёГЄГЁ
 				return 0;
 			}
 		}
 	}
-	else if (whose_move == 1) // если ход белых
+	else if (whose_move == 1) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЎГҐГ«Г»Гµ
 	{
 		while (1)
 		{
-			if (new_left > old_left) { // если новая клетка находится правее старой
-				new_left -= 8; // сдвигаемся влево
+			if (new_left > old_left) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
+				new_left -= 8; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГ«ГҐГўГ®
 			}
 			else {
 				new_left += 8;
 			}
 
-			if (new_top > old_top) { // если новая клетка находится ниже старой
-				new_top -= 4; // сдвигаемся вверх
+			if (new_top > old_top) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
+				new_top -= 4; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГўГҐГ°Гµ
 			}
 			else {
 				new_top += 4;
 			}
 
-			if (new_left == old_left || new_top == old_top) // если вернулись в клетку, откуда совершается ход
+			if (new_left == old_left || new_top == old_top) // ГҐГ±Г«ГЁ ГўГҐГ°Г­ГіГ«ГЁГ±Гј Гў ГЄГ«ГҐГІГЄГі, Г®ГІГЄГіГ¤Г  Г±Г®ГўГҐГ°ГёГ ГҐГІГ±Гї ГµГ®Г¤
 			{
 				break;
 			}
 
 			for (int i = 0; i < 12; i++)
 			{
-				if (white_checkers[i].location[0][0] == new_left && white_checkers[i].location[0][1] == new_top && white_checkers[i].status != 2) // если по пути есть своя шашка
+				if (white_checkers[i].location[0][0] == new_left && white_checkers[i].location[0][1] == new_top && white_checkers[i].status != 2) // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ ГҐГ±ГІГј Г±ГўГ®Гї ГёГ ГёГЄГ 
 				{
 					return 0;
 				}
-				else if (red_checkers[i].location[0][0] == new_left && red_checkers[i].location[0][1] == new_top && red_checkers[i].status != 2) // если по пути есть чужая шашка
+				else if (red_checkers[i].location[0][0] == new_left && red_checkers[i].location[0][1] == new_top && red_checkers[i].status != 2) // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ ГҐГ±ГІГј Г·ГіГ¦Г Гї ГёГ ГёГЄГ 
 				{
 					flag++;
 					break;
 				}
 			}
 
-			if (flag > 1) { // если по пути больше одной шашки
+			if (flag > 1) { // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ ГЎГ®Г«ГјГёГҐ Г®Г¤Г­Г®Г© ГёГ ГёГЄГЁ
 				return 0;
 			}
 		}
 	}
 
-	if (flag == 1) { // если по пути только одна чужая шашка
+	if (flag == 1) { // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ ГІГ®Г«ГјГЄГ® Г®Г¤Г­Г  Г·ГіГ¦Г Гї ГёГ ГёГЄГ 
 		return 2;
 	}
-	else { // если по пути нет шашек
-		if (!stat) { // если не дамка
+	else { // ГҐГ±Г«ГЁ ГЇГ® ГЇГіГІГЁ Г­ГҐГІ ГёГ ГёГҐГЄ
+		if (!stat) { // ГҐГ±Г«ГЁ Г­ГҐ Г¤Г Г¬ГЄГ 
 			return 0;
 		}
-		else { // если дамка
+		else { // ГҐГ±Г«ГЁ Г¤Г Г¬ГЄГ 
 			return 1;
 		}
 	}
 }
 
-// возможен ли данный ход
+// ГўГ®Г§Г¬Г®Г¦ГҐГ­ Г«ГЁ Г¤Г Г­Г­Г»Г© ГµГ®Г¤
 int is_action_permitted(int old_left, int old_top, int new_left, int new_top)
 {
 	int flag = 0;
 	for (int i = 0; i < 12; i++)
 	{
-		// если в клетке, куда переставляется шашка, есть другая шашка
+		// ГҐГ±Г«ГЁ Гў ГЄГ«ГҐГІГЄГҐ, ГЄГіГ¤Г  ГЇГҐГ°ГҐГ±ГІГ ГўГ«ГїГҐГІГ±Гї ГёГ ГёГЄГ , ГҐГ±ГІГј Г¤Г°ГіГЈГ Гї ГёГ ГёГЄГ 
 		if ((white_checkers[i].location[0][0] == new_left && white_checkers[i].location[0][1] == new_top && white_checkers[i].status != 2) ||
 			(red_checkers[i].location[0][0] == new_left && red_checkers[i].location[0][1] == new_top && red_checkers[i].status != 2))
 		{
 			return 0;
 		}
 
-		if (white_checkers[i].location[0][0] == old_left && white_checkers[i].location[0][1] == old_top) // находим шашку, которая находится в данной клетке
+		if (white_checkers[i].location[0][0] == old_left && white_checkers[i].location[0][1] == old_top) // Г­Г ГµГ®Г¤ГЁГ¬ ГёГ ГёГЄГі, ГЄГ®ГІГ®Г°Г Гї Г­Г ГµГ®Г¤ГЁГІГ±Гї Гў Г¤Г Г­Г­Г®Г© ГЄГ«ГҐГІГЄГҐ
 		{
-			if (white_checkers[i].status == 0) // не дамка
+			if (white_checkers[i].status == 0) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 				if ((new_top - old_top) != 0 && get_cell_color(new_left - 2, new_top - 1) == 1) {
 					if (abs(new_left - old_left) / abs(new_top - old_top) == 2) {
-						if ((abs(new_left - old_left) % 8) == 0 && (new_left - old_left) != 0) // диагональная клетка
+						if ((abs(new_left - old_left) % 8) == 0 && (new_left - old_left) != 0) // Г¤ГЁГ ГЈГ®Г­Г Г«ГјГ­Г Гї ГЄГ«ГҐГІГЄГ 
 						{
-							if ((old_top - new_top) == 4) // простой ход
+							if ((old_top - new_top) == 4) // ГЇГ°Г®Г±ГІГ®Г© ГµГ®Г¤
 							{
 								return 1;
 							}
-							else if (abs(old_top - new_top) == 8) // попытка съесть другую шашку
+							else if (abs(old_top - new_top) == 8) // ГЇГ®ГЇГ»ГІГЄГ  Г±ГєГҐГ±ГІГј Г¤Г°ГіГЈГіГѕ ГёГ ГёГЄГі
 							{
-								if (is_it_possible_eat(old_left, old_top, new_left, new_top, 0) == 2) { // если возможно съесть другую шашку
+								if (is_it_possible_eat(old_left, old_top, new_left, new_top, 0) == 2) { // ГҐГ±Г«ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј Г¤Г°ГіГЈГіГѕ ГёГ ГёГЄГі
 									return 2;
 								}
 								else {
@@ -913,22 +913,22 @@ int is_action_permitted(int old_left, int old_top, int new_left, int new_top)
 						}
 					}
 				}
-				else { // если пытаемся перейти на недиагональную клетку
+				else { // ГҐГ±Г«ГЁ ГЇГ»ГІГ ГҐГ¬Г±Гї ГЇГҐГ°ГҐГ©ГІГЁ Г­Г  Г­ГҐГ¤ГЁГ ГЈГ®Г­Г Г«ГјГ­ГіГѕ ГЄГ«ГҐГІГЄГі
 					return 0;
 				}
 			}
-			else // дамка
+			else // Г¤Г Г¬ГЄГ 
 			{
 				if ((new_top - old_top) != 0 && get_cell_color(new_left - 2, new_top - 1) == 1) {
-					if (abs(new_left - old_left) / abs(new_top - old_top) == 2) { // диагональная клетка
+					if (abs(new_left - old_left) / abs(new_top - old_top) == 2) { // Г¤ГЁГ ГЈГ®Г­Г Г«ГјГ­Г Гї ГЄГ«ГҐГІГЄГ 
 						if ((abs(new_left - old_left) % 8) == 0 && (new_left - old_left) != 0)
 						{
 							if ((abs(new_top - old_top) % 4) == 0)
 							{
-								if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 2) { // если возможно съесть другую шашку 
+								if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 2) { // ГҐГ±Г«ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј Г¤Г°ГіГЈГіГѕ ГёГ ГёГЄГі 
 									return 2;
 								}
-								else if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 1) { // если возможно сделать ход
+								else if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 1) { // ГҐГ±Г«ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г® Г±Г¤ГҐГ«Г ГІГј ГµГ®Г¤
 									return 1;
 								}
 								else if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 0) {
@@ -938,26 +938,26 @@ int is_action_permitted(int old_left, int old_top, int new_left, int new_top)
 						}
 					}
 				}
-				else { // если пытаемся перейти на недиагональную клетку 
+				else { // ГҐГ±Г«ГЁ ГЇГ»ГІГ ГҐГ¬Г±Гї ГЇГҐГ°ГҐГ©ГІГЁ Г­Г  Г­ГҐГ¤ГЁГ ГЈГ®Г­Г Г«ГјГ­ГіГѕ ГЄГ«ГҐГІГЄГі 
 					return 0;
 				}
 			}
 		}
 		else if (red_checkers[i].location[0][0] == old_left && red_checkers[i].location[0][1] == old_top)
 		{
-			if (red_checkers[i].status == 0) // не дамка
+			if (red_checkers[i].status == 0) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 				if ((new_top - old_top) != 0 && get_cell_color(new_left - 2, new_top - 1) == 1) {
-					if (abs(new_left - old_left) / abs(new_top - old_top) == 2) { // диагональная клетка
-						if ((abs(new_left - old_left) % 8) == 0 && (new_left - old_left) != 0) // диагональная клетка
+					if (abs(new_left - old_left) / abs(new_top - old_top) == 2) { // Г¤ГЁГ ГЈГ®Г­Г Г«ГјГ­Г Гї ГЄГ«ГҐГІГЄГ 
+						if ((abs(new_left - old_left) % 8) == 0 && (new_left - old_left) != 0) // Г¤ГЁГ ГЈГ®Г­Г Г«ГјГ­Г Гї ГЄГ«ГҐГІГЄГ 
 						{
-							if ((new_top - old_top) == 4) // простой ход
+							if ((new_top - old_top) == 4) // ГЇГ°Г®Г±ГІГ®Г© ГµГ®Г¤
 							{
 								return 1;
 							}
-							else if (abs(new_top - old_top) == 8) // попытка съесть другую шашку
+							else if (abs(new_top - old_top) == 8) // ГЇГ®ГЇГ»ГІГЄГ  Г±ГєГҐГ±ГІГј Г¤Г°ГіГЈГіГѕ ГёГ ГёГЄГі
 							{
-								if (is_it_possible_eat(old_left, old_top, new_left, new_top, 0) == 2) { // если возможно съесть другую шашку
+								if (is_it_possible_eat(old_left, old_top, new_left, new_top, 0) == 2) { // ГҐГ±Г«ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј Г¤Г°ГіГЈГіГѕ ГёГ ГёГЄГі
 									return 2;
 								}
 								else {
@@ -967,20 +967,20 @@ int is_action_permitted(int old_left, int old_top, int new_left, int new_top)
 						}
 					}
 				}
-				else { // если пытаемся перейти на недиагональную клетку
+				else { // ГҐГ±Г«ГЁ ГЇГ»ГІГ ГҐГ¬Г±Гї ГЇГҐГ°ГҐГ©ГІГЁ Г­Г  Г­ГҐГ¤ГЁГ ГЈГ®Г­Г Г«ГјГ­ГіГѕ ГЄГ«ГҐГІГЄГі
 					return 0;
 				}
 			}
-			else // дамка
+			else // Г¤Г Г¬ГЄГ 
 			{
 				if ((new_top - old_top) != 0 && get_cell_color(new_left - 2, new_top - 1) == 1) {
-					if (abs(new_left - old_left) / abs(new_top - old_top) == 2) { // диагональная клетка
+					if (abs(new_left - old_left) / abs(new_top - old_top) == 2) { // Г¤ГЁГ ГЈГ®Г­Г Г«ГјГ­Г Гї ГЄГ«ГҐГІГЄГ 
 						if ((abs(new_left - old_left) % 8) == 0 && (new_left - old_left) != 0)
 						{
-							if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 2) { // если возможно съесть другую шашку 
+							if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 2) { // ГҐГ±Г«ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј Г¤Г°ГіГЈГіГѕ ГёГ ГёГЄГі 
 								return 2;
 							}
-							else if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 1) { // если возможно сделать ход
+							else if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 1) { // ГҐГ±Г«ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г® Г±Г¤ГҐГ«Г ГІГј ГµГ®Г¤
 								return 1;
 							}
 							else if (is_it_possible_eat(old_left, old_top, new_left, new_top, 1) == 0) {
@@ -989,7 +989,7 @@ int is_action_permitted(int old_left, int old_top, int new_left, int new_top)
 						}
 					}
 				}
-				else { // если пытаемся перейти на недиагональную клетку 
+				else { // ГҐГ±Г«ГЁ ГЇГ»ГІГ ГҐГ¬Г±Гї ГЇГҐГ°ГҐГ©ГІГЁ Г­Г  Г­ГҐГ¤ГЁГ ГЈГ®Г­Г Г«ГјГ­ГіГѕ ГЄГ«ГҐГІГЄГі 
 					return 0;
 				}
 			}
@@ -999,7 +999,7 @@ int is_action_permitted(int old_left, int old_top, int new_left, int new_top)
 	return 0;
 }
 
-// узнать, есть ли в данной клетке шашка (возвращает 1, если есть белая шашка, 2 - если красная, иначе 0)
+// ГіГ§Г­Г ГІГј, ГҐГ±ГІГј Г«ГЁ Гў Г¤Г Г­Г­Г®Г© ГЄГ«ГҐГІГЄГҐ ГёГ ГёГЄГ  (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1, ГҐГ±Г«ГЁ ГҐГ±ГІГј ГЎГҐГ«Г Гї ГёГ ГёГЄГ , 2 - ГҐГ±Г«ГЁ ГЄГ°Г Г±Г­Г Гї, ГЁГ­Г Г·ГҐ 0)
 int is_there_a_checker(int left, int top)
 {
 	for (int i = 0; i < 12; i++)
@@ -1016,7 +1016,7 @@ int is_there_a_checker(int left, int top)
 	return 0;
 }
 
-// включить/выключить статический курсор (если захватили шашку)
+// ГўГЄГ«ГѕГ·ГЁГІГј/ГўГ»ГЄГ«ГѕГ·ГЁГІГј Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГ© ГЄГіГ°Г±Г®Г° (ГҐГ±Г«ГЁ Г§Г ГµГўГ ГІГЁГ«ГЁ ГёГ ГёГЄГі)
 void steady_cursor(int left, int top, int on_off)
 {
 	gotoxy(left, top);
@@ -1049,7 +1049,7 @@ void steady_cursor(int left, int top, int on_off)
 	}
 }
 
-// мигающий курсор
+// Г¬ГЁГЈГ ГѕГ№ГЁГ© ГЄГіГ°Г±Г®Г°
 void blinking_cursor(int left, int top, int color)
 {
 	gotoxy(left, top);
@@ -1070,7 +1070,7 @@ void blinking_cursor(int left, int top, int color)
 	else {
 		con_set_color(NULL, CON_CLR_GRAY);
 	}
-	if (key_is_pressed()) { // чтобы не было задержки при быстром передвижении курсора
+	if (key_is_pressed()) { // Г·ГІГ®ГЎГ» Г­ГҐ ГЎГ»Г«Г® Г§Г Г¤ГҐГ°Г¦ГЄГЁ ГЇГ°ГЁ ГЎГ»Г±ГІГ°Г®Г¬ ГЇГҐГ°ГҐГ¤ГўГЁГ¦ГҐГ­ГЁГЁ ГЄГіГ°Г±Г®Г°Г 
 		pause(30);
 		gotoxy(left, top);
 		printf("       ");
@@ -1091,13 +1091,13 @@ void blinking_cursor(int left, int top, int color)
 	printf("  ");
 	gotoxy(left, top + 2);
 	printf("       ");
-	if (key_is_pressed()) { // чтобы не было задержки при быстром передвижении курсора
+	if (key_is_pressed()) { // Г·ГІГ®ГЎГ» Г­ГҐ ГЎГ»Г«Г® Г§Г Г¤ГҐГ°Г¦ГЄГЁ ГЇГ°ГЁ ГЎГ»Г±ГІГ°Г®Г¬ ГЇГҐГ°ГҐГ¤ГўГЁГ¦ГҐГ­ГЁГЁ ГЄГіГ°Г±Г®Г°Г 
 		return;
 	}
 	pause(350);
 }
 
-// получить координаты клеток
+// ГЇГ®Г«ГіГ·ГЁГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ«ГҐГІГ®ГЄ
 void get_cells_locations()
 {
 	int left_edge = (con_width() / 2) - 31;
@@ -1125,7 +1125,7 @@ void get_cells_locations()
 	}
 }
 
-// получить цвет и номер шашки в данной клетке (возвращает 1, если шашка красная, иначе 0)
+// ГЇГ®Г«ГіГ·ГЁГІГј Г¶ГўГҐГІ ГЁ Г­Г®Г¬ГҐГ° ГёГ ГёГЄГЁ Гў Г¤Г Г­Г­Г®Г© ГЄГ«ГҐГІГЄГҐ (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1, ГҐГ±Г«ГЁ ГёГ ГёГЄГ  ГЄГ°Г Г±Г­Г Гї, ГЁГ­Г Г·ГҐ 0)
 int get_check_color(int left, int top)
 {
 	for (int i = 0; i < 12; i++)
@@ -1143,7 +1143,7 @@ int get_check_color(int left, int top)
 	}
 }
 
-// получить цвет клетки (возвращает 1, если черная клетка, 0 - белая)
+// ГЇГ®Г«ГіГ·ГЁГІГј Г¶ГўГҐГІ ГЄГ«ГҐГІГЄГЁ (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1, ГҐГ±Г«ГЁ Г·ГҐГ°Г­Г Гї ГЄГ«ГҐГІГЄГ , 0 - ГЎГҐГ«Г Гї)
 int get_cell_color(int left, int top)
 {
 	for (int i = 0; i < 64; i++)
@@ -1210,7 +1210,7 @@ int get_cell_color(int left, int top)
 	}
 }
 
-// построить доску
+// ГЇГ®Г±ГІГ°Г®ГЁГІГј Г¤Г®Г±ГЄГі
 void build_board()
 {
 	int left = (con_width() / 2) - 32;
@@ -1219,196 +1219,196 @@ void build_board()
 	con_set_color(NULL, CON_CLR_YELLOW_LIGHT);
 	clrscr();
 
-	con_draw_lock(); // заблокировать отрисовку
+	con_draw_lock(); // Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ ГІГј Г®ГІГ°ГЁГ±Г®ГўГЄГі
 
 	gotoxy(left, top);
 	con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW);
 	printf("*****************************************************************");
 	top++;
 
-	for (int count = 0; count < 8; count++) // количество строк в доске
+	for (int count = 0; count < 8; count++) // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ Гў Г¤Г®Г±ГЄГҐ
 	{
-		for (int i = 0; i < 3; i++) // количество столбцов для построения одного ряда
+		for (int i = 0; i < 3; i++) // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ®Г«ГЎГ¶Г®Гў Г¤Г«Гї ГЇГ®Г±ГІГ°Г®ГҐГ­ГЁГї Г®Г¤Г­Г®ГЈГ® Г°ГїГ¤Г 
 		{
-			left = (con_width() / 2) - 32; // возвращаем курсор к левому краю доски
-			if ((count % 2) == 0) // если номер столбца четный, то первая клетка должна быть белой
+			left = (con_width() / 2) - 32; // ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬ ГЄГіГ°Г±Г®Г° ГЄ Г«ГҐГўГ®Г¬Гі ГЄГ°Г Гѕ Г¤Г®Г±ГЄГЁ
+			if ((count % 2) == 0) // ГҐГ±Г«ГЁ Г­Г®Г¬ГҐГ° Г±ГІГ®Г«ГЎГ¶Г  Г·ГҐГІГ­Г»Г©, ГІГ® ГЇГҐГ°ГўГ Гї ГЄГ«ГҐГІГЄГ  Г¤Г®Г«Г¦Г­Г  ГЎГ»ГІГј ГЎГҐГ«Г®Г©
 			{
-				for (int j = 0; j < 4; j++) // количество клеток в одном ряду / 2 (будем рисовать сразу по две клетки)
+				for (int j = 0; j < 4; j++) // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ«ГҐГІГ®ГЄ Гў Г®Г¤Г­Г®Г¬ Г°ГїГ¤Гі / 2 (ГЎГіГ¤ГҐГ¬ Г°ГЁГ±Г®ГўГ ГІГј Г±Г°Г Г§Гі ГЇГ® Г¤ГўГҐ ГЄГ«ГҐГІГЄГЁ)
 				{
 					gotoxy(left, top);
-					con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // граница клетки
+					con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // ГЈГ°Г Г­ГЁГ¶Г  ГЄГ«ГҐГІГЄГЁ
 					if (j != 0) {
 						printf(" ");
 					}
 					else {
 						printf("*");
 					}
-					left++; // переместили курсор на одну клетку вправо
+					left++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГЇГ°Г ГўГ®
 					gotoxy(left, top);
-					con_set_color(NULL, CON_CLR_GRAY); // NULL - т.к. символы не используются
+					con_set_color(NULL, CON_CLR_GRAY); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 					printf("       ");
-					left += 7; // переместили курсор на семь клеток вправо
-					con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // граница клетки
+					left += 7; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г±ГҐГ¬Гј ГЄГ«ГҐГІГ®ГЄ ГўГЇГ°Г ГўГ®
+					con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // ГЈГ°Г Г­ГЁГ¶Г  ГЄГ«ГҐГІГЄГЁ
 					printf(" ");
-					left++; // переместили курсор на одну клетку вправо  |ДОРИСОВАЛИ БЕЛУЮ КЛЕТКУ|
+					left++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГЇГ°Г ГўГ®  |Г„ГЋГђГ€Г‘ГЋГ‚ГЂГ‹Г€ ГЃГ…Г‹Г“Гћ ГЉГ‹Г…Г’ГЉГ“|
 
-					if (i != 1) // если курсор находится не в центре клетки, просто закрашиваем часть клетки
+					if (i != 1) // ГҐГ±Г«ГЁ ГЄГіГ°Г±Г®Г° Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГҐ Гў Г¶ГҐГ­ГІГ°ГҐ ГЄГ«ГҐГІГЄГЁ, ГЇГ°Г®Г±ГІГ® Г§Г ГЄГ°Г ГёГЁГўГ ГҐГ¬ Г·Г Г±ГІГј ГЄГ«ГҐГІГЄГЁ
 					{
-						con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+						con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 						printf("       ");
-						left += 7; // переместили курсор на семь клеток вправо
+						left += 7; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г±ГҐГ¬Гј ГЄГ«ГҐГІГ®ГЄ ГўГЇГ°Г ГўГ®
 					}
-					else // если курсор находится в центре клетки
+					else // ГҐГ±Г«ГЁ ГЄГіГ°Г±Г®Г° Г­Г ГµГ®Г¤ГЁГІГ±Гї Гў Г¶ГҐГ­ГІГ°ГҐ ГЄГ«ГҐГІГЄГЁ
 					{
-						con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+						con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 						printf("  ");
-						left += 2; // переместили курсор на две клетки вправо
-						int flag = 0; // если флаг = 1, значит на этом месте стоит шашка
-						for (int n = 0; n < 12; n++) // проходимся по всем шашкам
+						left += 2; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г¤ГўГҐ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
+						int flag = 0; // ГҐГ±Г«ГЁ ГґГ«Г ГЈ = 1, Г§Г­Г Г·ГЁГІ Г­Г  ГЅГІГ®Г¬ Г¬ГҐГ±ГІГҐ Г±ГІГ®ГЁГІ ГёГ ГёГЄГ 
+						for (int n = 0; n < 12; n++) // ГЇГ°Г®ГµГ®Г¤ГЁГ¬Г±Гї ГЇГ® ГўГ±ГҐГ¬ ГёГ ГёГЄГ Г¬
 						{
-							if (red_checkers[n].location[0][0] == left && red_checkers[n].location[0][1] == top) // если на этом месте должна находиться красная шашка
+							if (red_checkers[n].location[0][0] == left && red_checkers[n].location[0][1] == top) // ГҐГ±Г«ГЁ Г­Г  ГЅГІГ®Г¬ Г¬ГҐГ±ГІГҐ Г¤Г®Г«Г¦Г­Г  Г­Г ГµГ®Г¤ГЁГІГјГ±Гї ГЄГ°Г Г±Г­Г Гї ГёГ ГёГЄГ 
 							{
 								flag = 1;
-								if (red_checkers[n].status == 0) // если эта шашка - не дамка
+								if (red_checkers[n].status == 0) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г­ГҐ Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
-									con_set_color(NULL, CON_CLR_RED); // NULL - т.к. символы не используются
+									con_set_color(NULL, CON_CLR_RED); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 									printf("   ");
 								}
-								else if (red_checkers[n].status == 1) // если эта шашка - дамка
+								else if (red_checkers[n].status == 1) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
 									con_set_color(CON_CLR_BLACK, CON_CLR_RED);
-									printf("¦¤¦");
+									printf("В¦В¤В¦");
 								}
-								left += 3; // переместили курсор на три клетки вправо
+								left += 3; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  ГІГ°ГЁ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
 							}
-							else if (white_checkers[n].location[0][0] == left && white_checkers[n].location[0][1] == top) // если на этом месте должна находиться белая шашка
+							else if (white_checkers[n].location[0][0] == left && white_checkers[n].location[0][1] == top) // ГҐГ±Г«ГЁ Г­Г  ГЅГІГ®Г¬ Г¬ГҐГ±ГІГҐ Г¤Г®Г«Г¦Г­Г  Г­Г ГµГ®Г¤ГЁГІГјГ±Гї ГЎГҐГ«Г Гї ГёГ ГёГЄГ 
 							{
 								flag = 1;
-								if (white_checkers[n].status == 0) // если эта шашка - не дамка
+								if (white_checkers[n].status == 0) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г­ГҐ Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
-									con_set_color(NULL, CON_CLR_WHITE); // NULL - т.к. символы не используются
+									con_set_color(NULL, CON_CLR_WHITE); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 									printf("   ");
 								}
-								else if (white_checkers[n].status == 1) // если эта шашка - дамка
+								else if (white_checkers[n].status == 1) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
 									con_set_color(CON_CLR_BLACK, CON_CLR_WHITE);
-									printf("¦¤¦");
+									printf("В¦В¤В¦");
 								}
-								left += 3; // переместили курсор на три клетки вправо
+								left += 3; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  ГІГ°ГЁ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
 							}
 						}
-						if (flag) // если в клетку была помещена шашка
+						if (flag) // ГҐГ±Г«ГЁ Гў ГЄГ«ГҐГІГЄГі ГЎГ»Г«Г  ГЇГ®Г¬ГҐГ№ГҐГ­Г  ГёГ ГёГЄГ 
 						{
-							con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+							con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 							printf("  ");
-							left += 2; //переместили курсор на две клетки вправо
+							left += 2; //ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г¤ГўГҐ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
 						}
 						else
 						{
-							con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+							con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 							printf("     ");
-							left += 5; //переместили курсор на пять клеток вправо
+							left += 5; //ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  ГЇГїГІГј ГЄГ«ГҐГІГ®ГЄ ГўГЇГ°Г ГўГ®
 						}
 					}
 					if (j == 3) {
-						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // правая граница доски
+						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // ГЇГ°Г ГўГ Гї ГЈГ°Г Г­ГЁГ¶Г  Г¤Г®Г±ГЄГЁ
 						printf("*");
-						top++; // переместили курсор на одну клетку вниз
+						top++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГ­ГЁГ§
 					}
 				}
 			}
-			else // если номер столбца нечетный, то первая клетка должна быть черной
+			else // ГҐГ±Г«ГЁ Г­Г®Г¬ГҐГ° Г±ГІГ®Г«ГЎГ¶Г  Г­ГҐГ·ГҐГІГ­Г»Г©, ГІГ® ГЇГҐГ°ГўГ Гї ГЄГ«ГҐГІГЄГ  Г¤Г®Г«Г¦Г­Г  ГЎГ»ГІГј Г·ГҐГ°Г­Г®Г©
 			{
-				for (int j = 0; j < 4; j++) // количество клеток в одном ряду / 2 (будем рисовать сразу по две клетки)
+				for (int j = 0; j < 4; j++) // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ«ГҐГІГ®ГЄ Гў Г®Г¤Г­Г®Г¬ Г°ГїГ¤Гі / 2 (ГЎГіГ¤ГҐГ¬ Г°ГЁГ±Г®ГўГ ГІГј Г±Г°Г Г§Гі ГЇГ® Г¤ГўГҐ ГЄГ«ГҐГІГЄГЁ)
 				{
 					gotoxy(left, top);
-					con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // граница клетки
+					con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // ГЈГ°Г Г­ГЁГ¶Г  ГЄГ«ГҐГІГЄГЁ
 					if (j != 0) {
 						printf(" ");
 					}
 					else {
 						printf("*");
 					}
-					left++; // переместили курсор на одну клетку вправо
-					if (i != 1) // если курсор находится не в центре клетки, просто закрашиваем часть клетки
+					left++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГЇГ°Г ГўГ®
+					if (i != 1) // ГҐГ±Г«ГЁ ГЄГіГ°Г±Г®Г° Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГҐ Гў Г¶ГҐГ­ГІГ°ГҐ ГЄГ«ГҐГІГЄГЁ, ГЇГ°Г®Г±ГІГ® Г§Г ГЄГ°Г ГёГЁГўГ ГҐГ¬ Г·Г Г±ГІГј ГЄГ«ГҐГІГЄГЁ
 					{
-						con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+						con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 						printf("       ");
-						left += 7; // переместили курсор на семь клеток вправо
-						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // граница клетки
+						left += 7; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г±ГҐГ¬Гј ГЄГ«ГҐГІГ®ГЄ ГўГЇГ°Г ГўГ®
+						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // ГЈГ°Г Г­ГЁГ¶Г  ГЄГ«ГҐГІГЄГЁ
 						printf(" ");
-						left++; // переместили курсор на одну клетку вправо
+						left++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГЇГ°Г ГўГ®
 					}
-					else // если курсор находится в центре клетки
+					else // ГҐГ±Г«ГЁ ГЄГіГ°Г±Г®Г° Г­Г ГµГ®Г¤ГЁГІГ±Гї Гў Г¶ГҐГ­ГІГ°ГҐ ГЄГ«ГҐГІГЄГЁ
 					{
-						con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+						con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 						printf("  ");
-						left += 2; // переместили курсор на две клетки вправо
-						int flag = 0; // если флаг = 1, значит на этом месте стоит шашка
-						for (int n = 0; n < 12; n++) // проходимся по всем шашкам
+						left += 2; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г¤ГўГҐ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
+						int flag = 0; // ГҐГ±Г«ГЁ ГґГ«Г ГЈ = 1, Г§Г­Г Г·ГЁГІ Г­Г  ГЅГІГ®Г¬ Г¬ГҐГ±ГІГҐ Г±ГІГ®ГЁГІ ГёГ ГёГЄГ 
+						for (int n = 0; n < 12; n++) // ГЇГ°Г®ГµГ®Г¤ГЁГ¬Г±Гї ГЇГ® ГўГ±ГҐГ¬ ГёГ ГёГЄГ Г¬
 						{
-							if (red_checkers[n].location[0][0] == left && red_checkers[n].location[0][1] == top) // если на этом месте должна находиться красная шашка
+							if (red_checkers[n].location[0][0] == left && red_checkers[n].location[0][1] == top) // ГҐГ±Г«ГЁ Г­Г  ГЅГІГ®Г¬ Г¬ГҐГ±ГІГҐ Г¤Г®Г«Г¦Г­Г  Г­Г ГµГ®Г¤ГЁГІГјГ±Гї ГЄГ°Г Г±Г­Г Гї ГёГ ГёГЄГ 
 							{
 								flag = 1;
-								if (red_checkers[n].status == 0) // если эта шашка - не дамка
+								if (red_checkers[n].status == 0) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г­ГҐ Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
-									con_set_color(NULL, CON_CLR_RED); // NULL - т.к. символы не используются
+									con_set_color(NULL, CON_CLR_RED); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 									printf("   ");
 								}
-								else if (red_checkers[n].status == 1) // если эта шашка - дамка
+								else if (red_checkers[n].status == 1) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
 									con_set_color(CON_CLR_BLACK, CON_CLR_RED);
-									printf("¦¤¦");
+									printf("В¦В¤В¦");
 								}
-								left += 3; // переместили курсор на три клетки вправо
+								left += 3; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  ГІГ°ГЁ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
 							}
-							else if (white_checkers[n].location[0][0] == left && white_checkers[n].location[0][1] == top) // если на этом месте должна находиться белая шашка
+							else if (white_checkers[n].location[0][0] == left && white_checkers[n].location[0][1] == top) // ГҐГ±Г«ГЁ Г­Г  ГЅГІГ®Г¬ Г¬ГҐГ±ГІГҐ Г¤Г®Г«Г¦Г­Г  Г­Г ГµГ®Г¤ГЁГІГјГ±Гї ГЎГҐГ«Г Гї ГёГ ГёГЄГ 
 							{
 								flag = 1;
-								if (white_checkers[n].status == 0) // если эта шашка - не дамка
+								if (white_checkers[n].status == 0) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г­ГҐ Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
-									con_set_color(NULL, CON_CLR_WHITE); // NULL - т.к. символы не используются
+									con_set_color(NULL, CON_CLR_WHITE); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 									printf("   ");
 								}
-								else if (white_checkers[n].status == 1) // если эта шашка - дамка
+								else if (white_checkers[n].status == 1) // ГҐГ±Г«ГЁ ГЅГІГ  ГёГ ГёГЄГ  - Г¤Г Г¬ГЄГ 
 								{
 									gotoxy(left, top);
 									con_set_color(CON_CLR_BLACK, CON_CLR_WHITE);
-									printf("¦¤¦");
+									printf("В¦В¤В¦");
 								}
-								left += 3; // переместили курсор на три клетки вправо
+								left += 3; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  ГІГ°ГЁ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
 							}
 						}
-						if (flag) // если в клетку была помещена шашка
+						if (flag) // ГҐГ±Г«ГЁ Гў ГЄГ«ГҐГІГЄГі ГЎГ»Г«Г  ГЇГ®Г¬ГҐГ№ГҐГ­Г  ГёГ ГёГЄГ 
 						{
-							con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+							con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 							printf("  ");
-							left += 2; //переместили курсор на две клетки вправо
+							left += 2; //ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г¤ГўГҐ ГЄГ«ГҐГІГЄГЁ ГўГЇГ°Г ГўГ®
 						}
 						else
 						{
-							con_set_color(NULL, CON_CLR_BLACK); // NULL - т.к. символы не используются
+							con_set_color(NULL, CON_CLR_BLACK); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 							printf("     ");
-							left += 5; //переместили курсор на пять клеток вправо
+							left += 5; //ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  ГЇГїГІГј ГЄГ«ГҐГІГ®ГЄ ГўГЇГ°Г ГўГ®
 						}
-						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // правая граница доски
+						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // ГЇГ°Г ГўГ Гї ГЈГ°Г Г­ГЁГ¶Г  Г¤Г®Г±ГЄГЁ
 						printf(" ");
-						left++; // переместили курсор на одну клетку вправо
+						left++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГЇГ°Г ГўГ®
 					}
-					con_set_color(NULL, CON_CLR_GRAY); // NULL - т.к. символы не используются
+					con_set_color(NULL, CON_CLR_GRAY); // NULL - ГІ.ГЄ. Г±ГЁГ¬ГўГ®Г«Г» Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї
 					printf("       ");
-					left += 7; // переместили курсор на семь клеток вправо
+					left += 7; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г±ГҐГ¬Гј ГЄГ«ГҐГІГ®ГЄ ГўГЇГ°Г ГўГ®
 					if (j == 3) {
-						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // правая граница доски
+						con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW); // ГЇГ°Г ГўГ Гї ГЈГ°Г Г­ГЁГ¶Г  Г¤Г®Г±ГЄГЁ
 						printf("*");
-						top++; // переместили курсор на одну клетку вниз
+						top++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГ­ГЁГ§
 					}
 				}
 			}
@@ -1417,18 +1417,18 @@ void build_board()
 		gotoxy(left, top);
 		con_set_color(CON_CLR_BLACK, CON_CLR_YELLOW);
 		if (count != 7) {
-			printf("*                                                               *"); // граница между строками
+			printf("*                                                               *"); // ГЈГ°Г Г­ГЁГ¶Г  Г¬ГҐГ¦Г¤Гі Г±ГІГ°Г®ГЄГ Г¬ГЁ
 		}
 		else {
 			printf("*****************************************************************");
 		}
-		top++; // переместили курсор на одну клетку вниз
+		top++; // ГЇГҐГ°ГҐГ¬ГҐГ±ГІГЁГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  Г®Г¤Г­Гі ГЄГ«ГҐГІГЄГі ГўГ­ГЁГ§
 	}
 
-	con_draw_release(); // разблокировать отрисовку (вывести на экран)
+	con_draw_release(); // Г°Г Г§ГЎГ«Г®ГЄГЁГ°Г®ГўГ ГІГј Г®ГІГ°ГЁГ±Г®ГўГЄГі (ГўГ»ГўГҐГ±ГІГЁ Г­Г  ГЅГЄГ°Г Г­)
 }
 
-// сохранить игру
+// Г±Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі
 void save_the_game()
 {
 	char filename[30];
@@ -1436,12 +1436,12 @@ void save_the_game()
 	int left = 60;
 	int top = 15;
 
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 	gotoxy(left, top);
 
-	printf("Введите название сохранения: ");
+	printf("Г‚ГўГҐГ¤ГЁГІГҐ Г­Г Г§ГўГ Г­ГЁГҐ Г±Г®ГµГ°Г Г­ГҐГ­ГЁГї: ");
 	top += 2;
 	left += 3;
 	gotoxy(left, top);
@@ -1455,7 +1455,7 @@ void save_the_game()
 		top = 15;
 		clrscr();
 		gotoxy(left, top);
-		printf("Не удалось сохранить игру.");
+		printf("ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г±Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі.");
 		Sleep(1000);
 		return 0;
 	}
@@ -1466,7 +1466,7 @@ void save_the_game()
 		top = 15;
 		clrscr();
 		gotoxy(left, top);
-		printf("Использован недопустимый символ.");
+		printf("Г€Г±ГЇГ®Г«ГјГ§Г®ГўГ Г­ Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬Г»Г© Г±ГЁГ¬ГўГ®Г«.");
 		Sleep(1000);
 		return 0;
 	}
@@ -1496,23 +1496,23 @@ void save_the_game()
 	top = 15;
 	clrscr();
 	gotoxy(left, top);
-	printf("Игра сохранена");
+	printf("Г€ГЈГ°Г  Г±Г®ГµГ°Г Г­ГҐГ­Г ");
 	Sleep(1000);
 }
 
-// загрузить игру
+// Г§Г ГЈГ°ГіГ§ГЁГІГј ГЁГЈГ°Гі
 int load_the_game()
 {
 	char filename[30];
 	int left = 60;
 	int top = 15;
 
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 	gotoxy(left, top);
 
-	printf("Введите название сохраненной игры: ");
+	printf("Г‚ГўГҐГ¤ГЁГІГҐ Г­Г Г§ГўГ Г­ГЁГҐ Г±Г®ГµГ°Г Г­ГҐГ­Г­Г®Г© ГЁГЈГ°Г»: ");
 	top += 2;
 	left += 5;
 	gotoxy(left, top);
@@ -1526,7 +1526,7 @@ int load_the_game()
 		top = 15;
 		clrscr();
 		gotoxy(left, top);
-		printf("Указанное сохранение не найдено.");
+		printf("Г“ГЄГ Г§Г Г­Г­Г®ГҐ Г±Г®ГµГ°Г Г­ГҐГ­ГЁГҐ Г­ГҐ Г­Г Г©Г¤ГҐГ­Г®.");
 		Sleep(1000);
 		return 0;
 	}
@@ -1554,36 +1554,36 @@ int load_the_game()
 	return 1;
 }
 
-// открыть справку
+// Г®ГІГЄГ°Г»ГІГј Г±ГЇГ°Г ГўГЄГі
 void reference()
 {
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 	gotoxy(0, 0);
 
-	printf("								Шашки.\n");
-	printf("				Правила игры :\n");
-	printf("		1) Игра ведётся на доске 8х8 клеток, только на черных ячейках.\n");
-	printf("		2) Шашки в начале игры занимают первые три ряда с каждый стороны.\n");
-	printf("		3) Бить можно произвольное количество шашек в любых направлениях.\n");
-	printf("		4) Простые шашки ходят только вперёд.\n");
-	printf("		5) Простая шашка может срубить(\"бить\", \"есть\") назад.\n");
-	printf("		6) Дамка ходит на любое число полей в любую сторону.\n");
-	printf("		7) Проигрывает тот, у кого не остается фигур, либо ходов.\n");
-	printf("		8) Шашка снимается с поля после боя(можно перефразировать так : одну шашки нельзя срубить дважды за\n");
-	printf("		один ход).\n");
-	printf("		9) Бить обязательно.\n");
-	printf("		10) Шашка превращается в дамку, достигнув восьмой(для белых) или первой(для черных) линии доски.\n");
-	printf("		11) Если шашка во время боя проходит через дамочное поле, то она превращается в дамку и\n");
-	printf("		следующие бои(если они возможны) совершает уже как дамка.\n\n\n\n");
+	printf("								ГГ ГёГЄГЁ.\n");
+	printf("				ГЏГ°Г ГўГЁГ«Г  ГЁГЈГ°Г» :\n");
+	printf("		1) Г€ГЈГ°Г  ГўГҐГ¤ВёГІГ±Гї Г­Г  Г¤Г®Г±ГЄГҐ 8Гµ8 ГЄГ«ГҐГІГ®ГЄ, ГІГ®Г«ГјГЄГ® Г­Г  Г·ГҐГ°Г­Г»Гµ ГїГ·ГҐГ©ГЄГ Гµ.\n");
+	printf("		2) ГГ ГёГЄГЁ Гў Г­Г Г·Г Г«ГҐ ГЁГЈГ°Г» Г§Г Г­ГЁГ¬Г ГѕГІ ГЇГҐГ°ГўГ»ГҐ ГІГ°ГЁ Г°ГїГ¤Г  Г± ГЄГ Г¦Г¤Г»Г© Г±ГІГ®Г°Г®Г­Г».\n");
+	printf("		3) ГЃГЁГІГј Г¬Г®Г¦Г­Г® ГЇГ°Г®ГЁГ§ГўГ®Г«ГјГ­Г®ГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГёГ ГёГҐГЄ Гў Г«ГѕГЎГ»Гµ Г­Г ГЇГ°Г ГўГ«ГҐГ­ГЁГїГµ.\n");
+	printf("		4) ГЏГ°Г®Г±ГІГ»ГҐ ГёГ ГёГЄГЁ ГµГ®Г¤ГїГІ ГІГ®Г«ГјГЄГ® ГўГЇГҐГ°ВёГ¤.\n");
+	printf("		5) ГЏГ°Г®Г±ГІГ Гї ГёГ ГёГЄГ  Г¬Г®Г¦ГҐГІ Г±Г°ГіГЎГЁГІГј(\"ГЎГЁГІГј\", \"ГҐГ±ГІГј\") Г­Г Г§Г Г¤.\n");
+	printf("		6) Г„Г Г¬ГЄГ  ГµГ®Г¤ГЁГІ Г­Г  Г«ГѕГЎГ®ГҐ Г·ГЁГ±Г«Г® ГЇГ®Г«ГҐГ© Гў Г«ГѕГЎГіГѕ Г±ГІГ®Г°Г®Г­Гі.\n");
+	printf("		7) ГЏГ°Г®ГЁГЈГ°Г»ГўГ ГҐГІ ГІГ®ГІ, Гі ГЄГ®ГЈГ® Г­ГҐ Г®Г±ГІГ ГҐГІГ±Гї ГґГЁГЈГіГ°, Г«ГЁГЎГ® ГµГ®Г¤Г®Гў.\n");
+	printf("		8) ГГ ГёГЄГ  Г±Г­ГЁГ¬Г ГҐГІГ±Гї Г± ГЇГ®Г«Гї ГЇГ®Г±Г«ГҐ ГЎГ®Гї(Г¬Г®Г¦Г­Г® ГЇГҐГ°ГҐГґГ°Г Г§ГЁГ°Г®ГўГ ГІГј ГІГ ГЄ : Г®Г¤Г­Гі ГёГ ГёГЄГЁ Г­ГҐГ«ГјГ§Гї Г±Г°ГіГЎГЁГІГј Г¤ГўГ Г¦Г¤Г» Г§Г \n");
+	printf("		Г®Г¤ГЁГ­ ГµГ®Г¤).\n");
+	printf("		9) ГЃГЁГІГј Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г®.\n");
+	printf("		10) ГГ ГёГЄГ  ГЇГ°ГҐГўГ°Г Г№Г ГҐГІГ±Гї Гў Г¤Г Г¬ГЄГі, Г¤Г®Г±ГІГЁГЈГ­ГіГў ГўГ®Г±ГјГ¬Г®Г©(Г¤Г«Гї ГЎГҐГ«Г»Гµ) ГЁГ«ГЁ ГЇГҐГ°ГўГ®Г©(Г¤Г«Гї Г·ГҐГ°Г­Г»Гµ) Г«ГЁГ­ГЁГЁ Г¤Г®Г±ГЄГЁ.\n");
+	printf("		11) Г…Г±Г«ГЁ ГёГ ГёГЄГ  ГўГ® ГўГ°ГҐГ¬Гї ГЎГ®Гї ГЇГ°Г®ГµГ®Г¤ГЁГІ Г·ГҐГ°ГҐГ§ Г¤Г Г¬Г®Г·Г­Г®ГҐ ГЇГ®Г«ГҐ, ГІГ® Г®Г­Г  ГЇГ°ГҐГўГ°Г Г№Г ГҐГІГ±Гї Гў Г¤Г Г¬ГЄГі ГЁ\n");
+	printf("		Г±Г«ГҐГ¤ГіГѕГ№ГЁГҐ ГЎГ®ГЁ(ГҐГ±Г«ГЁ Г®Г­ГЁ ГўГ®Г§Г¬Г®Г¦Г­Г») Г±Г®ГўГҐГ°ГёГ ГҐГІ ГіГ¦ГҐ ГЄГ ГЄ Г¤Г Г¬ГЄГ .\n\n\n\n");
 
-	printf("				Управление:\n");
-	printf("		Шашки белого и красного цвета.Когда человек ходит – он наводит фокус(фокусная клетка имеет\n");
-	printf("		другой цвет фона – мигает динамически), захватывает шашку(пробелом), наводит фокус – куда\n");
-	printf("		сходить, нажимает пробел.\n");
-	printf("		Если при этом можно продолжить, например, съесть еще одну – то он может завершить ход(кнопкой\n");
-	printf("		Enter), либо продолжить \"есть\" – навести фокус в следующую клетку и нажать пробел.");
+	printf("				Г“ГЇГ°Г ГўГ«ГҐГ­ГЁГҐ:\n");
+	printf("		ГГ ГёГЄГЁ ГЎГҐГ«Г®ГЈГ® ГЁ ГЄГ°Г Г±Г­Г®ГЈГ® Г¶ГўГҐГІГ .ГЉГ®ГЈГ¤Г  Г·ГҐГ«Г®ГўГҐГЄ ГµГ®Г¤ГЁГІ вЂ“ Г®Г­ Г­Г ГўГ®Г¤ГЁГІ ГґГ®ГЄГіГ±(ГґГ®ГЄГіГ±Г­Г Гї ГЄГ«ГҐГІГЄГ  ГЁГ¬ГҐГҐГІ\n");
+	printf("		Г¤Г°ГіГЈГ®Г© Г¶ГўГҐГІ ГґГ®Г­Г  вЂ“ Г¬ГЁГЈГ ГҐГІ Г¤ГЁГ­Г Г¬ГЁГ·ГҐГ±ГЄГЁ), Г§Г ГµГўГ ГІГ»ГўГ ГҐГІ ГёГ ГёГЄГі(ГЇГ°Г®ГЎГҐГ«Г®Г¬), Г­Г ГўГ®Г¤ГЁГІ ГґГ®ГЄГіГ± вЂ“ ГЄГіГ¤Г \n");
+	printf("		Г±ГµГ®Г¤ГЁГІГј, Г­Г Г¦ГЁГ¬Г ГҐГІ ГЇГ°Г®ГЎГҐГ«.\n");
+	printf("		Г…Г±Г«ГЁ ГЇГ°ГЁ ГЅГІГ®Г¬ Г¬Г®Г¦Г­Г® ГЇГ°Г®Г¤Г®Г«Г¦ГЁГІГј, Г­Г ГЇГ°ГЁГ¬ГҐГ°, Г±ГєГҐГ±ГІГј ГҐГ№ГҐ Г®Г¤Г­Гі вЂ“ ГІГ® Г®Г­ Г¬Г®Г¦ГҐГІ Г§Г ГўГҐГ°ГёГЁГІГј ГµГ®Г¤(ГЄГ­Г®ГЇГЄГ®Г©\n");
+	printf("		Enter), Г«ГЁГЎГ® ГЇГ°Г®Г¤Г®Г«Г¦ГЁГІГј \"ГҐГ±ГІГј\" вЂ“ Г­Г ГўГҐГ±ГІГЁ ГґГ®ГЄГіГ± Гў Г±Г«ГҐГ¤ГіГѕГ№ГіГѕ ГЄГ«ГҐГІГЄГі ГЁ Г­Г Г¦Г ГІГј ГЇГ°Г®ГЎГҐГ«.");
 
 	while (1)
 	{
@@ -1595,14 +1595,14 @@ void reference()
 	}
 }
 
-// при нажатии esc открываются меню
+// ГЇГ°ГЁ Г­Г Г¦Г ГІГЁГЁ esc Г®ГІГЄГ°Г»ГўГ ГѕГІГ±Гї Г¬ГҐГ­Гѕ
 void esc_menu()
 {
 	int left = 65;
 	int top = 15;
 
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 
 	con_set_color(CON_CLR_BLACK, CON_CLR_GREEN);
@@ -1610,7 +1610,7 @@ void esc_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("*   Продолжить игру   *");
+	printf("*   ГЏГ°Г®Г¤Г®Г«Г¦ГЁГІГј ГЁГЈГ°Гі   *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
@@ -1621,7 +1621,7 @@ void esc_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("*   Сохранить игру    *");
+	printf("*   Г‘Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі    *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
@@ -1631,7 +1631,7 @@ void esc_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("*   В главное меню    *");
+	printf("*   Г‚ ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ    *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
@@ -1641,7 +1641,7 @@ void esc_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("*        Выход        *");
+	printf("*        Г‚Г»ГµГ®Г¤        *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
@@ -1652,9 +1652,9 @@ void esc_menu()
 	while (1)
 	{
 		int code = key_pressed_code();
-		if (code == KEY_UP) // Если это стрелка вверх
+		if (code == KEY_UP) // Г…Г±Г«ГЁ ГЅГІГ® Г±ГІГ°ГҐГ«ГЄГ  ГўГўГҐГ°Гµ
 		{
-			// То переход к верхнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ ГўГҐГ°ГµГ­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position > 0)
 			{
 				switch (position)
@@ -1666,7 +1666,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Сохранить игру    *");
+					printf("*   Г‘Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1676,7 +1676,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Продолжить игру   *");
+					printf("*   ГЏГ°Г®Г¤Г®Г«Г¦ГЁГІГј ГЁГЈГ°Гі   *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1688,7 +1688,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   В главное меню    *");
+					printf("*   Г‚ ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1698,7 +1698,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Сохранить игру    *");
+					printf("*   Г‘Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1710,7 +1710,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*        Выход        *");
+					printf("*        Г‚Г»ГµГ®Г¤        *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1720,7 +1720,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   В главное меню    *");
+					printf("*   Г‚ ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1729,9 +1729,9 @@ void esc_menu()
 				position--;
 			}
 		}
-		else if (code == KEY_DOWN) // Если стрелка вниз
+		else if (code == KEY_DOWN) // Г…Г±Г«ГЁ Г±ГІГ°ГҐГ«ГЄГ  ГўГ­ГЁГ§
 		{
-			// То переход к нижнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ Г­ГЁГ¦Г­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position < 3)
 			{
 				switch (position)
@@ -1743,7 +1743,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   В главное меню    *");
+					printf("*   Г‚ ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1753,7 +1753,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*        Выход        *");
+					printf("*        Г‚Г»ГµГ®Г¤        *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1765,7 +1765,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Сохранить игру    *");
+					printf("*   Г‘Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1775,7 +1775,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   В главное меню    *");
+					printf("*   Г‚ ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1787,7 +1787,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Продолжить игру   *");
+					printf("*   ГЏГ°Г®Г¤Г®Г«Г¦ГЁГІГј ГЁГЈГ°Гі   *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1797,7 +1797,7 @@ void esc_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Сохранить игру    *");
+					printf("*   Г‘Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі    *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -1806,39 +1806,39 @@ void esc_menu()
 				position++;
 			}
 		}
-		else if (code == KEY_ESC) // ESC - выход
+		else if (code == KEY_ESC) // ESC - ГўГ»ГµГ®Г¤
 		{
 			build_board();
-			// вернуть доску
+			// ГўГҐГ°Г­ГіГІГј Г¤Г®Г±ГЄГі
 			return;
 		}
-		else if (code == KEY_ENTER) // Нажата кнопка Enter
+		else if (code == KEY_ENTER) // ГЌГ Г¦Г ГІГ  ГЄГ­Г®ГЇГЄГ  Enter
 		{
-			if (position == 3) { // Выбран последний пункт - это "выход"
+			if (position == 3) { // Г‚Г»ГЎГ°Г Г­ ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ© ГЇГіГ­ГЄГІ - ГЅГІГ® "ГўГ»ГµГ®Г¤"
 				exit(10);
 			}
 			if (position == 0) {
 				build_board();
-				// вернуть доску
+				// ГўГҐГ°Г­ГіГІГј Г¤Г®Г±ГЄГі
 				return;
 			}
 			if (position == 1) {
 				save_the_game();
 				esc_menu();
-				// сохранить
+				// Г±Г®ГµГ°Г Г­ГЁГІГј
 				return;
 			}
 			if (position == 2) {
 				end = 1;
 				cycle_end = 1;
-				// в главное меню
+				// Гў ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ
 			}
 			break;
 		}
 	}
 }
 
-// перемещение курсора по доске
+// ГЇГҐГ°ГҐГ¬ГҐГ№ГҐГ­ГЁГҐ ГЄГіГ°Г±Г®Г°Г  ГЇГ® Г¤Г®Г±ГЄГҐ
 void move_cursor(int left, int top)
 {
 	gotoxy(left, top);
@@ -1849,40 +1849,40 @@ void move_cursor(int left, int top)
 			break;
 		}
 
-		int color = get_cell_color(left, top); // получить цвет клетки, в которую навели курсор
-		if (left != sel_check_left_pos || top != sel_check_top_pos) { // если мы навели курсор на клетку, в которой уже захватили шашку, она перестает мигать
+		int color = get_cell_color(left, top); // ГЇГ®Г«ГіГ·ГЁГІГј Г¶ГўГҐГІ ГЄГ«ГҐГІГЄГЁ, Гў ГЄГ®ГІГ®Г°ГіГѕ Г­Г ГўГҐГ«ГЁ ГЄГіГ°Г±Г®Г°
+		if (left != sel_check_left_pos || top != sel_check_top_pos) { // ГҐГ±Г«ГЁ Г¬Г» Г­Г ГўГҐГ«ГЁ ГЄГіГ°Г±Г®Г° Г­Г  ГЄГ«ГҐГІГЄГі, Гў ГЄГ®ГІГ®Г°Г®Г© ГіГ¦ГҐ Г§Г ГµГўГ ГІГЁГ«ГЁ ГёГ ГёГЄГі, Г®Г­Г  ГЇГҐГ°ГҐГ±ГІГ ГҐГІ Г¬ГЁГЈГ ГІГј
 			blinking_cursor(left, top, color);
 		}
-		if (key_is_pressed()) // если нажали клавишу
+		if (key_is_pressed()) // ГҐГ±Г«ГЁ Г­Г Г¦Г Г«ГЁ ГЄГ«Г ГўГЁГёГі
 		{
-			int code = key_pressed_code(); // получить код нажатой клавиши
+			int code = key_pressed_code(); // ГЇГ®Г«ГіГ·ГЁГІГј ГЄГ®Г¤ Г­Г Г¦Г ГІГ®Г© ГЄГ«Г ГўГЁГёГЁ
 			switch (code)
 			{
 			case KEY_ESC:
 				esc_menu();
-				// отрисовать меню
+				// Г®ГІГ°ГЁГ±Г®ГўГ ГІГј Г¬ГҐГ­Гѕ
 				break;
 			case KEY_UP:
-				if (top - 4 > TOP_LIMIT) { // если не выходим за предел доски
-					top -= 4; // поднимаемся вверх на 1 клетку
+				if (top - 4 > TOP_LIMIT) { // ГҐГ±Г«ГЁ Г­ГҐ ГўГ»ГµГ®Г¤ГЁГ¬ Г§Г  ГЇГ°ГҐГ¤ГҐГ« Г¤Г®Г±ГЄГЁ
+					top -= 4; // ГЇГ®Г¤Г­ГЁГ¬Г ГҐГ¬Г±Гї ГўГўГҐГ°Гµ Г­Г  1 ГЄГ«ГҐГІГЄГі
 					move_cursor(left, top);
 				}
 				break;
 			case KEY_DOWN:
-				if (top + 4 < BOT_LIMIT) { // если не выходим за предел доски
-					top += 4; // спусаемся вниз на 1 клетку
+				if (top + 4 < BOT_LIMIT) { // ГҐГ±Г«ГЁ Г­ГҐ ГўГ»ГµГ®Г¤ГЁГ¬ Г§Г  ГЇГ°ГҐГ¤ГҐГ« Г¤Г®Г±ГЄГЁ
+					top += 4; // Г±ГЇГіГ±Г ГҐГ¬Г±Гї ГўГ­ГЁГ§ Г­Г  1 ГЄГ«ГҐГІГЄГі
 					move_cursor(left, top);
 				}
 				break;
 			case KEY_LEFT:
-				if (left - 8 > LEFT_LIMIT) { // если не выходим за предел доски
-					left -= 8; // смещаемся влево на 1 клетку
+				if (left - 8 > LEFT_LIMIT) { // ГҐГ±Г«ГЁ Г­ГҐ ГўГ»ГµГ®Г¤ГЁГ¬ Г§Г  ГЇГ°ГҐГ¤ГҐГ« Г¤Г®Г±ГЄГЁ
+					left -= 8; // Г±Г¬ГҐГ№Г ГҐГ¬Г±Гї ГўГ«ГҐГўГ® Г­Г  1 ГЄГ«ГҐГІГЄГі
 					move_cursor(left, top);
 				}
 				break;
 			case KEY_RIGHT:
-				if (left + 8 < RIGHT_LIMIT) { // если не выходим за предел доски
-					left += 8; // смещаемся вправо на 1 клетку
+				if (left + 8 < RIGHT_LIMIT) { // ГҐГ±Г«ГЁ Г­ГҐ ГўГ»ГµГ®Г¤ГЁГ¬ Г§Г  ГЇГ°ГҐГ¤ГҐГ« Г¤Г®Г±ГЄГЁ
+					left += 8; // Г±Г¬ГҐГ№Г ГҐГ¬Г±Гї ГўГЇГ°Г ГўГ® Г­Г  1 ГЄГ«ГҐГІГЄГі
 					move_cursor(left, top);
 				}
 				break;
@@ -1895,47 +1895,47 @@ void move_cursor(int left, int top)
 					cycle_end = 1;
 				}
 				break;
-			case KEY_SPACE: // нажат пробел 
-				if (is_there_a_checker(left + 2, top + 1) == whose_move && eat_more == 0) // если в данной клетке есть шашка (захватить/отпустить шашку)
+			case KEY_SPACE: // Г­Г Г¦Г ГІ ГЇГ°Г®ГЎГҐГ« 
+				if (is_there_a_checker(left + 2, top + 1) == whose_move && eat_more == 0) // ГҐГ±Г«ГЁ Гў Г¤Г Г­Г­Г®Г© ГЄГ«ГҐГІГЄГҐ ГҐГ±ГІГј ГёГ ГёГЄГ  (Г§Г ГµГўГ ГІГЁГІГј/Г®ГІГЇГіГ±ГІГЁГІГј ГёГ ГёГЄГі)
 				{
-					if (!on) { // если шашка не захвачена
-						steady_cursor(left, top, 1); // включить статический курсор
-						sel_check_left_pos = left; // запоминаем координаты включенного курсора
+					if (!on) { // ГҐГ±Г«ГЁ ГёГ ГёГЄГ  Г­ГҐ Г§Г ГµГўГ Г·ГҐГ­Г 
+						steady_cursor(left, top, 1); // ГўГЄГ«ГѕГ·ГЁГІГј Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГ© ГЄГіГ°Г±Г®Г°
+						sel_check_left_pos = left; // Г§Г ГЇГ®Г¬ГЁГ­Г ГҐГ¬ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГўГЄГ«ГѕГ·ГҐГ­Г­Г®ГЈГ® ГЄГіГ°Г±Г®Г°Г 
 						sel_check_top_pos = top;
 					}
 					else if (on)
 					{
-						if (left == sel_check_left_pos && top == sel_check_top_pos) { // если данная шашка уже захвачена
-							steady_cursor(left, top, 0); // выключить статический курсор
-							sel_check_left_pos = 0; // обнуляем координаты включенного курсора
+						if (left == sel_check_left_pos && top == sel_check_top_pos) { // ГҐГ±Г«ГЁ Г¤Г Г­Г­Г Гї ГёГ ГёГЄГ  ГіГ¦ГҐ Г§Г ГµГўГ Г·ГҐГ­Г 
+							steady_cursor(left, top, 0); // ГўГ»ГЄГ«ГѕГ·ГЁГІГј Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГ© ГЄГіГ°Г±Г®Г°
+							sel_check_left_pos = 0; // Г®ГЎГ­ГіГ«ГїГҐГ¬ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГўГЄГ«ГѕГ·ГҐГ­Г­Г®ГЈГ® ГЄГіГ°Г±Г®Г°Г 
 							sel_check_top_pos = 0;
 						}
-						else { // при захваченной шашке, захватываем другую
-							steady_cursor(sel_check_left_pos, sel_check_top_pos, 0); // выклюючить курсор в клетке ранее выбранной шашки
-							steady_cursor(left, top, 1); // включить статический курсор в новой клетке
-							sel_check_left_pos = left; // запоминаем координаты включенного курсора
+						else { // ГЇГ°ГЁ Г§Г ГµГўГ Г·ГҐГ­Г­Г®Г© ГёГ ГёГЄГҐ, Г§Г ГµГўГ ГІГ»ГўГ ГҐГ¬ Г¤Г°ГіГЈГіГѕ
+							steady_cursor(sel_check_left_pos, sel_check_top_pos, 0); // ГўГ»ГЄГ«ГѕГѕГ·ГЁГІГј ГЄГіГ°Г±Г®Г° Гў ГЄГ«ГҐГІГЄГҐ Г°Г Г­ГҐГҐ ГўГ»ГЎГ°Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
+							steady_cursor(left, top, 1); // ГўГЄГ«ГѕГ·ГЁГІГј Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГ© ГЄГіГ°Г±Г®Г° Гў Г­Г®ГўГ®Г© ГЄГ«ГҐГІГЄГҐ
+							sel_check_left_pos = left; // Г§Г ГЇГ®Г¬ГЁГ­Г ГҐГ¬ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГўГЄГ«ГѕГ·ГҐГ­Г­Г®ГЈГ® ГЄГіГ°Г±Г®Г°Г 
 							sel_check_top_pos = top;
 						}
 					}
 				}
 				else if (is_there_a_checker(left + 2, top + 1) == 0)
 				{
-					if (is_action_permitted(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1) == 1 && eat_more == 0 && need_to_beat == 0) // если данный ход возможен
+					if (is_action_permitted(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1) == 1 && eat_more == 0 && need_to_beat == 0) // ГҐГ±Г«ГЁ Г¤Г Г­Г­Г»Г© ГµГ®Г¤ ГўГ®Г§Г¬Г®Г¦ГҐГ­
 					{
-						steady_cursor(sel_check_left_pos, sel_check_top_pos, 0); // выключить статический курсор
-						on = 0; // обнулить флаг о включении статического курсора
-						step(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1, get_check_color(sel_check_left_pos + 2, sel_check_top_pos + 1), checkers_number); // перерисовать шашку в новой клетке
-						sel_check_left_pos = 0; // обнуляем координаты включенного курсора
+						steady_cursor(sel_check_left_pos, sel_check_top_pos, 0); // ГўГ»ГЄГ«ГѕГ·ГЁГІГј Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГ© ГЄГіГ°Г±Г®Г°
+						on = 0; // Г®ГЎГ­ГіГ«ГЁГІГј ГґГ«Г ГЈ Г® ГўГЄГ«ГѕГ·ГҐГ­ГЁГЁ Г±ГІГ ГІГЁГ·ГҐГ±ГЄГ®ГЈГ® ГЄГіГ°Г±Г®Г°Г 
+						step(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1, get_check_color(sel_check_left_pos + 2, sel_check_top_pos + 1), checkers_number); // ГЇГҐГ°ГҐГ°ГЁГ±Г®ГўГ ГІГј ГёГ ГёГЄГі Гў Г­Г®ГўГ®Г© ГЄГ«ГҐГІГЄГҐ
+						sel_check_left_pos = 0; // Г®ГЎГ­ГіГ«ГїГҐГ¬ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГўГЄГ«ГѕГ·ГҐГ­Г­Г®ГЈГ® ГЄГіГ°Г±Г®Г°Г 
 						sel_check_top_pos = 0;
 						cycle_end = 1;
 					}
-					else if (is_action_permitted(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1) == 2) // если возмжно съесть
+					else if (is_action_permitted(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1) == 2) // ГҐГ±Г«ГЁ ГўГ®Г§Г¬Г¦Г­Г® Г±ГєГҐГ±ГІГј
 					{
-						steady_cursor(sel_check_left_pos, sel_check_top_pos, 0); // выключить статический курсор
-						on = 0; // обнулить флаг о включении статического курсора
-						step(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1, get_check_color(sel_check_left_pos + 2, sel_check_top_pos + 1)); // перерисовать шашку в новой клетке
-						find_and_delete_check(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1); // найти и удалить съеденную шашку
-						if (can_eat_more(left + 2, top + 1)) // если можно съесть еще
+						steady_cursor(sel_check_left_pos, sel_check_top_pos, 0); // ГўГ»ГЄГ«ГѕГ·ГЁГІГј Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГ© ГЄГіГ°Г±Г®Г°
+						on = 0; // Г®ГЎГ­ГіГ«ГЁГІГј ГґГ«Г ГЈ Г® ГўГЄГ«ГѕГ·ГҐГ­ГЁГЁ Г±ГІГ ГІГЁГ·ГҐГ±ГЄГ®ГЈГ® ГЄГіГ°Г±Г®Г°Г 
+						step(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1, get_check_color(sel_check_left_pos + 2, sel_check_top_pos + 1)); // ГЇГҐГ°ГҐГ°ГЁГ±Г®ГўГ ГІГј ГёГ ГёГЄГі Гў Г­Г®ГўГ®Г© ГЄГ«ГҐГІГЄГҐ
+						find_and_delete_check(sel_check_left_pos + 2, sel_check_top_pos + 1, left + 2, top + 1); // Г­Г Г©ГІГЁ ГЁ ГіГ¤Г Г«ГЁГІГј Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі
+						if (can_eat_more(left + 2, top + 1)) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							eat_more = 1;
 							sel_check_left_pos = left;
@@ -1944,14 +1944,14 @@ void move_cursor(int left, int top)
 							move_cursor(left, top);
 						}
 						else {
-							sel_check_left_pos = 0; // обнуляем координаты включенного курсора
+							sel_check_left_pos = 0; // Г®ГЎГ­ГіГ«ГїГҐГ¬ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГўГЄГ«ГѕГ·ГҐГ­Г­Г®ГЈГ® ГЄГіГ°Г±Г®Г°Г 
 							sel_check_top_pos = 0;
 							eat_more = 0;
 							cycle_end = 1;
 						}
 					}
 				}
-				else if (is_there_a_checker(left + 2, top + 1) != whose_move) // если пытаемся захватить чужую пешку
+				else if (is_there_a_checker(left + 2, top + 1) != whose_move) // ГҐГ±Г«ГЁ ГЇГ»ГІГ ГҐГ¬Г±Гї Г§Г ГµГўГ ГІГЁГІГј Г·ГіГ¦ГіГѕ ГЇГҐГёГЄГі
 				{
 				}
 
@@ -1963,119 +1963,119 @@ void move_cursor(int left, int top)
 	}
 }
 
-// присвоить начальные значения шашкам
+// ГЇГ°ГЁГ±ГўГ®ГЁГІГј Г­Г Г·Г Г«ГјГ­Г»ГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГёГ ГёГЄГ Г¬
 void get_start_values()
 {
-	int left_edge = (con_width() / 2) - 21; // вычисялем середину верхней черной клетки относительно левого края консоли
-	int top_edge = (con_height() / 2) - 13; // вычисялем середину верхней черной клетки относительно верхнего края консоли
+	int left_edge = (con_width() / 2) - 21; // ГўГ»Г·ГЁГ±ГїГ«ГҐГ¬ Г±ГҐГ°ГҐГ¤ГЁГ­Гі ГўГҐГ°ГµГ­ГҐГ© Г·ГҐГ°Г­Г®Г© ГЄГ«ГҐГІГЄГЁ Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® Г«ГҐГўГ®ГЈГ® ГЄГ°Г Гї ГЄГ®Г­Г±Г®Г«ГЁ
+	int top_edge = (con_height() / 2) - 13; // ГўГ»Г·ГЁГ±ГїГ«ГҐГ¬ Г±ГҐГ°ГҐГ¤ГЁГ­Гі ГўГҐГ°ГµГ­ГҐГ© Г·ГҐГ°Г­Г®Г© ГЄГ«ГҐГІГЄГЁ Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® ГўГҐГ°ГµГ­ГҐГЈГ® ГЄГ°Г Гї ГЄГ®Г­Г±Г®Г«ГЁ
 
 	int left = left_edge;
 	int top = top_edge;
 
-	for (int i = 11; i > -1; i--) // красные шашки
+	for (int i = 11; i > -1; i--) // ГЄГ°Г Г±Г­Г»ГҐ ГёГ ГёГЄГЁ
 	{
 		red_checkers[i].status = 0;
 
-		// присваиваем начальные координаты красным шашкам
+		// ГЇГ°ГЁГ±ГўГ ГЁГўГ ГҐГ¬ Г­Г Г·Г Г«ГјГ­Г»ГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ°Г Г±Г­Г»Г¬ ГёГ ГёГЄГ Г¬
 		red_checkers[i].location[0][0] = left;
 		red_checkers[i].location[0][1] = top;
 
-		left += 16; // переходим к следующей черной клетке
-		if (i == 8) { // конец первой строки
-			left = left_edge - 8; // первая черная клетка следующей строки
+		left += 16; // ГЇГҐГ°ГҐГµГ®Г¤ГЁГ¬ ГЄ Г±Г«ГҐГ¤ГіГѕГ№ГҐГ© Г·ГҐГ°Г­Г®Г© ГЄГ«ГҐГІГЄГҐ
+		if (i == 8) { // ГЄГ®Г­ГҐГ¶ ГЇГҐГ°ГўГ®Г© Г±ГІГ°Г®ГЄГЁ
+			left = left_edge - 8; // ГЇГҐГ°ГўГ Гї Г·ГҐГ°Г­Г Гї ГЄГ«ГҐГІГЄГ  Г±Г«ГҐГ¤ГіГѕГ№ГҐГ© Г±ГІГ°Г®ГЄГЁ
 			top += 4;
 		}
-		else if (i == 4) { // конец второй строки
-			left = left_edge; // первая черная клетка следующей строки
+		else if (i == 4) { // ГЄГ®Г­ГҐГ¶ ГўГІГ®Г°Г®Г© Г±ГІГ°Г®ГЄГЁ
+			left = left_edge; // ГЇГҐГ°ГўГ Гї Г·ГҐГ°Г­Г Гї ГЄГ«ГҐГІГЄГ  Г±Г«ГҐГ¤ГіГѕГ№ГҐГ© Г±ГІГ°Г®ГЄГЁ
 			top += 4;
 		}
 	}
 
 	left = left_edge - 8;
 	top = top_edge + 28;
-	for (int i = 0; i < 12; i++) // белые шашки
+	for (int i = 0; i < 12; i++) // ГЎГҐГ«Г»ГҐ ГёГ ГёГЄГЁ
 	{
 		white_checkers[i].status = 0;
 
-		// присваиваем начальные координаты белым шашкам
+		// ГЇГ°ГЁГ±ГўГ ГЁГўГ ГҐГ¬ Г­Г Г·Г Г«ГјГ­Г»ГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЎГҐГ«Г»Г¬ ГёГ ГёГЄГ Г¬
 		white_checkers[i].location[0][0] = left;
 		white_checkers[i].location[0][1] = top;
 
-		left += 16; // переходим к следующей черной клетке
-		if (i == 3) // конец 6 строки
+		left += 16; // ГЇГҐГ°ГҐГµГ®Г¤ГЁГ¬ ГЄ Г±Г«ГҐГ¤ГіГѕГ№ГҐГ© Г·ГҐГ°Г­Г®Г© ГЄГ«ГҐГІГЄГҐ
+		if (i == 3) // ГЄГ®Г­ГҐГ¶ 6 Г±ГІГ°Г®ГЄГЁ
 		{
-			left = left_edge; // первая черная клетка следующей строки
+			left = left_edge; // ГЇГҐГ°ГўГ Гї Г·ГҐГ°Г­Г Гї ГЄГ«ГҐГІГЄГ  Г±Г«ГҐГ¤ГіГѕГ№ГҐГ© Г±ГІГ°Г®ГЄГЁ
 			top -= 4;
 		}
-		else if (i == 7) { // конец 7 строки
-			left = left_edge - 8; // первая черная клетка следующей строки
+		else if (i == 7) { // ГЄГ®Г­ГҐГ¶ 7 Г±ГІГ°Г®ГЄГЁ
+			left = left_edge - 8; // ГЇГҐГ°ГўГ Гї Г·ГҐГ°Г­Г Гї ГЄГ«ГҐГІГЄГ  Г±Г«ГҐГ¤ГіГѕГ№ГҐГ© Г±ГІГ°Г®ГЄГЁ
 			top -= 4;
 		}
 	}
 }
 
-// для продолжения нужно нажать любую клавишу
+// Г¤Г«Гї ГЇГ°Г®Г¤Г®Г«Г¦ГҐГ­ГЁГї Г­ГіГ¦Г­Г® Г­Г Г¦Г ГІГј Г«ГѕГЎГіГѕ ГЄГ«Г ГўГЁГёГі
 void my_pause()
 {
 	key_pressed_code();
 	return;
 }
 
-// объявление победы белых
+// Г®ГЎГєГїГўГ«ГҐГ­ГЁГҐ ГЇГ®ГЎГҐГ¤Г» ГЎГҐГ«Г»Гµ
 void white_win()
 {
 	int top = 25;
 	int left = 61;
 
 	gotoxy(left, top);
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	printf("*****************************");
 
 	top++;
 	gotoxy(left, top);
-	printf("*      Победили белые       *");
+	printf("*      ГЏГ®ГЎГҐГ¤ГЁГ«ГЁ ГЎГҐГ«Г»ГҐ       *");
 
 	top++;
 	gotoxy(left, top);
 	printf("*****************************");
 
-	while (!key_pressed_code()) { // пауза до нажатия любой клавиши
+	while (!key_pressed_code()) { // ГЇГ ГіГ§Г  Г¤Г® Г­Г Г¦Г ГІГЁГї Г«ГѕГЎГ®Г© ГЄГ«Г ГўГЁГёГЁ
 	}
 }
 
-// объявление победы красных
+// Г®ГЎГєГїГўГ«ГҐГ­ГЁГҐ ГЇГ®ГЎГҐГ¤Г» ГЄГ°Г Г±Г­Г»Гµ
 void red_win()
 {
 	int top = 25;
 	int left = 61;
 
 	gotoxy(left, top);
-	con_set_color(CON_CLR_WHITE, CON_CLR_RED); // цвет шрифта, цвет консоли
+	con_set_color(CON_CLR_WHITE, CON_CLR_RED); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	printf("*****************************");
 
 	top++;
 	gotoxy(left, top);
-	printf("*     Победили красные      *");
+	printf("*     ГЏГ®ГЎГҐГ¤ГЁГ«ГЁ ГЄГ°Г Г±Г­Г»ГҐ      *");
 
 	top++;
 	gotoxy(left, top);
 	printf("*****************************");
 
-	while (!key_pressed_code()) { // пауза до нажатия любой клавиши
+	while (!key_pressed_code()) { // ГЇГ ГіГ§Г  Г¤Г® Г­Г Г¦Г ГІГЁГї Г«ГѕГЎГ®Г© ГЄГ«Г ГўГЁГёГЁ
 	}
 }
 
-// обновить таблицу рекордов
+// Г®ГЎГ­Г®ГўГЁГІГј ГІГ ГЎГ«ГЁГ¶Гі Г°ГҐГЄГ®Г°Г¤Г®Гў
 void high_score_table_update(int whose_win)
 {
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 	gotoxy(60, 15);
 
 	char username[50];
 
-	printf("Введите имя пользователя: ");
+	printf("Г‚ГўГҐГ¤ГЁГІГҐ ГЁГ¬Гї ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї: ");
 	scanf("%s", &username);
 
 	FILE* f = fopen("table.txt", "a");
@@ -2095,40 +2095,40 @@ void high_score_table_update(int whose_win)
 	fclose(f);
 }
 
-// игра человека с человеком
+// ГЁГЈГ°Г  Г·ГҐГ«Г®ГўГҐГЄГ  Г± Г·ГҐГ«Г®ГўГҐГЄГ®Г¬
 void human_vs_human()
 {
 	white_moves_num = 0;
 	red_moves_num = 0;
 	white_check_num = 12;
 	red_check_num = 12;
-	if (!is_load) { // если началась новая игра
-		get_start_values(); // присвоить начальные значения шашкам
+	if (!is_load) { // ГҐГ±Г«ГЁ Г­Г Г·Г Г«Г Г±Гј Г­Г®ГўГ Гї ГЁГЈГ°Г 
+		get_start_values(); // ГЇГ°ГЁГ±ГўГ®ГЁГІГј Г­Г Г·Г Г«ГјГ­Г»ГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГёГ ГёГЄГ Г¬
 	}
-	build_board(); // построить доску
-	get_cells_locations(); // получить координаты клеток
+	build_board(); // ГЇГ®Г±ГІГ°Г®ГЁГІГј Г¤Г®Г±ГЄГі
+	get_cells_locations(); // ГЇГ®Г«ГіГ·ГЁГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ«ГҐГІГ®ГЄ
 
 	while (1)
 	{
-		if (end) // конец игры
+		if (end) // ГЄГ®Г­ГҐГ¶ ГЁГЈГ°Г»
 		{
 			end = 0;
 			break;
 		}
-		cycle_end = 0; // обнуляем флаг для цикла в функции move_cursor()
+		cycle_end = 0; // Г®ГЎГ­ГіГ«ГїГҐГ¬ ГґГ«Г ГЈ Г¤Г«Гї Г¶ГЁГЄГ«Г  Гў ГґГіГ­ГЄГ¶ГЁГЁ move_cursor()
 
-		need_to_beat = necessary_to_beat(); // проверка, обязательно ли есть
+		need_to_beat = necessary_to_beat(); // ГЇГ°Г®ГўГҐГ°ГЄГ , Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г«ГЁ ГҐГ±ГІГј
 
 		if (white_check_num == 0 || (whose_move == WHITE && !need_to_beat && !no_move()))
 		{
-			// победа красных
+			// ГЇГ®ГЎГҐГ¤Г  ГЄГ°Г Г±Г­Г»Гµ
 			red_win();
 			high_score_table_update(WHITE);
 			break;
 		}
 		else if (red_check_num == 0 || (whose_move == RED && !need_to_beat && !no_move()))
 		{
-			// победа белых
+			// ГЇГ®ГЎГҐГ¤Г  ГЎГҐГ«Г»Гµ
 			white_win();
 			high_score_table_update(RED);
 			break;
@@ -2136,19 +2136,19 @@ void human_vs_human()
 
 		move_cursor(LEFT_BOARD_CENTER, TOP_BOARD_CENTER);
 
-		if (whose_move == RED) { // если был ход красных
-			whose_move = WHITE; // следующий ход белых
+		if (whose_move == RED) { // ГҐГ±Г«ГЁ ГЎГ»Г« ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
+			whose_move = WHITE; // Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГµГ®Г¤ ГЎГҐГ«Г»Гµ
 		}
-		else if (whose_move == WHITE) { // если был ход белых
-			whose_move = RED; // следующий ход красных
+		else if (whose_move == WHITE) { // ГҐГ±Г«ГЁ ГЎГ»Г« ГµГ®Г¤ ГЎГҐГ«Г»Гµ
+			whose_move = RED; // Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
 		}
 	}
 }
 
-// удалить съеденную шашку (для игры с компьютером)
+// ГіГ¤Г Г«ГЁГІГј Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі (Г¤Г«Гї ГЁГЈГ°Г» Г± ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬)
 BOARD checker_delete(BOARD board, int left, int top, int color)
 {
-	if (color == 1) // белые шашки
+	if (color == 1) // ГЎГҐГ«Г»ГҐ ГёГ ГёГЄГЁ
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -2159,7 +2159,7 @@ BOARD checker_delete(BOARD board, int left, int top, int color)
 			}
 		}
 	}
-	else if (color == 2) // красные шашки
+	else if (color == 2) // ГЄГ°Г Г±Г­Г»ГҐ ГёГ ГёГЄГЁ
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -2174,7 +2174,7 @@ BOARD checker_delete(BOARD board, int left, int top, int color)
 	return board;
 }
 
-// узнать, есть ли в данной клетке шашка (возвращает 1, если есть белая шашка, 2 - если красная, иначе 0) (для игры с компьютером)
+// ГіГ§Г­Г ГІГј, ГҐГ±ГІГј Г«ГЁ Гў Г¤Г Г­Г­Г®Г© ГЄГ«ГҐГІГЄГҐ ГёГ ГёГЄГ  (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1, ГҐГ±Г«ГЁ ГҐГ±ГІГј ГЎГҐГ«Г Гї ГёГ ГёГЄГ , 2 - ГҐГ±Г«ГЁ ГЄГ°Г Г±Г­Г Гї, ГЁГ­Г Г·ГҐ 0) (Г¤Г«Гї ГЁГЈГ°Г» Г± ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬)
 int is_here_a_checker(BOARD board, int left, int top)
 {
 	for (int i = 0; i < 12; i++)
@@ -2191,30 +2191,30 @@ int is_here_a_checker(BOARD board, int left, int top)
 	return 0;
 }
 
-// найти и удалить съеденную шашку (для игры с компьютером)
+// Г­Г Г©ГІГЁ ГЁ ГіГ¤Г Г«ГЁГІГј Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі (Г¤Г«Гї ГЁГЈГ°Г» Г± ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬)
 NODE find_and_delete(NODE node, int who_move, int old_left, int old_top, int new_left, int new_top)
 {
 	int nl, nt, ol, ot;
 	nl = new_left; nt = new_top; ol = old_left; ot = old_top;
-	if (who_move == 1) // если ход белых, ищем среди красных шашек	
+	if (who_move == 1) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЎГҐГ«Г»Гµ, ГЁГ№ГҐГ¬ Г±Г°ГҐГ¤ГЁ ГЄГ°Г Г±Г­Г»Гµ ГёГ ГёГҐГЄ	
 	{
 		while (1)
 		{
-			if (nl > ol) { // если новая клетка находится правее старой
-				nl -= 8; // сдвигаемся влево
+			if (nl > ol) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
+				nl -= 8; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГ«ГҐГўГ®
 			}
 			else {
 				nl += 8;
 			}
 
-			if (nt > ot) { // если новая клетка находится ниже старой
-				nt -= 4; // сдвигаемся вверх
+			if (nt > ot) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
+				nt -= 4; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГўГҐГ°Гµ
 			}
 			else {
 				nt += 4;
 			}
 
-			if (nl == ol || nt == ot) // если вернулись в клетку, откуда совершается ход
+			if (nl == ol || nt == ot) // ГҐГ±Г«ГЁ ГўГҐГ°Г­ГіГ«ГЁГ±Гј Гў ГЄГ«ГҐГІГЄГі, Г®ГІГЄГіГ¤Г  Г±Г®ГўГҐГ°ГёГ ГҐГІГ±Гї ГµГ®Г¤
 			{
 				break;
 			}
@@ -2229,25 +2229,25 @@ NODE find_and_delete(NODE node, int who_move, int old_left, int old_top, int new
 			}
 		}
 	}
-	else if (who_move == 2) // если ход красных
+	else if (who_move == 2) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
 	{
 		while (1)
 		{
-			if (nl > ol) { // если новая клетка находится правее старой
-				nl -= 8; // сдвигаемся влево
+			if (nl > ol) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
+				nl -= 8; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГ«ГҐГўГ®
 			}
 			else {
 				nl += 8;
 			}
 
-			if (nt > ot) { // если новая клетка находится ниже старой
-				nt -= 4; // сдвигаемся вверх
+			if (nt > ot) { // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
+				nt -= 4; // Г±Г¤ГўГЁГЈГ ГҐГ¬Г±Гї ГўГўГҐГ°Гµ
 			}
 			else {
 				nt += 4;
 			}
 
-			if (nl == ol || nt == ot) // если вернулись в клетку, откуда совершается ход
+			if (nl == ol || nt == ot) // ГҐГ±Г«ГЁ ГўГҐГ°Г­ГіГ«ГЁГ±Гј Гў ГЄГ«ГҐГІГЄГі, Г®ГІГЄГіГ¤Г  Г±Г®ГўГҐГ°ГёГ ГҐГІГ±Гї ГµГ®Г¤
 			{
 				break;
 			}
@@ -2264,14 +2264,14 @@ NODE find_and_delete(NODE node, int who_move, int old_left, int old_top, int new
 	}
 }
 
-// проверка, можно ли съесть еще (возвращает 1, если можно, иначе 0) (для игры с компьютером)
+// ГЇГ°Г®ГўГҐГ°ГЄГ , Г¬Г®Г¦Г­Г® Г«ГЁ Г±ГєГҐГ±ГІГј ГҐГ№ГҐ (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1, ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г®, ГЁГ­Г Г·ГҐ 0) (Г¤Г«Гї ГЁГЈГ°Г» Г± ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬)
 MOVE more_eat(BOARD board, int who_move, int left, int top)
 {
 	MOVE result;
 	result.coord[0] = 0; result.coord[1] = 0;
 	result.coord[2] = 0; result.coord[3] = 0;
 
-	if (who_move == 0) // если ход белых
+	if (who_move == 0) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЎГҐГ«Г»Гµ
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -2391,7 +2391,7 @@ MOVE more_eat(BOARD board, int who_move, int left, int top)
 			}
 		}
 	}
-	else if (who_move == 1) // если ход красных
+	else if (who_move == 1) // ГҐГ±Г«ГЁ ГµГ®Г¤ ГЄГ°Г Г±Г­Г»Гµ
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -2515,19 +2515,19 @@ MOVE more_eat(BOARD board, int who_move, int left, int top)
 	return result;
 }
 
-// проверка, обязательно ли надо есть (для игры с компьютером)
+// ГЇГ°Г®ГўГҐГ°ГЄГ , Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г«ГЁ Г­Г Г¤Г® ГҐГ±ГІГј (Г¤Г«Гї ГЁГЈГ°Г» Г± ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬)
 int must_beat(BOARD board, int color)
 {
 	int left;
 	int top;
 
-	if (color == 0) // если ходят белые
+	if (color == 0) // ГҐГ±Г«ГЁ ГµГ®Г¤ГїГІ ГЎГҐГ«Г»ГҐ
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (board.whites[i].status == DEFAULT) // не дамка
+			if (board.whites[i].status == DEFAULT) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
-				left = board.whites[i].location[0][0]; // координаты данной шашки
+				left = board.whites[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = board.whites[i].location[0][1];
 
 				if (is_here_a_checker(board, left + 8, top + 4) == RED && (left + 16) < RIGHT_LIMIT + 3 && (top + 8) < BOT_LIMIT + 2) {
@@ -2551,9 +2551,9 @@ int must_beat(BOARD board, int color)
 					}
 				}
 			}
-			else if (board.whites[i].status == QUEEN) // дамка
+			else if (board.whites[i].status == QUEEN) // Г¤Г Г¬ГЄГ 
 			{
-				left = board.whites[i].location[0][0]; // координаты данной шашки
+				left = board.whites[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = board.whites[i].location[0][1];
 
 				int left_change = 8;
@@ -2614,11 +2614,11 @@ int must_beat(BOARD board, int color)
 			}
 		}
 	}
-	else if (color == 1) // если ходят красные
+	else if (color == 1) // ГҐГ±Г«ГЁ ГµГ®Г¤ГїГІ ГЄГ°Г Г±Г­Г»ГҐ
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (board.reds[i].status == DEFAULT) // не дамка
+			if (board.reds[i].status == DEFAULT) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 				left = board.reds[i].location[0][0];
 				top = board.reds[i].location[0][1];
@@ -2643,9 +2643,9 @@ int must_beat(BOARD board, int color)
 					}
 				}
 			}
-			else if (board.reds[i].status == QUEEN) // дамка
+			else if (board.reds[i].status == QUEEN) // Г¤Г Г¬ГЄГ 
 			{
-				left = board.reds[i].location[0][0]; // координаты данной шашки
+				left = board.reds[i].location[0][0]; // ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г¤Г Г­Г­Г®Г© ГёГ ГёГЄГЁ
 				top = board.reds[i].location[0][1];
 
 				int left_change = 8;
@@ -2708,7 +2708,7 @@ int must_beat(BOARD board, int color)
 	return 0;
 }
 
-// обновить коорлинаты шашки
+// Г®ГЎГ­Г®ГўГЁГІГј ГЄГ®Г®Г°Г«ГЁГ­Г ГІГ» ГёГ ГёГЄГЁ
 void update_checker_coord(NODE move)
 {
 	if (move.move.color == 0)
@@ -2723,7 +2723,7 @@ void update_checker_coord(NODE move)
 	}
 }
 
-// сделать копию доски
+// Г±Г¤ГҐГ«Г ГІГј ГЄГ®ГЇГЁГѕ Г¤Г®Г±ГЄГЁ
 BOARD board_copy(BOARD board)
 {
 	BOARD result;
@@ -2736,20 +2736,20 @@ BOARD board_copy(BOARD board)
 	return result;
 }
 
-// проверка, съелили ли шашку (возвращает 1 - если съели, 2 - если съели дамку, иначе 0) (для игры с компьютером)
+// ГЇГ°Г®ГўГҐГ°ГЄГ , Г±ГєГҐГ«ГЁГ«ГЁ Г«ГЁ ГёГ ГёГЄГі (ГўГ®Г§ГўГ°Г Г№Г ГҐГІ 1 - ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ, 2 - ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ Г¤Г Г¬ГЄГі, ГЁГ­Г Г·ГҐ 0) (Г¤Г«Гї ГЁГЈГ°Г» Г± ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬)
 int check_hit(BOARD board, MOVE move)
 {
 	int left_change = 8;
 	int top_change = 4;
 
-	if (move.color == 1) // белая шашка
+	if (move.color == 1) // ГЎГҐГ«Г Гї ГёГ ГёГЄГ 
 	{
 		int left = move.coord[0];
 		int top = move.coord[1];
 
-		if (move.coord[2] > move.coord[0]) // если новая клетка правее старой
+		if (move.coord[2] > move.coord[0]) // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
 		{
-			if (move.coord[3] > move.coord[1]) // если новая клетка ниже старой
+			if (move.coord[3] > move.coord[1]) // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left + left_change < move.coord[2])
 				{
@@ -2757,17 +2757,17 @@ int check_hit(BOARD board, MOVE move)
 					{
 						if (board.reds[i].location[0][0] == left + left_change && board.reds[i].location[0][1] == top + top_change) {
 							if (board.reds[i].status == 0) {
-								if (top + top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top + top_change + 4) == 0) { // если левая нижняя клетка пустая
+								if (top + top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top + top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
-								return 1; // если съели обычную шашку
+								return 1; // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ Г®ГЎГ»Г·Г­ГіГѕ ГёГ ГёГЄГі
 							}
-							else if (board.reds[i].status == 1) { // если съели дамку
+							else if (board.reds[i].status == 1) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ Г¤Г Г¬ГЄГі
 								return 2;
 							}
 						}
@@ -2776,7 +2776,7 @@ int check_hit(BOARD board, MOVE move)
 					top_change += 4;
 				}
 			}
-			else // если новая клетка выше старой
+			else // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  ГўГ»ГёГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left + left_change < move.coord[2])
 				{
@@ -2784,11 +2784,11 @@ int check_hit(BOARD board, MOVE move)
 					{
 						if (board.reds[i].location[0][0] == left + left_change && board.reds[i].location[0][1] == top - top_change) {
 							if (board.reds[i].status == 0) {
-								if (top - top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top - top_change + 4) == 0) { // если левая нижняя клетка пустая
+								if (top - top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top - top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top - top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top - top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
@@ -2804,30 +2804,30 @@ int check_hit(BOARD board, MOVE move)
 				}
 			}
 		}
-		else // если новая клетка левее старой
+		else // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г«ГҐГўГҐГҐ Г±ГІГ Г°Г®Г©
 		{
 			int left = move.coord[0];
 			int top = move.coord[1];
 
-			if (move.coord[3] > move.coord[1]) // если новая клетка ниже старой
+			if (move.coord[3] > move.coord[1]) // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left - left_change > move.coord[2])
 				{
 					for (int i = 0; i < 12; i++)
 					{
 						if (board.reds[i].location[0][0] == left - left_change && board.reds[i].location[0][1] == top + top_change) {
-							if (board.reds[i].status == 0) { // не дамка
-								if (top + top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top + top_change + 4) == 0) { // если левая нижняя клетка пустая
+							if (board.reds[i].status == 0) { // Г­ГҐ Г¤Г Г¬ГЄГ 
+								if (top + top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top + top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
 								return 1;
 							}
-							else if (board.reds[i].status == 1) { // дамка
+							else if (board.reds[i].status == 1) { // Г¤Г Г¬ГЄГ 
 								return 2;
 							}
 						}
@@ -2836,7 +2836,7 @@ int check_hit(BOARD board, MOVE move)
 					top_change += 4;
 				}
 			}
-			else // если новая клетка выше старой
+			else // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  ГўГ»ГёГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left - left_change > move.coord[2])
 				{
@@ -2844,11 +2844,11 @@ int check_hit(BOARD board, MOVE move)
 					{
 						if (board.reds[i].location[0][0] == left - left_change && board.reds[i].location[0][1] == top - top_change) {
 							if (board.reds[i].status == 0) {
-								if (top + top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top - top_change + 4) == 0) { // если левая нижняя клетка пустая
+								if (top + top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top - top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top - top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top - top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
@@ -2865,14 +2865,14 @@ int check_hit(BOARD board, MOVE move)
 			}
 		}
 	}
-	else if (move.color == 2) // красная шашка
+	else if (move.color == 2) // ГЄГ°Г Г±Г­Г Гї ГёГ ГёГЄГ 
 	{
 		int left = move.coord[0];
 		int top = move.coord[1];
 
-		if (move.coord[2] > move.coord[0]) // если новая клетка правее старой
+		if (move.coord[2] > move.coord[0]) // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  ГЇГ°Г ГўГҐГҐ Г±ГІГ Г°Г®Г©
 		{
-			if (move.coord[3] > move.coord[1]) // если новая клетка ниже старой
+			if (move.coord[3] > move.coord[1]) // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left + left_change < move.coord[2])
 				{
@@ -2880,11 +2880,11 @@ int check_hit(BOARD board, MOVE move)
 					{
 						if (board.whites[i].location[0][0] == left + left_change && board.whites[i].location[0][1] == top + top_change) {
 							if (board.whites[i].status == 0) {
-								if (top + top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top + top_change + 4) == 0) { // если левая нижняя клетка пустая
+								if (top + top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top + top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
@@ -2899,7 +2899,7 @@ int check_hit(BOARD board, MOVE move)
 					top_change += 4;
 				}
 			}
-			else // если новая клетка выше старой
+			else // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  ГўГ»ГёГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left + left_change < move.coord[2])
 				{
@@ -2907,11 +2907,11 @@ int check_hit(BOARD board, MOVE move)
 					{
 						if (board.whites[i].location[0][0] == left + left_change && board.whites[i].location[0][1] == top - top_change) {
 							if (board.whites[i].status == 0) {
-								if (top + top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top - top_change + 4) == 0) { // если левая нижняя клетка пустая
+								if (top + top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left + left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left + left_change - 8, top - top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top - top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left + left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left + left_change + 8, top - top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
@@ -2927,12 +2927,12 @@ int check_hit(BOARD board, MOVE move)
 				}
 			}
 		}
-		else // если новая клетка левее старой
+		else // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г«ГҐГўГҐГҐ Г±ГІГ Г°Г®Г©
 		{
 			int left = move.coord[0];
 			int top = move.coord[1];
 
-			if (move.coord[3] > move.coord[1]) // если новая клетка ниже старой
+			if (move.coord[3] > move.coord[1]) // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  Г­ГЁГ¦ГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left - left_change > move.coord[2])
 				{
@@ -2940,11 +2940,11 @@ int check_hit(BOARD board, MOVE move)
 					{
 						if (board.whites[i].location[0][0] == left - left_change && board.whites[i].location[0][1] == top + top_change) {
 							if (board.whites[i].status == 0) {
-								if (top + top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top + top_change + 4) == 0) { // если левая нижняя клетка пустая
+								if (top + top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top + top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
@@ -2959,7 +2959,7 @@ int check_hit(BOARD board, MOVE move)
 					top_change += 4;
 				}
 			}
-			else // если новая клетка выше старой
+			else // ГҐГ±Г«ГЁ Г­Г®ГўГ Гї ГЄГ«ГҐГІГЄГ  ГўГ»ГёГҐ Г±ГІГ Г°Г®Г©
 			{
 				while (left - left_change > move.coord[2])
 				{
@@ -2967,11 +2967,11 @@ int check_hit(BOARD board, MOVE move)
 					{
 						if (board.whites[i].location[0][0] == left - left_change && board.whites[i].location[0][1] == top - top_change) {
 							if (board.whites[i].status == 0) {
-								if (top + top_change + 4 == BOT_LIMIT) { // если съели потенциальную дамку
-									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top + top_change + 4) == 0) { // если левая нижняя клетка пустая
+								if (top + top_change + 4 == BOT_LIMIT) { // ГҐГ±Г«ГЁ Г±ГєГҐГ«ГЁ ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­ГіГѕ Г¤Г Г¬ГЄГі
+									if (left - left_change - 8 > LEFT_LIMIT + 1 && is_here_a_checker(board, left - left_change - 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ Г«ГҐГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
-									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top + top_change + 4) == 0) { // если правая нижняя клетка пустая
+									if (left - left_change + 8 < RIGHT_LIMIT + 3 && is_here_a_checker(board, left - left_change + 8, top + top_change + 4) == 0) { // ГҐГ±Г«ГЁ ГЇГ°Г ГўГ Гї Г­ГЁГ¦Г­ГїГї ГЄГ«ГҐГІГЄГ  ГЇГіГ±ГІГ Гї
 										return 2;
 									}
 								}
@@ -2992,17 +2992,17 @@ int check_hit(BOARD board, MOVE move)
 }
 
 int now_size = 0;
-// сгенерировать ходы для белых
+// Г±ГЈГҐГ­ГҐГ°ГЁГ°Г®ГўГ ГІГј ГµГ®Г¤Г» Г¤Г«Гї ГЎГҐГ«Г»Гµ
 NODE* find_whites_moves(BOARD board, int beat)
 {
 	NODE* result = NULL;
 	int size = 0;
 
-	if (beat) // если обязательно надо бить
+	if (beat) // ГҐГ±Г«ГЁ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г­Г Г¤Г® ГЎГЁГІГј
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (board.whites[i].status == 0) // не дамка
+			if (board.whites[i].status == 0) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 				int left = board.whites[i].location[0][0];
 				int top = board.whites[i].location[0][1];
@@ -3020,7 +3020,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left + 16; (result + size - 1)->move.coord[3] = top + 8;
 						MOVE more_move = more_eat(result[size - 1].board, 0, left + 16, top + 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3044,7 +3044,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left + 16; (result + size - 1)->move.coord[3] = top - 8;
 						MOVE more_move = more_eat(result[size - 1].board, 0, left + 16, top - 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3068,7 +3068,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left - 16; (result + size - 1)->move.coord[3] = top + 8;
 						MOVE more_move = more_eat(result[size - 1].board, 0, left - 16, top + 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3092,7 +3092,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left - 16; (result + size - 1)->move.coord[3] = top - 8;
 						MOVE more_move = more_eat(result[size - 1].board, 0, left - 16, top - 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3104,7 +3104,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 					}
 				}
 			}
-			else if (board.whites[i].status == 1) // дамка
+			else if (board.whites[i].status == 1) // Г¤Г Г¬ГЄГ 
 			{
 				int left = board.whites[i].location[0][0];
 				int top = board.whites[i].location[0][1];
@@ -3129,7 +3129,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left + left_change + 8; (result + size - 1)->move.coord[3] = top + top_change + 4;
 								MOVE more_move = more_eat(result[size - 1].board, 0, left + left_change + 8, top + top_change + 4);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3159,7 +3159,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left + left_change + 8; (result + size - 1)->move.coord[3] = top - top_change - 4;
 								MOVE more_move = more_eat(result[size - 1].board, 0, left + left_change + 8, top - top_change - 4);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3189,7 +3189,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left - left_change - 8; (result + size - 1)->move.coord[3] = top + top_change + 4;
 								MOVE more_move = more_eat(result[size - 1].board, 0, left - left_change - 8, top + top_change + 4);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3219,7 +3219,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left - left_change - 8; (result + size - 1)->move.coord[3] = top - top_change - 4;
 								MOVE more_move = more_eat(result[size - 1].board, 0, left - left_change - 8, top - top_change - 4);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 1, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3246,11 +3246,11 @@ NODE* find_whites_moves(BOARD board, int beat)
 			}
 		}
 	}
-	else // простой ход
+	else // ГЇГ°Г®Г±ГІГ®Г© ГµГ®Г¤
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (board.whites[i].status == 0) // не дамка
+			if (board.whites[i].status == 0) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 				int left = board.whites[i].location[0][0];
 				int top = board.whites[i].location[0][1];
@@ -3278,7 +3278,7 @@ NODE* find_whites_moves(BOARD board, int beat)
 					(result + size - 1)->move.coord[2] = left - 8; (result + size - 1)->move.coord[3] = top - 4;
 				}
 			}
-			else if (board.whites[i].status == 1) // дамка
+			else if (board.whites[i].status == 1) // Г¤Г Г¬ГЄГ 
 			{
 				int left = board.whites[i].location[0][0];
 				int top = board.whites[i].location[0][1];
@@ -3373,17 +3373,17 @@ NODE* find_whites_moves(BOARD board, int beat)
 	return result;
 }
 
-// сгенерировать ходы для красных
+// Г±ГЈГҐГ­ГҐГ°ГЁГ°Г®ГўГ ГІГј ГµГ®Г¤Г» Г¤Г«Гї ГЄГ°Г Г±Г­Г»Гµ
 NODE* find_reds_moves(BOARD board, int beat)
 {
 	NODE* result = NULL;
 	int size = 0;
 
-	if (beat) // если обязательно надо бить
+	if (beat) // ГҐГ±Г«ГЁ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г­Г Г¤Г® ГЎГЁГІГј
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			if (board.reds[i].status == 0) // не дамка
+			if (board.reds[i].status == 0) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 				int left = board.reds[i].location[0][0];
 				int top = board.reds[i].location[0][1];
@@ -3401,7 +3401,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left + 16; (result + size - 1)->move.coord[3] = top + 8;
 						MOVE more_move = more_eat(result[size - 1].board, 1, left + 16, top + 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3425,7 +3425,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left + 16; (result + size - 1)->move.coord[3] = top - 8;
 						MOVE more_move = more_eat(result[size - 1].board, 1, left + 16, top + 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3449,7 +3449,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left - 16; (result + size - 1)->move.coord[3] = top + 8;
 						MOVE more_move = more_eat(result[size - 1].board, 1, left - 16, top + 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3473,7 +3473,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 						(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 						(result + size - 1)->move.coord[2] = left - 16; (result + size - 1)->move.coord[3] = top - 8;
 						MOVE more_move = more_eat(result[size - 1].board, 1, left + 16, top + 8);
-						while (more_move.coord[0] != 0) // если можно съесть еще
+						while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 						{
 							result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 							(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3485,7 +3485,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 					}
 				}
 			}
-			else if (board.reds[i].status == 1) // дамка
+			else if (board.reds[i].status == 1) // Г¤Г Г¬ГЄГ 
 			{
 				int left = board.reds[i].location[0][0];
 				int top = board.reds[i].location[0][1];
@@ -3510,7 +3510,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left + left_change + 8; (result + size - 1)->move.coord[3] = top + top_change + 4;
 								MOVE more_move = more_eat(result[size - 1].board, 1, left + 16, top + 8);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3540,7 +3540,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left + left_change + 8; (result + size - 1)->move.coord[3] = top - top_change - 4;
 								MOVE more_move = more_eat(result[size - 1].board, 1, left + 16, top + 8);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3570,7 +3570,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left - left_change - 8; (result + size - 1)->move.coord[3] = top + top_change + 4;
 								MOVE more_move = more_eat(result[size - 1].board, 1, left + 16, top + 8);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3600,7 +3600,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 								(result + size - 1)->move.coord[0] = left; (result + size - 1)->move.coord[1] = top;
 								(result + size - 1)->move.coord[2] = left - left_change - 8; (result + size - 1)->move.coord[3] = top - top_change - 4;
 								MOVE more_move = more_eat(result[size - 1].board, 1, left + 16, top + 8);
-								while (more_move.coord[0] != 0) // если можно съесть еще
+								while (more_move.coord[0] != 0) // ГҐГ±Г«ГЁ Г¬Г®Г¦Г­Г® Г±ГєГҐГ±ГІГј ГҐГ№ГҐ
 								{
 									result[size - 1] = find_and_delete(result[size - 1], 2, more_move.coord[0], more_move.coord[1], more_move.coord[2], more_move.coord[3]);
 									(result + size - 1)->move.coord[2] = more_move.coord[2];
@@ -3627,14 +3627,14 @@ NODE* find_reds_moves(BOARD board, int beat)
 			}
 		}
 	}
-	else // простой ход
+	else // ГЇГ°Г®Г±ГІГ®Г© ГµГ®Г¤
 	{
 		for (int i = 0; i < 12; i++)
 		{
 			int left = board.reds[i].location[0][0];
 			int top = board.reds[i].location[0][1];
 
-			if (board.reds[i].status == 0) // не дамка
+			if (board.reds[i].status == 0) // Г­ГҐ Г¤Г Г¬ГЄГ 
 			{
 
 				if (is_here_a_checker(board, left + 8, top + 4) == 0 && (left + 8) < RIGHT_LIMIT + 3 && (top + 4) < BOT_LIMIT + 2) {
@@ -3660,7 +3660,7 @@ NODE* find_reds_moves(BOARD board, int beat)
 					(result + size - 1)->move.coord[2] = left - 8; (result + size - 1)->move.coord[3] = top + 4;
 				}
 			}
-			else if (board.reds[i].status == 1) // дамка
+			else if (board.reds[i].status == 1) // Г¤Г Г¬ГЄГ 
 			{
 				int left = board.reds[i].location[0][0];
 				int top = board.reds[i].location[0][1];
@@ -3755,21 +3755,21 @@ NODE* find_reds_moves(BOARD board, int beat)
 	return result;
 }
 
-// подсчитать результат хода компьютера
+// ГЇГ®Г¤Г±Г·ГЁГІГ ГІГј Г°ГҐГ§ГіГ«ГјГІГ ГІ ГµГ®Г¤Г  ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г 
 int calculate_evaluate(BOARD board)
 {
 	int result = 0;
 
-	int white_default_num = white_check_num; // количество обычных белых шашек
-	int red_default_num = red_check_num; // количество обычных красных шашек
-	int white_queens_num = 0; // количество белых дамок
-	int red_queens_num = 0; // количество красных дамок
+	int white_default_num = white_check_num; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г®ГЎГ»Г·Г­Г»Гµ ГЎГҐГ«Г»Гµ ГёГ ГёГҐГЄ
+	int red_default_num = red_check_num; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г®ГЎГ»Г·Г­Г»Гµ ГЄГ°Г Г±Г­Г»Гµ ГёГ ГёГҐГЄ
+	int white_queens_num = 0; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЎГҐГ«Г»Гµ Г¤Г Г¬Г®ГЄ
+	int red_queens_num = 0; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ°Г Г±Г­Г»Гµ Г¤Г Г¬Г®ГЄ
 
-			/*Результат после хода компьютера*/
-	int white_default_num_res = 0; // количество обычных белых шашек
-	int red_default_num_res = 0; // количество обычных красных шашек
-	int white_queens_num_res = 0; // количество белых дамок
-	int red_queens_num_res = 0; // количество красных дамок
+			/*ГђГҐГ§ГіГ«ГјГІГ ГІ ГЇГ®Г±Г«ГҐ ГµГ®Г¤Г  ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г */
+	int white_default_num_res = 0; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г®ГЎГ»Г·Г­Г»Гµ ГЎГҐГ«Г»Гµ ГёГ ГёГҐГЄ
+	int red_default_num_res = 0; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г®ГЎГ»Г·Г­Г»Гµ ГЄГ°Г Г±Г­Г»Гµ ГёГ ГёГҐГЄ
+	int white_queens_num_res = 0; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЎГҐГ«Г»Гµ Г¤Г Г¬Г®ГЄ
+	int red_queens_num_res = 0; // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ°Г Г±Г­Г»Гµ Г¤Г Г¬Г®ГЄ
 
 	for (int i = 0; i < 12; i++)
 	{
@@ -3817,14 +3817,14 @@ int calculate_evaluate(BOARD board)
 	return result;
 }
 
-// подсчитать оценку для красных
+// ГЇГ®Г¤Г±Г·ГЁГІГ ГІГј Г®Г¶ГҐГ­ГЄГі Г¤Г«Гї ГЄГ°Г Г±Г­Г»Гµ
 int red_evaluate_calc(BOARD board)
 {
 	int result = 0;
 	int mine = 0;
 	int opp = 0;
 
-	for (int i = 0; i < 12; i++) // подсчитываем кол-во собственных и чужих шашек
+	for (int i = 0; i < 12; i++) // ГЇГ®Г¤Г±Г·ГЁГІГ»ГўГ ГҐГ¬ ГЄГ®Г«-ГўГ® Г±Г®ГЎГ±ГІГўГҐГ­Г­Г»Гµ ГЁ Г·ГіГ¦ГЁГµ ГёГ ГёГҐГЄ
 	{
 		if (board.reds[i].status != DEAD) {
 			mine++;
@@ -3874,14 +3874,14 @@ int red_evaluate_calc(BOARD board)
 	return result + (mine - opp) * 1000;
 }
 
-// подсчитать оценку для белых
+// ГЇГ®Г¤Г±Г·ГЁГІГ ГІГј Г®Г¶ГҐГ­ГЄГі Г¤Г«Гї ГЎГҐГ«Г»Гµ
 int white_evaluate_calc(BOARD board)
 {
 	int result = 0;
 	int mine = 0;
 	int opp = 0;
 
-	for (int i = 0; i < 12; i++) // подсчитываем кол-во собственных и чужих шашек
+	for (int i = 0; i < 12; i++) // ГЇГ®Г¤Г±Г·ГЁГІГ»ГўГ ГҐГ¬ ГЄГ®Г«-ГўГ® Г±Г®ГЎГ±ГІГўГҐГ­Г­Г»Гµ ГЁ Г·ГіГ¦ГЁГµ ГёГ ГёГҐГЄ
 	{
 		if (board.whites[i].status != DEAD) {
 			mine++;
@@ -3931,14 +3931,14 @@ int white_evaluate_calc(BOARD board)
 	return result + (mine - opp) * 1000;
 }
 
-// перебор ходов для красных
+// ГЇГҐГ°ГҐГЎГ®Г° ГµГ®Г¤Г®Гў Г¤Г«Гї ГЄГ°Г Г±Г­Г»Гµ
 int red_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_player)
 {
 	if (depth == 0) {
-		return red_evaluate_calc(board); // оценить
+		return red_evaluate_calc(board); // Г®Г¶ГҐГ­ГЁГІГј
 	}
 
-	// скопировать доску()
+	// Г±ГЄГ®ГЇГЁГ°Г®ГўГ ГІГј Г¤Г®Г±ГЄГі()
 	BOARD current_board = board_copy(board);
 	NODE* moves = NULL;
 
@@ -3947,11 +3947,11 @@ int red_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_play
 		int max_eval = -2147483646;
 		int ev;
 		// sizeof(NODE) = 316
-		if (must_beat(board, 1)) { // если обязательно надо бить
-			moves = find_reds_moves(board, 1); // найти все бьющие ходы
+		if (must_beat(board, 1)) { // ГҐГ±Г«ГЁ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г­Г Г¤Г® ГЎГЁГІГј
+			moves = find_reds_moves(board, 1); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГЎГјГѕГ№ГЁГҐ ГµГ®Г¤Г»
 		}
 		else {
-			moves = find_reds_moves(board, 0); // найти все возможные ходы
+			moves = find_reds_moves(board, 0); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГўГ®Г§Г¬Г®Г¦Г­Г»ГҐ ГµГ®Г¤Г»
 		}
 		int size = now_size;
 
@@ -3974,11 +3974,11 @@ int red_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_play
 	{
 		int min_eval = 2147483647;
 		int ev;
-		if (must_beat(board, 0)) { // если обязательно надо бить
-			moves = find_whites_moves(board, 1); // найти все бьющие ходы
+		if (must_beat(board, 0)) { // ГҐГ±Г«ГЁ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г­Г Г¤Г® ГЎГЁГІГј
+			moves = find_whites_moves(board, 1); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГЎГјГѕГ№ГЁГҐ ГµГ®Г¤Г»
 		}
 		else {
-			moves = find_whites_moves(board, 0); // найти все возможные ходы
+			moves = find_whites_moves(board, 0); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГўГ®Г§Г¬Г®Г¦Г­Г»ГҐ ГµГ®Г¤Г»
 		}
 		int size = now_size;
 
@@ -3999,14 +3999,14 @@ int red_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_play
 	}
 }
 
-// перебор ходов для белых
+// ГЇГҐГ°ГҐГЎГ®Г° ГµГ®Г¤Г®Гў Г¤Г«Гї ГЎГҐГ«Г»Гµ
 int white_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_player)
 {
 	if (depth == 0) {
-		return white_evaluate_calc(board); // оценить
+		return white_evaluate_calc(board); // Г®Г¶ГҐГ­ГЁГІГј
 	}
 
-	// скопировать доску()
+	// Г±ГЄГ®ГЇГЁГ°Г®ГўГ ГІГј Г¤Г®Г±ГЄГі()
 	BOARD current_board = board_copy(board);
 	NODE* moves = NULL;
 
@@ -4015,11 +4015,11 @@ int white_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_pl
 		int max_eval = -2147483646;
 		int ev;
 		// sizeof(NODE) = 316
-		if (must_beat(board, 0)) { // если обязательно надо бить
-			moves = find_whites_moves(board, 1); // найти все бьющие ходы
+		if (must_beat(board, 0)) { // ГҐГ±Г«ГЁ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г­Г Г¤Г® ГЎГЁГІГј
+			moves = find_whites_moves(board, 1); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГЎГјГѕГ№ГЁГҐ ГµГ®Г¤Г»
 		}
 		else {
-			moves = find_whites_moves(board, 0); // найти все возможные ходы
+			moves = find_whites_moves(board, 0); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГўГ®Г§Г¬Г®Г¦Г­Г»ГҐ ГµГ®Г¤Г»
 		}
 		int size = now_size;
 
@@ -4042,11 +4042,11 @@ int white_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_pl
 	{
 		int min_eval = 2147483647;
 		int ev;
-		if (must_beat(board, 1)) { // если обязательно надо бить
-			moves = find_reds_moves(board, 1); // найти все бьющие ходы
+		if (must_beat(board, 1)) { // ГҐГ±Г«ГЁ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г­Г Г¤Г® ГЎГЁГІГј
+			moves = find_reds_moves(board, 1); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГЎГјГѕГ№ГЁГҐ ГµГ®Г¤Г»
 		}
 		else {
-			moves = find_reds_moves(board, 0); // найти все возможные ходы
+			moves = find_reds_moves(board, 0); // Г­Г Г©ГІГЁ ГўГ±ГҐ ГўГ®Г§Г¬Г®Г¦Г­Г»ГҐ ГµГ®Г¤Г»
 		}
 		int size = now_size;
 
@@ -4067,7 +4067,7 @@ int white_minimax(BOARD board, int depth, int alpha, int beta, int maximizing_pl
 	}
 }
 
-// сделать копию нынешней доски
+// Г±Г¤ГҐГ«Г ГІГј ГЄГ®ГЇГЁГѕ Г­Г»Г­ГҐГёГ­ГҐГ© Г¤Г®Г±ГЄГЁ
 BOARD new_board()
 {
 	BOARD result;
@@ -4081,7 +4081,7 @@ BOARD new_board()
 	return result;
 }
 
-// инициализировать доску
+// ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§ГЁГ°Г®ГўГ ГІГј Г¤Г®Г±ГЄГі
 BOARD init_board()
 {
 	BOARD result;
@@ -4099,7 +4099,7 @@ BOARD init_board()
 	return result;
 }
 
-// перенести данные с доски в игру (для игры с компьютером)
+// ГЇГҐГ°ГҐГ­ГҐГ±ГІГЁ Г¤Г Г­Г­Г»ГҐ Г± Г¤Г®Г±ГЄГЁ Гў ГЁГЈГ°Гі (Г¤Г«Гї ГЁГЈГ°Г» Г± ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬)
 void revive_the_board(BOARD board)
 {
 	for (int i = 0; i < 12; i++)
@@ -4109,26 +4109,26 @@ void revive_the_board(BOARD board)
 			red_check_num--;
 			gotoxy(red_checkers[i].location[0][0], red_checkers[i].location[0][1]);
 			con_set_color(NULL, CON_CLR_BLACK);
-			printf("   "); // стираем съеденную шашку с доски
+			printf("   "); // Г±ГІГЁГ°Г ГҐГ¬ Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі Г± Г¤Г®Г±ГЄГЁ
 		}
 		if (board.whites[i].status == 2 && board.whites[i].status != white_checkers[i].status) {
 			white_checkers[i].status = 2;
 			white_check_num--;
 			gotoxy(white_checkers[i].location[0][0], white_checkers[i].location[0][1]);
 			con_set_color(NULL, CON_CLR_BLACK);
-			printf("   "); // стираем съеденную шашку с доски
+			printf("   "); // Г±ГІГЁГ°Г ГҐГ¬ Г±ГєГҐГ¤ГҐГ­Г­ГіГѕ ГёГ ГёГЄГі Г± Г¤Г®Г±ГЄГЁ
 		}
 	}
 }
 
-// ход компьютера
+// ГµГ®Г¤ ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г 
 void computer_move(BOARD board, int white_mode, int red_mode)
 {
 	NODE* moves = NULL;
 
 	if (whose_move == WHITE)
 	{
-		// смотрим, есть ли ходы
+		// Г±Г¬Г®ГІГ°ГЁГ¬, ГҐГ±ГІГј Г«ГЁ ГµГ®Г¤Г»
 		if (must_beat(board, 0) == 1) {
 			moves = find_whites_moves(board, 1);
 		}
@@ -4138,7 +4138,7 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 	}
 	else if (whose_move == RED)
 	{
-		// смотрим, есть ли ходы
+		// Г±Г¬Г®ГІГ°ГЁГ¬, ГҐГ±ГІГј Г«ГЁ ГµГ®Г¤Г»
 		if (must_beat(board, 1) == 1) {
 			moves = find_reds_moves(board, 1);
 		}
@@ -4152,7 +4152,7 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 	{
 		if (white_mode == 1)
 		{
-			for (int i = 0; i < size; i++) // оцениваем ходы
+			for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 			{
 				(moves + i)->value = white_minimax((moves + i)->board, 0, 2147483647, -2147483647, 0);
 			}
@@ -4161,14 +4161,14 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 		{
 			if (red_mode == 3)
 			{
-				for (int i = 0; i < size; i++) // оцениваем ходы
+				for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 				{
 					(moves + i)->value = white_minimax((moves + i)->board, 2, 2147483647, -2147483647, 0);
 				}
 			}
 			else
 			{
-				for (int i = 0; i < size; i++) // оцениваем ходы
+				for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 				{
 					(moves + i)->value = white_minimax((moves + i)->board, 1, 2147483647, -2147483647, 0);
 				}
@@ -4176,7 +4176,7 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 		}
 		else if (white_mode == 3)
 		{
-			for (int i = 0; i < size; i++) // оцениваем ходы
+			for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 			{
 				(moves + i)->value = white_minimax((moves + i)->board, 5, 2147483647, -2147483647, 0);
 			}
@@ -4186,14 +4186,14 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 	{
 		if (red_mode == 1)
 		{
-			for (int i = 0; i < size; i++) // оцениваем ходы
+			for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 			{
 				(moves + i)->value = red_minimax((moves + i)->board, 0, 2147483647, -2147483647, 0);
 			}
 		}
 		else if (red_mode == 2)
 		{
-			for (int i = 0; i < size; i++) // оцениваем ходы
+			for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 			{
 				(moves + i)->value = red_minimax((moves + i)->board, 1, 2147483647, -2147483647, 0);
 			}
@@ -4202,14 +4202,14 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 		{
 			if (white_mode == 1)
 			{
-				for (int i = 0; i < size; i++) // оцениваем ходы
+				for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 				{
 					(moves + i)->value = red_minimax((moves + i)->board, 5, 2147483647, -2147483647, 0);
 				}
 			}
 			else
 			{
-				for (int i = 0; i < size; i++) // оцениваем ходы
+				for (int i = 0; i < size; i++) // Г®Г¶ГҐГ­ГЁГўГ ГҐГ¬ ГµГ®Г¤Г»
 				{
 					(moves + i)->value = red_minimax((moves + i)->board, 4, 2147483647, -2147483647, 0);
 				}
@@ -4219,7 +4219,7 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 
 	int evaluate = -2147483647;
 	int num = -1;
-	for (int i = 0; i < size; i++) // выбираем ход с лучшей оценкой
+	for (int i = 0; i < size; i++) // ГўГ»ГЎГЁГ°Г ГҐГ¬ ГµГ®Г¤ Г± Г«ГіГ·ГёГҐГ© Г®Г¶ГҐГ­ГЄГ®Г©
 	{
 		if ((moves + i)->value > evaluate)
 		{
@@ -4236,7 +4236,7 @@ void computer_move(BOARD board, int white_mode, int red_mode)
 	}
 }
 
-// человек-комп
+// Г·ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇ
 void hum_vs_comp(int mode)
 {
 	white_moves_num = 0;
@@ -4247,35 +4247,35 @@ void hum_vs_comp(int mode)
 	red_check_num = 12;
 	BOARD board = init_board();
 
-	get_cells_locations(); // получить координаты клеток
+	get_cells_locations(); // ГЇГ®Г«ГіГ·ГЁГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ«ГҐГІГ®ГЄ
 	whose_move = WHITE;
-	build_board(); // построить доску
+	build_board(); // ГЇГ®Г±ГІГ°Г®ГЁГІГј Г¤Г®Г±ГЄГі
 
 	while (1)
 	{
-		if (end) // конец игры
+		if (end) // ГЄГ®Г­ГҐГ¶ ГЁГЈГ°Г»
 		{
 			end = 0;
 			break;
 		}
 
-		need_to_beat = necessary_to_beat(); // проверка, обязательно ли есть
-		cycle_end = 0; // обнуляем флаг для цикла в функции move_cursor()
+		need_to_beat = necessary_to_beat(); // ГЇГ°Г®ГўГҐГ°ГЄГ , Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г«ГЁ ГҐГ±ГІГј
+		cycle_end = 0; // Г®ГЎГ­ГіГ«ГїГҐГ¬ ГґГ«Г ГЈ Г¤Г«Гї Г¶ГЁГЄГ«Г  Гў ГґГіГ­ГЄГ¶ГЁГЁ move_cursor()
 
 		if (red_check_num == 0 || (whose_move == RED && !need_to_beat && !no_move()))
 		{
-			white_win(); // победа белых
-			// внести в таблицу рекордов
+			white_win(); // ГЇГ®ГЎГҐГ¤Г  ГЎГҐГ«Г»Гµ
+			// ГўГ­ГҐГ±ГІГЁ Гў ГІГ ГЎГ«ГЁГ¶Гі Г°ГҐГЄГ®Г°Г¤Г®Гў
 			break;
 		}
 		else if (white_check_num == 0 || (whose_move == WHITE && !need_to_beat && !no_move()))
 		{
-			red_win(); // победа красных
-			// внести в таблицу рекордов
+			red_win(); // ГЇГ®ГЎГҐГ¤Г  ГЄГ°Г Г±Г­Г»Гµ
+			// ГўГ­ГҐГ±ГІГЁ Гў ГІГ ГЎГ«ГЁГ¶Гі Г°ГҐГЄГ®Г°Г¤Г®Гў
 			break;
 		}
 
-		if (whose_move == WHITE) { // если ходит человек
+		if (whose_move == WHITE) { // ГҐГ±Г«ГЁ ГµГ®Г¤ГЁГІ Г·ГҐГ«Г®ГўГҐГЄ
 			move_cursor(LEFT_BOARD_CENTER, TOP_BOARD_CENTER);
 		}
 		else if (whose_move == RED) {
@@ -4293,19 +4293,19 @@ void hum_vs_comp(int mode)
 
 		board = new_board(board);
 
-		if (whose_move == RED) { // если был ход компьютера
-			whose_move = WHITE; // следующий ход человека
+		if (whose_move == RED) { // ГҐГ±Г«ГЁ ГЎГ»Г« ГµГ®Г¤ ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г 
+			whose_move = WHITE; // Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГµГ®Г¤ Г·ГҐГ«Г®ГўГҐГЄГ 
 		}
-		else if (whose_move == WHITE) { // если был ход человека
-			whose_move = RED; // следующий ход компьютера
+		else if (whose_move == WHITE) { // ГҐГ±Г«ГЁ ГЎГ»Г« ГµГ®Г¤ Г·ГҐГ«Г®ГўГҐГЄГ 
+			whose_move = RED; // Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГµГ®Г¤ ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г 
 		}
 	}
 }
 
-// игра компьютера c компьютером
+// ГЁГЈГ°Г  ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г  c ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г®Г¬
 void computer_vs_computer(int white_mode, int red_mode)
 {
-	/*mode - 1-легко, 2-нормально, 3-сложно*/
+	/*mode - 1-Г«ГҐГЈГЄГ®, 2-Г­Г®Г°Г¬Г Г«ГјГ­Г®, 3-Г±Г«Г®Г¦Г­Г®*/
 	LARGE_INTEGER freq, time1, time2;
 	QueryPerformanceFrequency(&freq);
 	QueryPerformanceCounter(&time1);
@@ -4318,27 +4318,27 @@ void computer_vs_computer(int white_mode, int red_mode)
 	red_check_num = 12;
 	BOARD board = init_board();
 
-	get_cells_locations(); // получить координаты клеток
+	get_cells_locations(); // ГЇГ®Г«ГіГ·ГЁГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ«ГҐГІГ®ГЄ
 	whose_move = WHITE;
-	build_board(); // построить доску
+	build_board(); // ГЇГ®Г±ГІГ°Г®ГЁГІГј Г¤Г®Г±ГЄГі
 
 	while (1)
 	{
-		if (end) // конец игры
+		if (end) // ГЄГ®Г­ГҐГ¶ ГЁГЈГ°Г»
 		{
 			end = 0;
 			break;
 		}
 
-		need_to_beat = necessary_to_beat(); // проверка, обязательно ли есть
+		need_to_beat = necessary_to_beat(); // ГЇГ°Г®ГўГҐГ°ГЄГ , Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г«ГЁ ГҐГ±ГІГј
 
 		if (red_check_num == 0 || (whose_move == RED && !need_to_beat && !no_move()))
 		{
 			QueryPerformanceCounter(&time2);
 			time2.QuadPart -= time1.QuadPart;
 			double span = (double)time2.QuadPart / freq.QuadPart;
-			white_win(); // победа белых
-			// внести в таблицу рекордов
+			white_win(); // ГЇГ®ГЎГҐГ¤Г  ГЎГҐГ«Г»Гµ
+			// ГўГ­ГҐГ±ГІГЁ Гў ГІГ ГЎГ«ГЁГ¶Гі Г°ГҐГЄГ®Г°Г¤Г®Гў
 			break;
 		}
 		else if (white_check_num == 0 || (whose_move == WHITE && !need_to_beat && !no_move()))
@@ -4346,8 +4346,8 @@ void computer_vs_computer(int white_mode, int red_mode)
 			QueryPerformanceCounter(&time2);
 			time2.QuadPart -= time1.QuadPart;
 			double span = (double)time2.QuadPart / freq.QuadPart;
-			red_win(); // победа красных
-			// внести в таблицу рекордов
+			red_win(); // ГЇГ®ГЎГҐГ¤Г  ГЄГ°Г Г±Г­Г»Гµ
+			// ГўГ­ГҐГ±ГІГЁ Гў ГІГ ГЎГ«ГЁГ¶Гі Г°ГҐГЄГ®Г°Г¤Г®Гў
 			break;
 		}
 
@@ -4355,22 +4355,22 @@ void computer_vs_computer(int white_mode, int red_mode)
 
 		board = new_board();
 
-		if (whose_move == RED) { // если был ход компьютера
-			whose_move = WHITE; // следующий ход человека
+		if (whose_move == RED) { // ГҐГ±Г«ГЁ ГЎГ»Г« ГµГ®Г¤ ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г 
+			whose_move = WHITE; // Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГµГ®Г¤ Г·ГҐГ«Г®ГўГҐГЄГ 
 		}
-		else if (whose_move == WHITE) { // если был ход человека
-			whose_move = RED; // следующий ход компьютера
+		else if (whose_move == WHITE) { // ГҐГ±Г«ГЁ ГЎГ»Г« ГµГ®Г¤ Г·ГҐГ«Г®ГўГҐГЄГ 
+			whose_move = RED; // Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГµГ®Г¤ ГЄГ®Г¬ГЇГјГѕГІГҐГ°Г 
 		}
 	}
 }
 
-// отрисовать меню выбора сложности
+// Г®ГІГ°ГЁГ±Г®ГўГ ГІГј Г¬ГҐГ­Гѕ ГўГ»ГЎГ®Г°Г  Г±Г«Г®Г¦Г­Г®Г±ГІГЁ
 void draw_choose_difficulty_menu()
 {
 	int left = 60;
 	int top = 9;
 
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 
 	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE);
@@ -4378,7 +4378,7 @@ void draw_choose_difficulty_menu()
 	printf("-----------------------------");
 	top++;
 	gotoxy(left, top);
-	printf("|      СЛОЖНОСТЬ ИГРЫ       |");
+	printf("|      Г‘Г‹ГЋГ†ГЌГЋГ‘Г’Гњ Г€ГѓГђГ›       |");
 	top++;
 	gotoxy(left, top);
 	printf("-----------------------------");
@@ -4390,7 +4390,7 @@ void draw_choose_difficulty_menu()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*      Легко      *");
+	printf("*      Г‹ГҐГЈГЄГ®      *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
@@ -4401,7 +4401,7 @@ void draw_choose_difficulty_menu()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*    Нормально    *");
+	printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
@@ -4411,13 +4411,13 @@ void draw_choose_difficulty_menu()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*     Сложно      *");
+	printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
 }
 
-// меню выбора сложности для игры компов
+// Г¬ГҐГ­Гѕ ГўГ»ГЎГ®Г°Г  Г±Г«Г®Г¦Г­Г®Г±ГІГЁ Г¤Г«Гї ГЁГЈГ°Г» ГЄГ®Г¬ГЇГ®Гў
 void difficulty_menu_comp()
 {
 	int white_mode = 0;
@@ -4426,7 +4426,7 @@ void difficulty_menu_comp()
 	int left = 45;
 	int top = 9;
 
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 
 	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE);
@@ -4434,7 +4434,7 @@ void difficulty_menu_comp()
 	printf("-----------------------------------------------------------------");
 	top++;
 	gotoxy(left, top);
-	printf("|        СЛОЖНОСТЬ БЕЛЫХ        |       СЛОЖНОСТЬ КРАСНЫХ       |");
+	printf("|        Г‘Г‹ГЋГ†ГЌГЋГ‘Г’Гњ ГЃГ…Г‹Г›Г•        |       Г‘Г‹ГЋГ†ГЌГЋГ‘Г’Гњ ГЉГђГЂГ‘ГЌГ›Г•       |");
 	top++;
 	gotoxy(left, top);
 	printf("-----------------------------------------------------------------");
@@ -4446,7 +4446,7 @@ void difficulty_menu_comp()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*      Легко      *");
+	printf("*      Г‹ГҐГЈГЄГ®      *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
@@ -4457,7 +4457,7 @@ void difficulty_menu_comp()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*    Нормально    *");
+	printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
@@ -4467,7 +4467,7 @@ void difficulty_menu_comp()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*     Сложно      *");
+	printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
@@ -4479,7 +4479,7 @@ void difficulty_menu_comp()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*      Легко      *");
+	printf("*      Г‹ГҐГЈГЄГ®      *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
@@ -4490,7 +4490,7 @@ void difficulty_menu_comp()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*    Нормально    *");
+	printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
@@ -4500,12 +4500,12 @@ void difficulty_menu_comp()
 	printf("*******************");
 	top++;
 	gotoxy(left, top);
-	printf("*     Сложно      *");
+	printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 	top++;
 	gotoxy(left, top);
 	printf("*******************");
 
-	int flag = 1; // 1-выбирается сложность белых; 2-выбирается сложность красных
+	int flag = 1; // 1-ГўГ»ГЎГЁГ°Г ГҐГІГ±Гї Г±Г«Г®Г¦Г­Г®Г±ГІГј ГЎГҐГ«Г»Гµ; 2-ГўГ»ГЎГЁГ°Г ГҐГІГ±Гї Г±Г«Г®Г¦Г­Г®Г±ГІГј ГЄГ°Г Г±Г­Г»Гµ
 	int preparedness = 0;
 
 	left = 50;
@@ -4521,9 +4521,9 @@ void difficulty_menu_comp()
 		}
 
 		int code = key_pressed_code();
-		if (code == KEY_UP) // Если это стрелка вверх
+		if (code == KEY_UP) // Г…Г±Г«ГЁ ГЅГІГ® Г±ГІГ°ГҐГ«ГЄГ  ГўГўГҐГ°Гµ
 		{
-			// То переход к верхнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ ГўГҐГ°ГµГ­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position > 0)
 			{
 				switch (position)
@@ -4539,7 +4539,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4549,7 +4549,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4562,7 +4562,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4572,7 +4572,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4585,7 +4585,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4595,7 +4595,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4611,7 +4611,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4621,7 +4621,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4634,7 +4634,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4644,7 +4644,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4657,7 +4657,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4667,7 +4667,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4685,7 +4685,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4695,7 +4695,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4708,7 +4708,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4718,7 +4718,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4731,7 +4731,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4741,7 +4741,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4757,7 +4757,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4767,7 +4767,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4780,7 +4780,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4790,7 +4790,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4803,7 +4803,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4813,7 +4813,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4824,9 +4824,9 @@ void difficulty_menu_comp()
 				position--;
 			}
 		}
-		else if (code == KEY_DOWN) // Если стрелка вниз
+		else if (code == KEY_DOWN) // Г…Г±Г«ГЁ Г±ГІГ°ГҐГ«ГЄГ  ГўГ­ГЁГ§
 		{
-			// То переход к нижнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ Г­ГЁГ¦Г­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position < 2)
 			{
 				switch (position)
@@ -4842,7 +4842,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4852,7 +4852,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4865,7 +4865,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4875,7 +4875,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4888,7 +4888,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4898,7 +4898,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4914,7 +4914,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4924,7 +4924,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4937,7 +4937,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4947,7 +4947,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4960,7 +4960,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4970,7 +4970,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*     Сложно      *");
+							printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4988,7 +4988,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -4998,7 +4998,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5011,7 +5011,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5021,7 +5021,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5034,7 +5034,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5044,7 +5044,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5060,7 +5060,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5070,7 +5070,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5083,7 +5083,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5093,7 +5093,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5106,7 +5106,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*      Легко      *");
+							printf("*      Г‹ГҐГЈГЄГ®      *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5116,7 +5116,7 @@ void difficulty_menu_comp()
 							printf("*******************");
 							top++;
 							gotoxy(left, top);
-							printf("*    Нормально    *");
+							printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 							top++;
 							gotoxy(left, top);
 							printf("*******************");
@@ -5127,7 +5127,7 @@ void difficulty_menu_comp()
 				position++;
 			}
 		}
-		else if (code == KEY_LEFT) // стрелка влево
+		else if (code == KEY_LEFT) // Г±ГІГ°ГҐГ«ГЄГ  ГўГ«ГҐГўГ®
 		{
 			if (flag == 2)
 			{
@@ -5146,7 +5146,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Легко      *");
+					printf("*      Г‹ГҐГЈГЄГ®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5163,7 +5163,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Легко      *");
+					printf("*      Г‹ГҐГЈГЄГ®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5180,7 +5180,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5197,7 +5197,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5214,7 +5214,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Сложно      *");
+					printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5231,7 +5231,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Сложно      *");
+					printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5239,7 +5239,7 @@ void difficulty_menu_comp()
 				}
 			}
 		}
-		else if (code == KEY_RIGHT) // стрелка вправо
+		else if (code == KEY_RIGHT) // Г±ГІГ°ГҐГ«ГЄГ  ГўГЇГ°Г ГўГ®
 		{
 			if (flag == 1)
 			{
@@ -5258,7 +5258,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Легко      *");
+					printf("*      Г‹ГҐГЈГЄГ®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5275,7 +5275,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Легко      *");
+					printf("*      Г‹ГҐГЈГЄГ®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5292,7 +5292,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5309,7 +5309,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5326,7 +5326,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Сложно      *");
+					printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5343,7 +5343,7 @@ void difficulty_menu_comp()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Сложно      *");
+					printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5351,18 +5351,18 @@ void difficulty_menu_comp()
 				}
 			}
 		}
-		else if (code == KEY_ESC) // ESC - выход
+		else if (code == KEY_ESC) // ESC - ГўГ»ГµГ®Г¤
 		{
 			return;
 		}
-		else if (code == KEY_ENTER) // Нажата кнопка Enter
+		else if (code == KEY_ENTER) // ГЌГ Г¦Г ГІГ  ГЄГ­Г®ГЇГЄГ  Enter
 		{
 			switch (position)
 			{
 			case 0:
 				if (flag == 1)
 				{
-					if (white_mode == 0) // если ничего не выбрано
+					if (white_mode == 0) // ГҐГ±Г«ГЁ Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГ»ГЎГ°Г Г­Г®
 					{
 						white_mode = 1;
 						preparedness++;
@@ -5372,12 +5372,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 1) // если для белых уже выбран режим "легко"
+					else if (white_mode == 1) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г«ГҐГЈГЄГ®"
 					{
 						white_mode = 0;
 						preparedness--;
@@ -5387,12 +5387,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 2) // если для белых уже выбран режим "нормально"
+					else if (white_mode == 2) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г­Г®Г°Г¬Г Г«ГјГ­Г®"
 					{
 						white_mode = 1;
 						top = 19;
@@ -5401,7 +5401,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5412,12 +5412,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 3) // если для белых уже выбран режим "сложно"
+					else if (white_mode == 3) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г±Г«Г®Г¦Г­Г®"
 					{
 						white_mode = 1;
 						top = 23;
@@ -5426,7 +5426,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5437,7 +5437,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5445,7 +5445,7 @@ void difficulty_menu_comp()
 				}
 				else if (flag == 2)
 				{
-					if (red_mode == 0) // если ничего не выбрано
+					if (red_mode == 0) // ГҐГ±Г«ГЁ Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГ»ГЎГ°Г Г­Г®
 					{
 						red_mode = 1;
 						preparedness++;
@@ -5455,12 +5455,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 1) // если для белых уже выбран режим "легко"
+					else if (red_mode == 1) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г«ГҐГЈГЄГ®"
 					{
 						red_mode = 0;
 						preparedness--;
@@ -5470,12 +5470,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 2) // если для белых уже выбран режим "нормально"
+					else if (red_mode == 2) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г­Г®Г°Г¬Г Г«ГјГ­Г®"
 					{
 						red_mode = 1;
 						top = 19;
@@ -5484,7 +5484,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5495,12 +5495,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 3) // если для белых уже выбран режим "сложно"
+					else if (red_mode == 3) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г±Г«Г®Г¦Г­Г®"
 					{
 						red_mode = 1;
 						top = 23;
@@ -5509,7 +5509,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5520,7 +5520,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5530,7 +5530,7 @@ void difficulty_menu_comp()
 			case 1:
 				if (flag == 1)
 				{
-					if (white_mode == 0) // если ничего не выбрано
+					if (white_mode == 0) // ГҐГ±Г«ГЁ Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГ»ГЎГ°Г Г­Г®
 					{
 						white_mode = 2;
 						preparedness++;
@@ -5540,12 +5540,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 1) // если для белых уже выбран режим "легко"
+					else if (white_mode == 1) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г«ГҐГЈГЄГ®"
 					{
 						white_mode = 2;
 						top = 15;
@@ -5554,7 +5554,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5565,12 +5565,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 2) // если для белых уже выбран режим "нормально"
+					else if (white_mode == 2) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г­Г®Г°Г¬Г Г«ГјГ­Г®"
 					{
 						white_mode = 0;
 						preparedness--;
@@ -5580,12 +5580,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 3) // если для белых уже выбран режим "сложно"
+					else if (white_mode == 3) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г±Г«Г®Г¦Г­Г®"
 					{
 						white_mode = 2;
 						top = 23;
@@ -5594,7 +5594,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5605,7 +5605,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5613,7 +5613,7 @@ void difficulty_menu_comp()
 				}
 				else if (flag == 2)
 				{
-					if (red_mode == 0) // если ничего не выбрано
+					if (red_mode == 0) // ГҐГ±Г«ГЁ Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГ»ГЎГ°Г Г­Г®
 					{
 						red_mode = 2;
 						preparedness++;
@@ -5623,12 +5623,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 1) // если для белых уже выбран режим "легко"
+					else if (red_mode == 1) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г«ГҐГЈГЄГ®"
 					{
 						red_mode = 2;
 						top = 15;
@@ -5637,7 +5637,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5648,12 +5648,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 2) // если для белых уже выбран режим "нормально"
+					else if (red_mode == 2) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г­Г®Г°Г¬Г Г«ГјГ­Г®"
 					{
 						red_mode = 0;
 						preparedness--;
@@ -5663,12 +5663,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 3) // если для белых уже выбран режим "сложно"
+					else if (red_mode == 3) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г±Г«Г®Г¦Г­Г®"
 					{
 						red_mode = 2;
 						top = 23;
@@ -5677,7 +5677,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5688,7 +5688,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5698,7 +5698,7 @@ void difficulty_menu_comp()
 			case 2:
 				if (flag == 1)
 				{
-					if (white_mode == 0) // если ничего не выбрано
+					if (white_mode == 0) // ГҐГ±Г«ГЁ Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГ»ГЎГ°Г Г­Г®
 					{
 						white_mode = 3;
 						preparedness++;
@@ -5708,12 +5708,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 1) // если для белых уже выбран режим "легко"
+					else if (white_mode == 1) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г«ГҐГЈГЄГ®"
 					{
 						white_mode = 3;
 						top = 15;
@@ -5722,7 +5722,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5733,12 +5733,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 2) // если для белых уже выбран режим "нормально"
+					else if (white_mode == 2) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г­Г®Г°Г¬Г Г«ГјГ­Г®"
 					{
 						white_mode = 3;
 						top = 19;
@@ -5747,7 +5747,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5758,12 +5758,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (white_mode == 3) // если для белых уже выбран режим "сложно"
+					else if (white_mode == 3) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г±Г«Г®Г¦Г­Г®"
 					{
 						white_mode = 0;
 						preparedness--;
@@ -5773,7 +5773,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5781,7 +5781,7 @@ void difficulty_menu_comp()
 				}
 				else if (flag == 2)
 				{
-					if (red_mode == 0) // если ничего не выбрано
+					if (red_mode == 0) // ГҐГ±Г«ГЁ Г­ГЁГ·ГҐГЈГ® Г­ГҐ ГўГ»ГЎГ°Г Г­Г®
 					{
 						red_mode = 3;
 						preparedness++;
@@ -5791,12 +5791,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 1) // если для белых уже выбран режим "легко"
+					else if (red_mode == 1) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г«ГҐГЈГЄГ®"
 					{
 						red_mode = 3;
 						top = 15;
@@ -5805,7 +5805,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*      Легко      *");
+						printf("*      Г‹ГҐГЈГЄГ®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5816,12 +5816,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 2) // если для белых уже выбран режим "нормально"
+					else if (red_mode == 2) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г­Г®Г°Г¬Г Г«ГјГ­Г®"
 					{
 						red_mode = 3;
 						top = 19;
@@ -5830,7 +5830,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*    Нормально    *");
+						printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5841,12 +5841,12 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
 					}
-					else if (red_mode == 3) // если для белых уже выбран режим "сложно"
+					else if (red_mode == 3) // ГҐГ±Г«ГЁ Г¤Г«Гї ГЎГҐГ«Г»Гµ ГіГ¦ГҐ ГўГ»ГЎГ°Г Г­ Г°ГҐГ¦ГЁГ¬ "Г±Г«Г®Г¦Г­Г®"
 					{
 						red_mode = 0;
 						preparedness--;
@@ -5856,7 +5856,7 @@ void difficulty_menu_comp()
 						printf("*******************");
 						top++;
 						gotoxy(left, top);
-						printf("*     Сложно      *");
+						printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 						top++;
 						gotoxy(left, top);
 						printf("*******************");
@@ -5868,13 +5868,13 @@ void difficulty_menu_comp()
 			if (preparedness == 2)
 			{
 				computer_vs_computer(white_mode, red_mode);
-				return; // начать игру
+				return; // Г­Г Г·Г ГІГј ГЁГЈГ°Гі
 			}
 		}
 	}
 }
 
-// меню выбора сложности
+// Г¬ГҐГ­Гѕ ГўГ»ГЎГ®Г°Г  Г±Г«Г®Г¦Г­Г®Г±ГІГЁ
 void choose_difficulty_menu()
 {
 	draw_choose_difficulty_menu();
@@ -5885,9 +5885,9 @@ void choose_difficulty_menu()
 	while (1)
 	{
 		int code = key_pressed_code();
-		if (code == KEY_UP) // Если это стрелка вверх
+		if (code == KEY_UP) // Г…Г±Г«ГЁ ГЅГІГ® Г±ГІГ°ГҐГ«ГЄГ  ГўГўГҐГ°Гµ
 		{
-			// То переход к верхнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ ГўГҐГ°ГµГ­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position > 0)
 			{
 				switch (position)
@@ -5899,7 +5899,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5909,7 +5909,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Легко      *");
+					printf("*      Г‹ГҐГЈГЄГ®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5921,7 +5921,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Сложно      *");
+					printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5931,7 +5931,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5940,9 +5940,9 @@ void choose_difficulty_menu()
 				position--;
 			}
 		}
-		else if (code == KEY_DOWN) // Если стрелка вниз
+		else if (code == KEY_DOWN) // Г…Г±Г«ГЁ Г±ГІГ°ГҐГ«ГЄГ  ГўГ­ГЁГ§
 		{
-			// То переход к нижнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ Г­ГЁГ¦Г­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position < 2)
 			{
 				switch (position)
@@ -5954,7 +5954,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5964,7 +5964,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Сложно      *");
+					printf("*     Г‘Г«Г®Г¦Г­Г®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5976,7 +5976,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Легко      *");
+					printf("*      Г‹ГҐГЈГЄГ®      *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5986,7 +5986,7 @@ void choose_difficulty_menu()
 					printf("*******************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Нормально    *");
+					printf("*    ГЌГ®Г°Г¬Г Г«ГјГ­Г®    *");
 					top++;
 					gotoxy(left, top);
 					printf("*******************");
@@ -5995,11 +5995,11 @@ void choose_difficulty_menu()
 				position++;
 			}
 		}
-		else if (code == KEY_ESC) // ESC - выход
+		else if (code == KEY_ESC) // ESC - ГўГ»ГµГ®Г¤
 		{
 			return;
 		}
-		else if (code == KEY_ENTER) // Нажата кнопка Enter
+		else if (code == KEY_ENTER) // ГЌГ Г¦Г ГІГ  ГЄГ­Г®ГЇГЄГ  Enter
 		{
 			if (position == 0) {
 				complexity = 1;
@@ -6018,14 +6018,14 @@ void choose_difficulty_menu()
 	}
 }
 
-// отрисовать главное меню
+// Г®ГІГ°ГЁГ±Г®ГўГ ГІГј ГЈГ«Г ГўГ­Г®ГҐ Г¬ГҐГ­Гѕ
 void draw_main_menu()
 {
 	int left = 65;
 	int top = 15;
 
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 
 	con_set_color(CON_CLR_BLACK, CON_CLR_GREEN);
@@ -6033,7 +6033,7 @@ void draw_main_menu()
 	printf("********************");
 	top++;
 	gotoxy(left, top);
-	printf("*  Загрузить игру  *");
+	printf("*  Г‡Г ГЈГ°ГіГ§ГЁГІГј ГЁГЈГ°Гі  *");
 	top++;
 	gotoxy(left, top);
 	printf("********************");
@@ -6044,7 +6044,7 @@ void draw_main_menu()
 	printf("********************");
 	top++;
 	gotoxy(left, top);
-	printf("*    Новая игра    *");
+	printf("*    ГЌГ®ГўГ Гї ГЁГЈГ°Г     *");
 	top++;
 	gotoxy(left, top);
 	printf("********************");
@@ -6054,7 +6054,7 @@ void draw_main_menu()
 	printf("********************");
 	top++;
 	gotoxy(left, top);
-	printf("* Таблица рекордов *");
+	printf("* Г’Г ГЎГ«ГЁГ¶Г  Г°ГҐГЄГ®Г°Г¤Г®Гў *");
 	top++;
 	gotoxy(left, top);
 	printf("********************");
@@ -6064,7 +6064,7 @@ void draw_main_menu()
 	printf("********************");
 	top++;
 	gotoxy(left, top);
-	printf("*     Справка      *");
+	printf("*     Г‘ГЇГ°Г ГўГЄГ       *");
 	top++;
 	gotoxy(left, top);
 	printf("********************");
@@ -6074,7 +6074,7 @@ void draw_main_menu()
 	printf("********************");
 	top++;
 	gotoxy(left, top);
-	printf("*   О программе    *");
+	printf("*   ГЋ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ    *");
 	top++;
 	gotoxy(left, top);
 	printf("********************");
@@ -6084,20 +6084,20 @@ void draw_main_menu()
 	printf("********************");
 	top++;
 	gotoxy(left, top);
-	printf("*      Выход       *");
+	printf("*      Г‚Г»ГµГ®Г¤       *");
 	top++;
 	gotoxy(left, top);
 	printf("********************");
 }
 
-// отрисовать меню новой игры
+// Г®ГІГ°ГЁГ±Г®ГўГ ГІГј Г¬ГҐГ­Гѕ Г­Г®ГўГ®Г© ГЁГЈГ°Г»
 void draw_new_game_menu()
 {
 	int left = 65;
 	int top = 15;
 
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 
 	con_set_color(CON_CLR_BLACK, CON_CLR_GREEN);
@@ -6105,7 +6105,7 @@ void draw_new_game_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("*   Человек-человек   *");
+	printf("*   Г—ГҐГ«Г®ГўГҐГЄ-Г·ГҐГ«Г®ГўГҐГЄ   *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
@@ -6116,7 +6116,7 @@ void draw_new_game_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("*  Человек-компьютер  *");
+	printf("*  Г—ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇГјГѕГІГҐГ°  *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
@@ -6126,7 +6126,7 @@ void draw_new_game_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("* Компьютер-компьютер *");
+	printf("* ГЉГ®Г¬ГЇГјГѕГІГҐГ°-ГЄГ®Г¬ГЇГјГѕГІГҐГ° *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
@@ -6136,16 +6136,16 @@ void draw_new_game_menu()
 	printf("***********************");
 	top++;
 	gotoxy(left, top);
-	printf("*        Назад        *");
+	printf("*        ГЌГ Г§Г Г¤        *");
 	top++;
 	gotoxy(left, top);
 	printf("***********************");
 }
 
-// открывается, если выбрать "новую игру"
+// Г®ГІГЄГ°Г»ГўГ ГҐГІГ±Гї, ГҐГ±Г«ГЁ ГўГ»ГЎГ°Г ГІГј "Г­Г®ГўГіГѕ ГЁГЈГ°Гі"
 void new_game_menu()
 {
-	draw_new_game_menu(); // отрисовать меню новой игры
+	draw_new_game_menu(); // Г®ГІГ°ГЁГ±Г®ГўГ ГІГј Г¬ГҐГ­Гѕ Г­Г®ГўГ®Г© ГЁГЈГ°Г»
 
 	int left = 65;
 	int top = 17;
@@ -6153,9 +6153,9 @@ void new_game_menu()
 	while (1)
 	{
 		int code = key_pressed_code();
-		if (code == KEY_UP) // Если это стрелка вверх
+		if (code == KEY_UP) // Г…Г±Г«ГЁ ГЅГІГ® Г±ГІГ°ГҐГ«ГЄГ  ГўГўГҐГ°Гµ
 		{
-			// То переход к верхнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ ГўГҐГ°ГµГ­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position > 0)
 			{
 				switch (position)
@@ -6167,7 +6167,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*  Человек-компьютер  *");
+					printf("*  Г—ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇГјГѕГІГҐГ°  *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6177,7 +6177,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Человек-человек   *");
+					printf("*   Г—ГҐГ«Г®ГўГҐГЄ-Г·ГҐГ«Г®ГўГҐГЄ   *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6189,7 +6189,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Компьютер-компьютер *");
+					printf("* ГЉГ®Г¬ГЇГјГѕГІГҐГ°-ГЄГ®Г¬ГЇГјГѕГІГҐГ° *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6199,7 +6199,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*  Человек-компьютер  *");
+					printf("*  Г—ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇГјГѕГІГҐГ°  *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6211,7 +6211,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*        Назад        *");
+					printf("*        ГЌГ Г§Г Г¤        *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6221,7 +6221,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Компьютер-компьютер *");
+					printf("* ГЉГ®Г¬ГЇГјГѕГІГҐГ°-ГЄГ®Г¬ГЇГјГѕГІГҐГ° *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6230,9 +6230,9 @@ void new_game_menu()
 				position--;
 			}
 		}
-		else if (code == KEY_DOWN) // Если стрелка вниз
+		else if (code == KEY_DOWN) // Г…Г±Г«ГЁ Г±ГІГ°ГҐГ«ГЄГ  ГўГ­ГЁГ§
 		{
-			// То переход к нижнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ Г­ГЁГ¦Г­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position < 3)
 			{
 				switch (position)
@@ -6244,7 +6244,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Компьютер-компьютер *");
+					printf("* ГЉГ®Г¬ГЇГјГѕГІГҐГ°-ГЄГ®Г¬ГЇГјГѕГІГҐГ° *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6254,7 +6254,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*        Назад        *");
+					printf("*        ГЌГ Г§Г Г¤        *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6266,7 +6266,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*  Человек-компьютер  *");
+					printf("*  Г—ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇГјГѕГІГҐГ°  *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6276,7 +6276,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Компьютер-компьютер *");
+					printf("* ГЉГ®Г¬ГЇГјГѕГІГҐГ°-ГЄГ®Г¬ГЇГјГѕГІГҐГ° *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6288,7 +6288,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   Человек-человек   *");
+					printf("*   Г—ГҐГ«Г®ГўГҐГЄ-Г·ГҐГ«Г®ГўГҐГЄ   *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6298,7 +6298,7 @@ void new_game_menu()
 					printf("***********************");
 					top++;
 					gotoxy(left, top);
-					printf("*  Человек-компьютер  *");
+					printf("*  Г—ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇГјГѕГІГҐГ°  *");
 					top++;
 					gotoxy(left, top);
 					printf("***********************");
@@ -6307,14 +6307,14 @@ void new_game_menu()
 				position++;
 			}
 		}
-		else if (code == KEY_ESC) // ESC - выход
+		else if (code == KEY_ESC) // ESC - ГўГ»ГµГ®Г¤
 		{
 			//draw_main_menu();
 			return;
 		}
-		else if (code == KEY_ENTER) // Нажата кнопка Enter
+		else if (code == KEY_ENTER) // ГЌГ Г¦Г ГІГ  ГЄГ­Г®ГЇГЄГ  Enter
 		{
-			if (position == 3) { // Выбран последний пункт - это "назад"
+			if (position == 3) { // Г‚Г»ГЎГ°Г Г­ ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ© ГЇГіГ­ГЄГІ - ГЅГІГ® "Г­Г Г§Г Г¤"
 				draw_main_menu();
 				return;
 			}
@@ -6322,17 +6322,17 @@ void new_game_menu()
 				game_status = 1;
 				human_vs_human();
 				return;
-				// человек-человек();
+				// Г·ГҐГ«Г®ГўГҐГЄ-Г·ГҐГ«Г®ГўГҐГЄ();
 			}
 			if (position == 1) {
 				game_status = 2;
 				choose_difficulty_menu();
-				// человек-компьютер();
+				// Г·ГҐГ«Г®ГўГҐГЄ-ГЄГ®Г¬ГЇГјГѕГІГҐГ°();
 			}
 			if (position == 2) {
 				game_status = 3;
 				difficulty_menu_comp();
-				// компьютер-компьютер();
+				// ГЄГ®Г¬ГЇГјГѕГІГҐГ°-ГЄГ®Г¬ГЇГјГѕГІГҐГ°();
 			}
 			left = 65;
 			top = 17;
@@ -6342,17 +6342,17 @@ void new_game_menu()
 	}
 }
 
-// функция сортировки прямым обменом (метод "пузырька")
+// ГґГіГ­ГЄГ¶ГЁГї Г±Г®Г°ГІГЁГ°Г®ГўГЄГЁ ГЇГ°ГїГ¬Г»Г¬ Г®ГЎГ¬ГҐГ­Г®Г¬ (Г¬ГҐГІГ®Г¤ "ГЇГіГ§Г»Г°ГјГЄГ ")
 void bubbleSort(struct table* table, int size)
 {
-	// Для всех элементов
+	// Г„Г«Гї ГўГ±ГҐГµ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў
 	for (int i = 0; i < size - 1; i++)
 	{
-		for (int j = (size - 1); j > i; j--) // для всех элементов после i-ого
+		for (int j = (size - 1); j > i; j--) // Г¤Г«Гї ГўГ±ГҐГµ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў ГЇГ®Г±Г«ГҐ i-Г®ГЈГ®
 		{
-			if ((table + j - 1)->value > (table + j)->value) // если текущий элемент меньше предыдущего
+			if ((table + j - 1)->value > (table + j)->value) // ГҐГ±Г«ГЁ ГІГҐГЄГіГ№ГЁГ© ГЅГ«ГҐГ¬ГҐГ­ГІ Г¬ГҐГ­ГјГёГҐ ГЇГ°ГҐГ¤Г»Г¤ГіГ№ГҐГЈГ®
 			{
-				struct table temp = *(table + j - 1); // меняем их местами
+				struct table temp = *(table + j - 1); // Г¬ГҐГ­ГїГҐГ¬ ГЁГµ Г¬ГҐГ±ГІГ Г¬ГЁ
 				*(table + j - 1) = *(table + j);
 				*(table + j) = temp;
 			}
@@ -6360,10 +6360,10 @@ void bubbleSort(struct table* table, int size)
 	}
 }
 
-// открытие таблицы рекордов
+// Г®ГІГЄГ°Г»ГІГЁГҐ ГІГ ГЎГ«ГЁГ¶Г» Г°ГҐГЄГ®Г°Г¤Г®Гў
 void high_score_table()
 {
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 	gotoxy(0, 0);
 
@@ -6371,17 +6371,17 @@ void high_score_table()
 
 	char filename[] = "table.txt";
 	char ch;
-	char str[70]; // для хранения одной строки из таблицы рекордов
-	char ch_value[10]; // для хранения рекорда в виде строки 
+	char str[70]; // Г¤Г«Гї ГµГ°Г Г­ГҐГ­ГЁГї Г®Г¤Г­Г®Г© Г±ГІГ°Г®ГЄГЁ ГЁГ§ ГІГ ГЎГ«ГЁГ¶Г» Г°ГҐГЄГ®Г°Г¤Г®Гў
+	char ch_value[10]; // Г¤Г«Гї ГµГ°Г Г­ГҐГ­ГЁГї Г°ГҐГЄГ®Г°Г¤Г  Гў ГўГЁГ¤ГҐ Г±ГІГ°Г®ГЄГЁ 
 
 	FILE* f = fopen(filename, "r");
 	if (f == NULL) {
-		printf("Не удалось открыть файл.\n");
+		printf("ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г®ГІГЄГ°Г»ГІГј ГґГ Г©Г«.\n");
 		exit(1);
 	}
 
 	int k = 0; int j;
-	// считываем файл с таблицей рекордов в отдельные структуры для сортировки
+	// Г±Г·ГЁГІГ»ГўГ ГҐГ¬ ГґГ Г©Г« Г± ГІГ ГЎГ«ГЁГ¶ГҐГ© Г°ГҐГЄГ®Г°Г¤Г®Гў Гў Г®ГІГ¤ГҐГ«ГјГ­Г»ГҐ Г±ГІГ°ГіГЄГІГіГ°Г» Г¤Г«Гї Г±Г®Г°ГІГЁГ°Г®ГўГЄГЁ
 	while (fgets((sort_table + k)->str, 70, f) != NULL)
 	{
 		j = 0;
@@ -6389,26 +6389,26 @@ void high_score_table()
 		{
 			j++;
 		}
-		if ((sort_table + k)->str[j] == '\n') // заменяем '\n' на '\0' в конце строки
+		if ((sort_table + k)->str[j] == '\n') // Г§Г Г¬ГҐГ­ГїГҐГ¬ '\n' Г­Г  '\0' Гў ГЄГ®Г­Г¶ГҐ Г±ГІГ°Г®ГЄГЁ
 		{
 			(sort_table + k)->str[j] = '\0';
 		}
 
 		j = 0;
-		while ((sort_table + k)->str[j] != '|') { // пропускаем в строке имя пользователя и переходим к рекорду
+		while ((sort_table + k)->str[j] != '|') { // ГЇГ°Г®ГЇГіГ±ГЄГ ГҐГ¬ Гў Г±ГІГ°Г®ГЄГҐ ГЁГ¬Гї ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї ГЁ ГЇГҐГ°ГҐГµГ®Г¤ГЁГ¬ ГЄ Г°ГҐГЄГ®Г°Г¤Гі
 			j++;
 		}
 
 		j++;
 		if ((sort_table + k)->str[j] != ' ')
 		{
-			printf("Файл с таблицей рекордов заполнен неверно.");
+			printf("Г”Г Г©Г« Г± ГІГ ГЎГ«ГЁГ¶ГҐГ© Г°ГҐГЄГ®Г°Г¤Г®Гў Г§Г ГЇГ®Г«Г­ГҐГ­ Г­ГҐГўГҐГ°Г­Г®.");
 			return;
 		}
 
 		j++;
 		int a = 0;
-		while ((sort_table + k)->str[j] != EOF && (sort_table + k)->str[j] != '\0') // считываем рекорд
+		while ((sort_table + k)->str[j] != EOF && (sort_table + k)->str[j] != '\0') // Г±Г·ГЁГІГ»ГўГ ГҐГ¬ Г°ГҐГЄГ®Г°Г¤
 		{
 			switch ((sort_table + k)->str[j])
 			{
@@ -6418,7 +6418,7 @@ void high_score_table()
 				j++;
 				break;
 			default:
-				printf("Файл с таблицей рекордов заполнен неверно.");
+				printf("Г”Г Г©Г« Г± ГІГ ГЎГ«ГЁГ¶ГҐГ© Г°ГҐГЄГ®Г°Г¤Г®Гў Г§Г ГЇГ®Г«Г­ГҐГ­ Г­ГҐГўГҐГ°Г­Г®.");
 				return;
 			}
 		}
@@ -6428,12 +6428,12 @@ void high_score_table()
 		a = 0;
 	}
 
-	bubbleSort(sort_table, k); // сортировка методом пузырька
+	bubbleSort(sort_table, k); // Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  Г¬ГҐГІГ®Г¤Г®Г¬ ГЇГіГ§Г»Г°ГјГЄГ 
 	fclose(f);
 
 	f = fopen(filename, "w");
 	if (f == NULL) {
-		printf("Не удалось открыть файл.\n");
+		printf("ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г®ГІГЄГ°Г»ГІГј ГґГ Г©Г«.\n");
 		exit(1);
 	}
 
@@ -6449,11 +6449,11 @@ void high_score_table()
 
 	f = fopen(filename, "r");
 	if (f == NULL) {
-		printf("Не удалось открыть файл.\n");
+		printf("ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г®ГІГЄГ°Г»ГІГј ГґГ Г©Г«.\n");
 		exit(1);
 	}
 
-	printf("Место | Имя игрока | Количество ходов для победы\n\n");
+	printf("ГЊГҐГ±ГІГ® | Г€Г¬Гї ГЁГЈГ°Г®ГЄГ  | ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГµГ®Г¤Г®Гў Г¤Г«Гї ГЇГ®ГЎГҐГ¤Г»\n\n");
 	int i = 1;
 	while (fgets(str, 70, f) != NULL)
 	{
@@ -6465,7 +6465,7 @@ void high_score_table()
 		j++;
 		if (str[j] != ' ')
 		{
-			printf("Файл с таблицей рекордов заполнен неверно.");
+			printf("Г”Г Г©Г« Г± ГІГ ГЎГ«ГЁГ¶ГҐГ© Г°ГҐГЄГ®Г°Г¤Г®Гў Г§Г ГЇГ®Г«Г­ГҐГ­ Г­ГҐГўГҐГ°Г­Г®.");
 			return;
 		}
 
@@ -6478,7 +6478,7 @@ void high_score_table()
 				j++;
 				break;
 			default:
-				printf("Файл с таблицей рекордов заполнен неверно.");
+				printf("Г”Г Г©Г« Г± ГІГ ГЎГ«ГЁГ¶ГҐГ© Г°ГҐГЄГ®Г°Г¤Г®Гў Г§Г ГЇГ®Г«Г­ГҐГ­ Г­ГҐГўГҐГ°Г­Г®.");
 				return;
 			}
 		}
@@ -6498,17 +6498,17 @@ void high_score_table()
 	}
 }
 
-// открыть раздел "о программе" 
+// Г®ГІГЄГ°Г»ГІГј Г°Г Г§Г¤ГҐГ« "Г® ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ" 
 void about_the_program()
 {
-	// Очистка экрана
-	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // цвет шрифта, цвет консоли
+	// ГЋГ·ГЁГ±ГІГЄГ  ГЅГЄГ°Г Г­Г 
+	con_set_color(CON_CLR_BLACK, CON_CLR_WHITE); // Г¶ГўГҐГІ ГёГ°ГЁГґГІГ , Г¶ГўГҐГІ ГЄГ®Г­Г±Г®Г«ГЁ
 	clrscr();
 	gotoxy(0, 0);
 
-	printf("		Авторы: \n");
-	printf("	1. Аккулов Идрис Маликович; гр. 4831001/90002; 2020г.; СПбПУ Петра Великого; ИКиЗИ; ВШКиЗИ.\n");
-	printf("	2. Котлярова Анастасия Сергеевна; гр. 4831001/90002; 2020г.; СПбПУ Петра Великого; ИКиЗИ; ВШКиЗИ.\n");
+	printf("		ГЂГўГІГ®Г°Г»: \n");
+	printf("	1. ГЂГЄГЄГіГ«Г®Гў Г€Г¤Г°ГЁГ± ГЊГ Г«ГЁГЄГ®ГўГЁГ·; ГЈГ°. 4831001/90002; 2020ГЈ.; Г‘ГЏГЎГЏГ“ ГЏГҐГІГ°Г  Г‚ГҐГ«ГЁГЄГ®ГЈГ®; Г€ГЉГЁГ‡Г€; Г‚ГГЉГЁГ‡Г€.\n");
+	printf("	2. ГЉГ®ГІГ«ГїГ°Г®ГўГ  ГЂГ­Г Г±ГІГ Г±ГЁГї Г‘ГҐГ°ГЈГҐГҐГўГ­Г ; ГЈГ°. 4831001/90002; 2020ГЈ.; Г‘ГЏГЎГЏГ“ ГЏГҐГІГ°Г  Г‚ГҐГ«ГЁГЄГ®ГЈГ®; Г€ГЉГЁГ‡Г€; Г‚ГГЉГЁГ‡Г€.\n");
 
 	while (1)
 	{
@@ -6520,10 +6520,10 @@ void about_the_program()
 	}
 }
 
-// поддержка главного меню
+// ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГ  ГЈГ«Г ГўГ­Г®ГЈГ® Г¬ГҐГ­Гѕ
 void main_menu()
 {
-	draw_main_menu(); // отрисовать меню
+	draw_main_menu(); // Г®ГІГ°ГЁГ±Г®ГўГ ГІГј Г¬ГҐГ­Гѕ
 
 	int left = 65;
 	int top = 17;
@@ -6531,9 +6531,9 @@ void main_menu()
 	while (1)
 	{
 		int code = key_pressed_code();
-		if (code == KEY_UP) // Если это стрелка вверх
+		if (code == KEY_UP) // Г…Г±Г«ГЁ ГЅГІГ® Г±ГІГ°ГҐГ«ГЄГ  ГўГўГҐГ°Гµ
 		{
-			// То переход к верхнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ ГўГҐГ°ГµГ­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position > 0)
 			{
 				switch (position)
@@ -6545,7 +6545,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Новая игра    *");
+					printf("*    ГЌГ®ГўГ Гї ГЁГЈГ°Г     *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6555,7 +6555,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*  Загрузить игру  *");
+					printf("*  Г‡Г ГЈГ°ГіГ§ГЁГІГј ГЁГЈГ°Гі  *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6567,7 +6567,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Таблица рекордов *");
+					printf("* Г’Г ГЎГ«ГЁГ¶Г  Г°ГҐГЄГ®Г°Г¤Г®Гў *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6577,7 +6577,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Новая игра    *");
+					printf("*    ГЌГ®ГўГ Гї ГЁГЈГ°Г     *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6589,7 +6589,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Справка      *");
+					printf("*     Г‘ГЇГ°Г ГўГЄГ       *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6599,7 +6599,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Таблица рекордов *");
+					printf("* Г’Г ГЎГ«ГЁГ¶Г  Г°ГҐГЄГ®Г°Г¤Г®Гў *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6611,7 +6611,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   О программе    *");
+					printf("*   ГЋ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ    *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6621,7 +6621,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Справка      *");
+					printf("*     Г‘ГЇГ°Г ГўГЄГ       *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6633,7 +6633,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Выход       *");
+					printf("*      Г‚Г»ГµГ®Г¤       *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6643,7 +6643,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   О программе    *");
+					printf("*   ГЋ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ    *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6652,9 +6652,9 @@ void main_menu()
 				position--;
 			}
 		}
-		else if (code == KEY_DOWN) // Если стрелка вниз
+		else if (code == KEY_DOWN) // Г…Г±Г«ГЁ Г±ГІГ°ГҐГ«ГЄГ  ГўГ­ГЁГ§
 		{
-			// То переход к нижнему пункту (если это возможно)
+			// Г’Г® ГЇГҐГ°ГҐГµГ®Г¤ ГЄ Г­ГЁГ¦Г­ГҐГ¬Гі ГЇГіГ­ГЄГІГі (ГҐГ±Г«ГЁ ГЅГІГ® ГўГ®Г§Г¬Г®Г¦Г­Г®)
 			if (position < 5)
 			{
 				switch (position)
@@ -6666,7 +6666,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   О программе    *");
+					printf("*   ГЋ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ    *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6676,7 +6676,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*      Выход       *");
+					printf("*      Г‚Г»ГµГ®Г¤       *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6688,7 +6688,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Справка      *");
+					printf("*     Г‘ГЇГ°Г ГўГЄГ       *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6698,7 +6698,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*   О программе    *");
+					printf("*   ГЋ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ    *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6710,7 +6710,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Таблица рекордов *");
+					printf("* Г’Г ГЎГ«ГЁГ¶Г  Г°ГҐГЄГ®Г°Г¤Г®Гў *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6720,7 +6720,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*     Справка      *");
+					printf("*     Г‘ГЇГ°Г ГўГЄГ       *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6732,7 +6732,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Новая игра    *");
+					printf("*    ГЌГ®ГўГ Гї ГЁГЈГ°Г     *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6742,7 +6742,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("* Таблица рекордов *");
+					printf("* Г’Г ГЎГ«ГЁГ¶Г  Г°ГҐГЄГ®Г°Г¤Г®Гў *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6754,7 +6754,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*  Загрузить игру  *");
+					printf("*  Г‡Г ГЈГ°ГіГ§ГЁГІГј ГЁГЈГ°Гі  *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6764,7 +6764,7 @@ void main_menu()
 					printf("********************");
 					top++;
 					gotoxy(left, top);
-					printf("*    Новая игра    *");
+					printf("*    ГЌГ®ГўГ Гї ГЁГЈГ°Г     *");
 					top++;
 					gotoxy(left, top);
 					printf("********************");
@@ -6773,16 +6773,16 @@ void main_menu()
 				position++;
 			}
 		}
-		else if (code == KEY_ESC) // ESC - выход
+		else if (code == KEY_ESC) // ESC - ГўГ»ГµГ®Г¤
 		{
 			return;
 		}
-		else if (code == KEY_ENTER) // Нажата кнопка Enter
+		else if (code == KEY_ENTER) // ГЌГ Г¦Г ГІГ  ГЄГ­Г®ГЇГЄГ  Enter
 		{
-			if (position == 5) { // Выбран последний пункт - это выход
+			if (position == 5) { // Г‚Г»ГЎГ°Г Г­ ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ© ГЇГіГ­ГЄГІ - ГЅГІГ® ГўГ»ГµГ®Г¤
 				return;
 			}
-			else if (position == 0) { // загрузить игру
+			else if (position == 0) { // Г§Г ГЈГ°ГіГ§ГЁГІГј ГЁГЈГ°Гі
 				is_load = 1;
 				if (load_the_game() == 1);
 				{
@@ -6797,23 +6797,23 @@ void main_menu()
 					}
 				}
 			}
-			else if (position == 1) { // новая игра
+			else if (position == 1) { // Г­Г®ГўГ Гї ГЁГЈГ°Г 
 				is_load = 0;
 				new_game_menu();
 			}
-			else if (position == 2) { // таблица рекордов
+			else if (position == 2) { // ГІГ ГЎГ«ГЁГ¶Г  Г°ГҐГЄГ®Г°Г¤Г®Гў
 				high_score_table();
 			}
-			else if (position == 3) // справка 
+			else if (position == 3) // Г±ГЇГ°Г ГўГЄГ  
 			{
 				reference();
 			}
-			else if (position == 4) // о программе 
+			else if (position == 4) // Г® ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ 
 			{
 				about_the_program();
 			}
 			draw_main_menu();
-			position = 0; // при выходе из меню новой игры, обводится первый пункт
+			position = 0; // ГЇГ°ГЁ ГўГ»ГµГ®Г¤ГҐ ГЁГ§ Г¬ГҐГ­Гѕ Г­Г®ГўГ®Г© ГЁГЈГ°Г», Г®ГЎГўГ®Г¤ГЁГІГ±Гї ГЇГҐГ°ГўГ»Г© ГЇГіГ­ГЄГІ
 			top = 17;
 			left = 65;
 		}
@@ -6822,10 +6822,10 @@ void main_menu()
 
 int main()
 {
-	// Инициализируется консоль, скрывается курсор
+	// Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§ГЁГ°ГіГҐГІГ±Гї ГЄГ®Г­Г±Г®Г«Гј, Г±ГЄГ°Г»ГўГ ГҐГІГ±Гї ГЄГіГ°Г±Г®Г°
 	con_init(300, 100);
 	show_cursor(0);
-	system("mode con cols=150 lines=50"); // минимальный размер консоли (150х50)
+	system("mode con cols=150 lines=50"); // Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г»Г© Г°Г Г§Г¬ГҐГ° ГЄГ®Г­Г±Г®Г«ГЁ (150Гµ50)
 
 	main_menu();
 
